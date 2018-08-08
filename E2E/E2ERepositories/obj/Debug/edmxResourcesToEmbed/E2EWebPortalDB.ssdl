@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="E2EWebPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Business">
+    <Key>
+      <PropertyRef Name="EmployerID" />
+    </Key>
+    <Property Name="EmployerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployerName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+    <Property Name="BusinessAddress1" Type="varchar" MaxLength="100" />
+    <Property Name="BusinessAddress2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="70" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="zip" Type="varchar" MaxLength="5" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="Fax" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="URL" Type="varchar" MaxLength="200" />
+    <Property Name="TotalEmployees" Type="int" />
+    <Property Name="BusinessTaxID" Type="varchar" MaxLength="20" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="E2E_UserRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RoleDescription" Type="varchar" MaxLength="200" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="NickName" Type="varchar" MaxLength="50" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="Address1" Type="varchar" MaxLength="100" />
+    <Property Name="Address2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="70" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="zip" Type="varchar" MaxLength="20" />
+    <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="CurrentVisaStatus" Type="varchar" MaxLength="30" />
+    <Property Name="CurrentVisaValidity" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="InceptionDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployerAdmin">
+    <Key>
+      <PropertyRef Name="AdminUserID" />
+    </Key>
+    <Property Name="AdminUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminUserFirstName" Type="varchar" MaxLength="50" />
+    <Property Name="AdminuserMiddleName" Type="varchar" MaxLength="50" />
+    <Property Name="AdminUserLastName" Type="varchar" MaxLength="50" />
+    <Property Name="AdminUserNickName" Type="varchar" MaxLength="50" />
+    <Property Name="AdminTitle" Type="varchar" MaxLength="50" />
+    <Property Name="Address1" Type="varchar" MaxLength="100" />
+    <Property Name="Address2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="70" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="zip" Type="varchar" MaxLength="20" />
+    <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EndClient">
+    <Key>
+      <PropertyRef Name="EndClientID" />
+    </Key>
+    <Property Name="EndClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EndClientBusinessName" Type="varchar" MaxLength="50" />
+    <Property Name="EmployeeTitleAtEndClientSite" Type="varchar" MaxLength="50" />
+    <Property Name="EndClientAddress1" Type="varchar" MaxLength="100" />
+    <Property Name="EndClientAddress2" Type="varchar" MaxLength="100" />
+    <Property Name="EndClientCity" Type="varchar" MaxLength="70" />
+    <Property Name="EndClientState" Type="varchar" MaxLength="20" />
+    <Property Name="EndClientzip" Type="varchar" MaxLength="20" />
+    <Property Name="EndClientPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="EndClientExtn" Type="varchar" MaxLength="10" />
+    <Property Name="EmployeeEmailAtEndClient" Type="varchar" MaxLength="50" />
+    <Property Name="SupervisorNameAtEndClient" Type="varchar" MaxLength="50" />
+    <Property Name="SupervisorTitleAtEndClient" Type="varchar" MaxLength="50" />
+    <Property Name="SupervisorAddress1" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorAddress2" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorCity" Type="varchar" MaxLength="70" />
+    <Property Name="SupervisorState" Type="varchar" MaxLength="20" />
+    <Property Name="Supervisorzip" Type="varchar" MaxLength="20" />
+    <Property Name="SupervisorPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="SupervisorExtn" Type="varchar" MaxLength="10" />
+    <Property Name="SupervisorEmail" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ErrorID" />
+    </Key>
+    <Property Name="ErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ErrorNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ErrorSeverity" Type="varchar" MaxLength="10" />
+    <Property Name="ErrorMessage" Type="varchar" MaxLength="2000" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="ErrorDateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Reviewer">
+    <Key>
+      <PropertyRef Name="ReviewerID" />
+    </Key>
+    <Property Name="ReviewerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReviewerFirstName" Type="varchar" MaxLength="50" />
+    <Property Name="ReviewerMiddleName" Type="varchar" MaxLength="50" />
+    <Property Name="ReviewerLastName" Type="varchar" MaxLength="50" />
+    <Property Name="ReviewerNickName" Type="varchar" MaxLength="50" />
+    <Property Name="ReviewerTitle" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="Address1" Type="varchar" MaxLength="100" />
+    <Property Name="Address2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="70" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="zip" Type="varchar" MaxLength="20" />
+    <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subscription">
+    <Key>
+      <PropertyRef Name="SubscriptionID" />
+    </Key>
+    <Property Name="SubscriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubscriptionStatus" Type="varchar" MaxLength="20" />
+    <Property Name="SubscriptionDate" Type="date" />
+    <Property Name="ServiceDetails" Type="varchar" MaxLength="100" />
+    <Property Name="SubscriptionPlanName" Type="varchar" MaxLength="100" />
+    <Property Name="SubscriptionPlanCode" Type="varchar" MaxLength="10" />
+    <Property Name="TotalLogin" Type="int" />
+    <Property Name="LoginUsed" Type="int" />
+    <Property Name="LoginAvailable" Type="int" />
+    <Property Name="EffectiveDate" Type="date" />
+    <Property Name="ExpirationDate" Type="date" />
+    <Property Name="PaypalPaymentConfirmationNum" Type="varchar" MaxLength="30" />
+    <Property Name="PaypalPaymentDate" Type="datetime" />
+    <Property Name="AmountCharged" Type="money" />
+    <Property Name="TotalAmtPaid" Type="money" />
+    <Property Name="RecurringAmountPaid" Type="money" />
+    <Property Name="RecurringAmountPaidDate" Type="datetime" />
+    <Property Name="RegistrationFeeCharged" Type="money" />
+    <Property Name="RegistrationFeePaid" Type="money" />
+    <Property Name="RegistrationFeePaidDate" Type="datetime" />
+    <Property Name="LateFeeCharged" Type="money" />
+    <Property Name="LateFeeAmountPaid" Type="money" />
+    <Property Name="LateFeePaidDate" Type="datetime" />
+    <Property Name="CancellationFeeCharged" Type="money" />
+    <Property Name="CancellationDate" Type="datetime" />
+    <Property Name="PaymentDueDate" Type="date" />
+    <Property Name="EmployerId" Type="int" />
+    <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+    <Property Name="AdminUserID" Type="int" />
+    <Property Name="EmployerAdminName" Type="varchar" MaxLength="100" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WeekStartDate" Type="datetime" Nullable="false" />
+    <Property Name="WeekEndDate" Type="datetime" Nullable="false" />
+    <Property Name="TaskCreationDate" Type="datetime" Nullable="false" />
+    <Property Name="HoursBilled" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="TaskDetails" Type="varchar" MaxLength="2000" />
+    <Property Name="Issues" Type="varchar" MaxLength="2000" />
+    <Property Name="Solution" Type="varchar" MaxLength="2000" />
+    <Property Name="PercentCompleted" Type="varchar" MaxLength="10" />
+    <Property Name="SubmissionDate" Type="datetime" />
+    <Property Name="TaskContinueFromLastWeekPeriod" Type="varchar" MaxLength="3" />
+    <Property Name="TaskContinueToNextWeekPeriod" Type="varchar" MaxLength="3" />
+    <Property Name="TaskSubmissionStatus" Type="varchar" MaxLength="15" />
+    <Property Name="ReviewerID" Type="int" />
+    <Property Name="ReviewDate" Type="datetime" />
+    <Property Name="ReviewerComments" Type="varchar" MaxLength="1000" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="EndClientID" Type="int" Nullable="false" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="UserAccountID" />
+    </Key>
+    <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="WebAppAdminID" Type="int" />
+    <Property Name="ReviewerID" Type="int" />
+    <Property Name="AdminUserID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserMIS">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ResetCode" Type="varchar" MaxLength="200" />
+    <Property Name="FailAttempts" Type="int" />
+    <Property Name="IsBlocked" Type="int" />
+  </EntityType>
+  <EntityType Name="WebAppOwner">
+    <Key>
+      <PropertyRef Name="AppOwnerAdminId" />
+    </Key>
+    <Property Name="AppOwnerAdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+    <Property Name="FirstName" Type="varchar" MaxLength="200" />
+    <Property Name="MiddleInitial" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="Address1" Type="varchar" MaxLength="100" />
+    <Property Name="Address2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="70" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="zip" Type="varchar" MaxLength="20" />
+    <Property Name="BusinessPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+    <Property Name="BusinessEmail1" Type="varchar" MaxLength="50" />
+    <Property Name="BusinessEmail2" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Employee_E2E_UserRole">
+    <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="E2E_UserRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Employer">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployerAdmin_E2E_UserRole">
+    <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="E2E_UserRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="EmployerAdmin">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployerAdmin_Employer">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="EmployerAdmin">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EndClient_Business">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="EndClient">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EndClient_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EndClient">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviewer_E2E_UserRole">
+    <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="E2E_UserRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Reviewer">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviewer_Employer">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Reviewer">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Business">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_EndClient">
+    <End Role="EndClient" Type="Self.EndClient" Multiplicity="1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EndClient">
+        <PropertyRef Name="EndClientID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EndClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccount_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="UserAccount">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccount_Employer">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="UserAccount">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccount_EmployerAdmin">
+    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployerAdmin">
+        <PropertyRef Name="AdminUserID" />
+      </Principal>
+      <Dependent Role="UserAccount">
+        <PropertyRef Name="AdminUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccount_Reviewer">
+    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="0..1" />
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewer">
+        <PropertyRef Name="ReviewerID" />
+      </Principal>
+      <Dependent Role="UserAccount">
+        <PropertyRef Name="ReviewerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WebAppOwner_Business">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="WebAppOwner">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WebAppOwner_E2E_UserRole">
+    <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+    <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="E2E_UserRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="WebAppOwner">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_GetDayOfWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+    <Parameter Name="ipDate" Type="datetime" Mode="In" />
+    <Parameter Name="DayOfWeek" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="E2EWebPortalModelStoreContainer">
+    <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployerAdmin" EntityType="Self.EmployerAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EndClient" EntityType="Self.EndClient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserMIS" EntityType="Self.UserMIS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WebAppOwner" EntityType="Self.WebAppOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+      <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Employee_E2E_UserRole" Association="Self.FK_Employee_E2E_UserRole">
+      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployerAdmin_E2E_UserRole" Association="Self.FK_EmployerAdmin_E2E_UserRole">
+      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployerAdmin_Employer" Association="Self.FK_EmployerAdmin_Employer">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EndClient_Business" Association="Self.FK_EndClient_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="EndClient" EntitySet="EndClient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EndClient_Employee" Association="Self.FK_EndClient_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EndClient" EntitySet="EndClient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviewer_E2E_UserRole" Association="Self.FK_Reviewer_E2E_UserRole">
+      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+      <End Role="Reviewer" EntitySet="Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="Reviewer" EntitySet="Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Employee" Association="Self.FK_Task_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
+      <End Role="EndClient" EntitySet="EndClient" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="UserAccount" EntitySet="UserAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccount_Employer" Association="Self.FK_UserAccount_Employer">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="UserAccount" EntitySet="UserAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccount_EmployerAdmin" Association="Self.FK_UserAccount_EmployerAdmin">
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+      <End Role="UserAccount" EntitySet="UserAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccount_Reviewer" Association="Self.FK_UserAccount_Reviewer">
+      <End Role="Reviewer" EntitySet="Reviewer" />
+      <End Role="UserAccount" EntitySet="UserAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WebAppOwner_Business" Association="Self.FK_WebAppOwner_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="WebAppOwner" EntitySet="WebAppOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WebAppOwner_E2E_UserRole" Association="Self.FK_WebAppOwner_E2E_UserRole">
+      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+      <End Role="WebAppOwner" EntitySet="WebAppOwner" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

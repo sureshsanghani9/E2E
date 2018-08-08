@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Confirmation";
+    ViewBag.FormTitle = "Confirmation";
+    Layout = "~/Views/Shared/_LayoutPageLogin.cshtml";
+}
+<style>
+    body#error #content h1 {
+        font-size: 70px !important;
+        letter-spacing: -4px !important;
+    }
+</style>
+
+@{
+
+    if (TempData["ConfirmationType"] != null && TempData["ConfirmationType"].ToString() == "EmailSent")
+    {
+
+        <h1>Success</h1>
+        <h2>Email Sent!</h2>
+        <hr>
+        <p>Reset password link has been sent on your email.</p>
+        <p>Please check your email to reset your password.</p>
+        <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+    }
+    else if (TempData["ConfirmationType"] != null && TempData["ConfirmationType"].ToString() == "PasswordReset")
+    {
+
+        <h1>Success</h1>
+        <h2>Password Reset!</h2>
+        <hr>
+        <p>You password has been reset now.</p>
+        <p>You can login now using your new password.</p>
+        <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+    }
+    else
+    {
+    }
+}
+<script>
+    $(document).ready(function () {
+        $("body").attr("id", "error");
+    });
+</script>
+

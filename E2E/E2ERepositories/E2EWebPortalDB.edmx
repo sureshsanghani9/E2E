@@ -1,0 +1,1735 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="E2EWebPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="EmployerID" />
+          </Key>
+          <Property Name="EmployerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployerName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+          <Property Name="BusinessAddress1" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessAddress2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+          <Property Name="zip" Type="varchar" MaxLength="5" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Fax" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="URL" Type="varchar" MaxLength="200" />
+          <Property Name="TotalEmployees" Type="int" />
+          <Property Name="BusinessTaxID" Type="varchar" MaxLength="20" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="E2E_UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RoleDescription" Type="varchar" MaxLength="200" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="NickName" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+          <Property Name="zip" Type="varchar" MaxLength="20" />
+          <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="CurrentVisaStatus" Type="varchar" MaxLength="30" />
+          <Property Name="CurrentVisaValidity" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+          <Property Name="InceptionDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployerAdmin">
+          <Key>
+            <PropertyRef Name="AdminUserID" />
+          </Key>
+          <Property Name="AdminUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminUserFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="AdminuserMiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="AdminUserLastName" Type="varchar" MaxLength="50" />
+          <Property Name="AdminUserNickName" Type="varchar" MaxLength="50" />
+          <Property Name="AdminTitle" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+          <Property Name="zip" Type="varchar" MaxLength="20" />
+          <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EndClient">
+          <Key>
+            <PropertyRef Name="EndClientID" />
+          </Key>
+          <Property Name="EndClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EndClientBusinessName" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeTitleAtEndClientSite" Type="varchar" MaxLength="50" />
+          <Property Name="EndClientAddress1" Type="varchar" MaxLength="100" />
+          <Property Name="EndClientAddress2" Type="varchar" MaxLength="100" />
+          <Property Name="EndClientCity" Type="varchar" MaxLength="70" />
+          <Property Name="EndClientState" Type="varchar" MaxLength="20" />
+          <Property Name="EndClientzip" Type="varchar" MaxLength="20" />
+          <Property Name="EndClientPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="EndClientExtn" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeEmailAtEndClient" Type="varchar" MaxLength="50" />
+          <Property Name="SupervisorNameAtEndClient" Type="varchar" MaxLength="50" />
+          <Property Name="SupervisorTitleAtEndClient" Type="varchar" MaxLength="50" />
+          <Property Name="SupervisorAddress1" Type="varchar" MaxLength="100" />
+          <Property Name="SupervisorAddress2" Type="varchar" MaxLength="100" />
+          <Property Name="SupervisorCity" Type="varchar" MaxLength="70" />
+          <Property Name="SupervisorState" Type="varchar" MaxLength="20" />
+          <Property Name="Supervisorzip" Type="varchar" MaxLength="20" />
+          <Property Name="SupervisorPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="SupervisorExtn" Type="varchar" MaxLength="10" />
+          <Property Name="SupervisorEmail" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorNumber" Type="varchar" MaxLength="20" />
+          <Property Name="ErrorSeverity" Type="varchar" MaxLength="10" />
+          <Property Name="ErrorMessage" Type="varchar" MaxLength="2000" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="ErrorDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="ReviewerID" />
+          </Key>
+          <Property Name="ReviewerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReviewerFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="ReviewerMiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="ReviewerLastName" Type="varchar" MaxLength="50" />
+          <Property Name="ReviewerNickName" Type="varchar" MaxLength="50" />
+          <Property Name="ReviewerTitle" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+          <Property Name="zip" Type="varchar" MaxLength="20" />
+          <Property Name="WorkPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="SecondaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionStatus" Type="varchar" MaxLength="20" />
+          <Property Name="SubscriptionDate" Type="date" />
+          <Property Name="ServiceDetails" Type="varchar" MaxLength="100" />
+          <Property Name="SubscriptionPlanName" Type="varchar" MaxLength="100" />
+          <Property Name="SubscriptionPlanCode" Type="varchar" MaxLength="10" />
+          <Property Name="TotalLogin" Type="int" />
+          <Property Name="LoginUsed" Type="int" />
+          <Property Name="LoginAvailable" Type="int" />
+          <Property Name="EffectiveDate" Type="date" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="PaypalPaymentConfirmationNum" Type="varchar" MaxLength="30" />
+          <Property Name="PaypalPaymentDate" Type="datetime" />
+          <Property Name="AmountCharged" Type="money" />
+          <Property Name="TotalAmtPaid" Type="money" />
+          <Property Name="RecurringAmountPaid" Type="money" />
+          <Property Name="RecurringAmountPaidDate" Type="datetime" />
+          <Property Name="RegistrationFeeCharged" Type="money" />
+          <Property Name="RegistrationFeePaid" Type="money" />
+          <Property Name="RegistrationFeePaidDate" Type="datetime" />
+          <Property Name="LateFeeCharged" Type="money" />
+          <Property Name="LateFeeAmountPaid" Type="money" />
+          <Property Name="LateFeePaidDate" Type="datetime" />
+          <Property Name="CancellationFeeCharged" Type="money" />
+          <Property Name="CancellationDate" Type="datetime" />
+          <Property Name="PaymentDueDate" Type="date" />
+          <Property Name="EmployerId" Type="int" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+          <Property Name="AdminUserID" Type="int" />
+          <Property Name="EmployerAdminName" Type="varchar" MaxLength="100" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WeekStartDate" Type="datetime" Nullable="false" />
+          <Property Name="WeekEndDate" Type="datetime" Nullable="false" />
+          <Property Name="TaskCreationDate" Type="datetime" Nullable="false" />
+          <Property Name="HoursBilled" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TaskDetails" Type="varchar" MaxLength="2000" />
+          <Property Name="Issues" Type="varchar" MaxLength="2000" />
+          <Property Name="Solution" Type="varchar" MaxLength="2000" />
+          <Property Name="PercentCompleted" Type="varchar" MaxLength="10" />
+          <Property Name="SubmissionDate" Type="datetime" />
+          <Property Name="TaskContinueFromLastWeekPeriod" Type="varchar" MaxLength="3" />
+          <Property Name="TaskContinueToNextWeekPeriod" Type="varchar" MaxLength="3" />
+          <Property Name="TaskSubmissionStatus" Type="varchar" MaxLength="15" />
+          <Property Name="ReviewerID" Type="int" />
+          <Property Name="ReviewDate" Type="datetime" />
+          <Property Name="ReviewerComments" Type="varchar" MaxLength="1000" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+          <Property Name="EndClientID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+          <Property Name="WebAppAdminID" Type="int" />
+          <Property Name="ReviewerID" Type="int" />
+          <Property Name="AdminUserID" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMIS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="200" />
+          <Property Name="FailAttempts" Type="int" />
+          <Property Name="IsBlocked" Type="int" />
+        </EntityType>
+        <EntityType Name="WebAppOwner">
+          <Key>
+            <PropertyRef Name="AppOwnerAdminId" />
+          </Key>
+          <Property Name="AppOwnerAdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="200" />
+          <Property Name="FirstName" Type="varchar" MaxLength="200" />
+          <Property Name="MiddleInitial" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+          <Property Name="zip" Type="varchar" MaxLength="20" />
+          <Property Name="BusinessPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CellPhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="50" />
+          <Property Name="BusinessEmail1" Type="varchar" MaxLength="50" />
+          <Property Name="BusinessEmail2" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="EmployerID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployerAdmin_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="EmployerAdmin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployerAdmin_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="EmployerAdmin">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EndClient_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="EndClient">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EndClient_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EndClient">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviewer_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Reviewer">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviewer_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Reviewer">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_EndClient">
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndClient">
+              <PropertyRef Name="EndClientID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EndClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_EmployerAdmin">
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployerAdmin">
+              <PropertyRef Name="AdminUserID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="AdminUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Reviewer">
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="ReviewerID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="ReviewerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebAppOwner_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="WebAppOwner">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebAppOwner_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="WebAppOwner">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_GetDayOfWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+          <Parameter Name="ipDate" Type="datetime" Mode="In" />
+          <Parameter Name="DayOfWeek" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="E2EWebPortalModelStoreContainer">
+          <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployerAdmin" EntityType="Self.EmployerAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndClient" EntityType="Self.EndClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMIS" EntityType="Self.UserMIS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebAppOwner" EntityType="Self.WebAppOwner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Employee_E2E_UserRole" Association="Self.FK_Employee_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployerAdmin_E2E_UserRole" Association="Self.FK_EmployerAdmin_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployerAdmin_Employer" Association="Self.FK_EmployerAdmin_Employer">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EndClient_Business" Association="Self.FK_EndClient_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="EndClient" EntitySet="EndClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EndClient_Employee" Association="Self.FK_EndClient_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EndClient" EntitySet="EndClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviewer_E2E_UserRole" Association="Self.FK_Reviewer_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="Reviewer" EntitySet="Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="Reviewer" EntitySet="Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Employee" Association="Self.FK_Task_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
+            <End Role="EndClient" EntitySet="EndClient" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Employer" Association="Self.FK_UserAccount_Employer">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_EmployerAdmin" Association="Self.FK_UserAccount_EmployerAdmin">
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Reviewer" Association="Self.FK_UserAccount_Reviewer">
+            <End Role="Reviewer" EntitySet="Reviewer" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAppOwner_Business" Association="Self.FK_WebAppOwner_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="WebAppOwner" EntitySet="WebAppOwner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAppOwner_E2E_UserRole" Association="Self.FK_WebAppOwner_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="WebAppOwner" EntitySet="WebAppOwner" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="E2EWebPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="EmployerID" />
+          </Key>
+          <Property Name="EmployerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BusinessName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TotalEmployees" Type="Int32" />
+          <Property Name="BusinessTaxID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Employer" FromRole="Business" ToRole="Employee" />
+          <NavigationProperty Name="EmployerAdmins" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="Business" ToRole="EmployerAdmin" />
+          <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Business" FromRole="Business" ToRole="EndClient" />
+          <NavigationProperty Name="Reviewers" Relationship="Self.FK_Reviewer_Employer" FromRole="Business" ToRole="Reviewer" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Business" FromRole="Business" ToRole="Task" />
+          <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employer" FromRole="Business" ToRole="UserAccount" />
+          <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_Business" FromRole="Business" ToRole="WebAppOwner" />
+        </EntityType>
+        <EntityType Name="E2E_UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_E2E_UserRole" FromRole="E2E_UserRole" ToRole="Employee" />
+          <NavigationProperty Name="EmployerAdmins" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="E2E_UserRole" ToRole="EmployerAdmin" />
+          <NavigationProperty Name="Reviewers" Relationship="Self.FK_Reviewer_E2E_UserRole" FromRole="E2E_UserRole" ToRole="Reviewer" />
+          <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_E2E_UserRole" FromRole="E2E_UserRole" ToRole="WebAppOwner" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentVisaStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentVisaValidity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <Property Name="InceptionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_Employee_Employer" FromRole="Employee" ToRole="Business" />
+          <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_Employee_E2E_UserRole" FromRole="Employee" ToRole="E2E_UserRole" />
+          <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Employee" FromRole="Employee" ToRole="Task" />
+          <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employee" FromRole="Employee" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="EmployerAdmin">
+          <Key>
+            <PropertyRef Name="AdminUserID" />
+          </Key>
+          <Property Name="AdminUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminUserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminuserMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminUserNickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="EmployerAdmin" ToRole="Business" />
+          <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="EmployerAdmin" ToRole="E2E_UserRole" />
+          <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="EndClient">
+          <Key>
+            <PropertyRef Name="EndClientID" />
+          </Key>
+          <Property Name="EndClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EndClientBusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeTitleAtEndClientSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientzip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EndClientExtn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeEmailAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorNameAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorTitleAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Supervisorzip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorExtn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_EndClient_Business" FromRole="EndClient" ToRole="Business" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EndClient_Employee" FromRole="EndClient" ToRole="Employee" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_EndClient" FromRole="EndClient" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorSeverity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="ReviewerID" />
+          </Key>
+          <Property Name="ReviewerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewerFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewerMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewerNickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewerTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_Reviewer_Employer" FromRole="Reviewer" ToRole="Business" />
+          <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_Reviewer_E2E_UserRole" FromRole="Reviewer" ToRole="E2E_UserRole" />
+          <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Reviewer" FromRole="Reviewer" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionDate" Type="DateTime" Precision="0" />
+          <Property Name="ServiceDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionPlanName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionPlanCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TotalLogin" Type="Int32" />
+          <Property Name="LoginUsed" Type="Int32" />
+          <Property Name="LoginAvailable" Type="Int32" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="0" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="PaypalPaymentConfirmationNum" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PaypalPaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="AmountCharged" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalAmtPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RecurringAmountPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RecurringAmountPaidDate" Type="DateTime" Precision="3" />
+          <Property Name="RegistrationFeeCharged" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RegistrationFeePaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RegistrationFeePaidDate" Type="DateTime" Precision="3" />
+          <Property Name="LateFeeCharged" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LateFeeAmountPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LateFeePaidDate" Type="DateTime" Precision="3" />
+          <Property Name="CancellationFeeCharged" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CancellationDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentDueDate" Type="DateTime" Precision="0" />
+          <Property Name="EmployerId" Type="Int32" />
+          <Property Name="BusinessName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AdminUserID" Type="Int32" />
+          <Property Name="EmployerAdminName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoursBilled" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TaskDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Issues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Solution" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="PercentCompleted" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskContinueFromLastWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="TaskContinueToNextWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="TaskSubmissionStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewerID" Type="Int32" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="ReviewerComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <Property Name="EndClientID" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_Task_Business" FromRole="Task" ToRole="Business" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Task_Employee" FromRole="Task" ToRole="Employee" />
+          <NavigationProperty Name="EndClient" Relationship="Self.FK_Task_EndClient" FromRole="Task" ToRole="EndClient" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <Property Name="WebAppAdminID" Type="Int32" />
+          <Property Name="ReviewerID" Type="Int32" />
+          <Property Name="AdminUserID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_UserAccount_Employer" FromRole="UserAccount" ToRole="Business" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_UserAccount_Employee" FromRole="UserAccount" ToRole="Employee" />
+          <NavigationProperty Name="EmployerAdmin" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="UserAccount" ToRole="EmployerAdmin" />
+          <NavigationProperty Name="Reviewer" Relationship="Self.FK_UserAccount_Reviewer" FromRole="UserAccount" ToRole="Reviewer" />
+        </EntityType>
+        <EntityType Name="WebAppOwner">
+          <Key>
+            <PropertyRef Name="AppOwnerAdminId" />
+          </Key>
+          <Property Name="AppOwnerAdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessEmail1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessEmail2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="EmployerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_WebAppOwner_Business" FromRole="WebAppOwner" ToRole="Business" />
+          <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_WebAppOwner_E2E_UserRole" FromRole="WebAppOwner" ToRole="E2E_UserRole" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Employee_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployerAdmin_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="EmployerAdmin">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EndClient_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="EndClient">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviewer_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Reviewer">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Employer">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebAppOwner_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="WebAppOwner">
+              <PropertyRef Name="EmployerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployerAdmin_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="EmployerAdmin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviewer_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Reviewer">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebAppOwner_E2E_UserRole">
+          <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
+          <End Role="WebAppOwner" Type="Self.WebAppOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="E2E_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="WebAppOwner">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EndClient_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EndClient">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_EmployerAdmin">
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployerAdmin">
+              <PropertyRef Name="AdminUserID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="AdminUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_EndClient">
+          <End Role="EndClient" Type="Self.EndClient" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndClient">
+              <PropertyRef Name="EndClientID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="EndClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Reviewer">
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="ReviewerID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="ReviewerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="E2EWebPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Businesses" EntityType="Self.Business" />
+          <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployerAdmins" EntityType="Self.EmployerAdmin" />
+          <EntitySet Name="EndClients" EntityType="Self.EndClient" />
+          <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+          <EntitySet Name="Reviewers" EntityType="Self.Reviewer" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <EntitySet Name="WebAppOwners" EntityType="Self.WebAppOwner" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployerAdmin_Employer" Association="Self.FK_EmployerAdmin_Employer">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EndClient_Business" Association="Self.FK_EndClient_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="EndClient" EntitySet="EndClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="Reviewer" EntitySet="Reviewers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Employer" Association="Self.FK_UserAccount_Employer">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAppOwner_Business" Association="Self.FK_WebAppOwner_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="WebAppOwner" EntitySet="WebAppOwners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_E2E_UserRole" Association="Self.FK_Employee_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployerAdmin_E2E_UserRole" Association="Self.FK_EmployerAdmin_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviewer_E2E_UserRole" Association="Self.FK_Reviewer_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="Reviewer" EntitySet="Reviewers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAppOwner_E2E_UserRole" Association="Self.FK_WebAppOwner_E2E_UserRole">
+            <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+            <End Role="WebAppOwner" EntitySet="WebAppOwners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EndClient_Employee" Association="Self.FK_EndClient_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EndClient" EntitySet="EndClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Employee" Association="Self.FK_Task_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_EmployerAdmin" Association="Self.FK_UserAccount_EmployerAdmin">
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
+            <End Role="EndClient" EntitySet="EndClients" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Reviewer" Association="Self.FK_UserAccount_Reviewer">
+            <End Role="Reviewer" EntitySet="Reviewers" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          <FunctionImport Name="sp_AddErrorLog">
+          <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_E2EWebPortalLogin" ReturnType="Collection(E2EWebPortalModel.sp_E2EWebPortalLogin_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="op_RoleID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Login" ReturnType="Collection(E2EWebPortalModel.sp_Login_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="test" ReturnType="Collection(DateTime)" />
+          <EntitySet Name="UserMIS" EntityType="E2EWebPortalModel.UserMI" />
+        </EntityContainer>
+        <ComplexType Name="sp_E2EWebPortalLogin_Result">
+          <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
+          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="MiddleInitial" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Login_Result">
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DOB" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CurrentVisaStatus" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="CurrentVisaValidity" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="DateTime" Name="InceptionDate" Nullable="false" Precision="23" />
+        </ComplexType>
+        <EntityType Name="UserMI">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ResetCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FailAttempts" Type="Int32" />
+          <Property Name="IsBlocked" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="E2EWebPortalModelStoreContainer" CdmEntityContainer="E2EWebPortalEntities">
+          <EntitySetMapping Name="Businesses">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.Business">
+              <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+                <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="E2E_UserRole">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.E2E_UserRole">
+              <MappingFragment StoreEntitySet="E2E_UserRole">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="CurrentVisaStatus" ColumnName="CurrentVisaStatus" />
+                <ScalarProperty Name="CurrentVisaValidity" ColumnName="CurrentVisaValidity" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="InceptionDate" ColumnName="InceptionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployerAdmins">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.EmployerAdmin">
+              <MappingFragment StoreEntitySet="EmployerAdmin">
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="AdminUserNickName" ColumnName="AdminUserNickName" />
+                <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndClients">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.EndClient">
+              <MappingFragment StoreEntitySet="EndClient">
+                <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+                <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
+                <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+                <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+                <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+                <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+                <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+                <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+                <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+                <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+                <ScalarProperty Name="SupervisorNameAtEndClient" ColumnName="SupervisorNameAtEndClient" />
+                <ScalarProperty Name="SupervisorTitleAtEndClient" ColumnName="SupervisorTitleAtEndClient" />
+                <ScalarProperty Name="SupervisorAddress1" ColumnName="SupervisorAddress1" />
+                <ScalarProperty Name="SupervisorAddress2" ColumnName="SupervisorAddress2" />
+                <ScalarProperty Name="SupervisorCity" ColumnName="SupervisorCity" />
+                <ScalarProperty Name="SupervisorState" ColumnName="SupervisorState" />
+                <ScalarProperty Name="Supervisorzip" ColumnName="Supervisorzip" />
+                <ScalarProperty Name="SupervisorPhoneNumber" ColumnName="SupervisorPhoneNumber" />
+                <ScalarProperty Name="SupervisorExtn" ColumnName="SupervisorExtn" />
+                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ErrorDateTime" ColumnName="ErrorDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviewers">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.Reviewer">
+              <MappingFragment StoreEntitySet="Reviewer">
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="ReviewerFirstName" ColumnName="ReviewerFirstName" />
+                <ScalarProperty Name="ReviewerMiddleName" ColumnName="ReviewerMiddleName" />
+                <ScalarProperty Name="ReviewerLastName" ColumnName="ReviewerLastName" />
+                <ScalarProperty Name="ReviewerNickName" ColumnName="ReviewerNickName" />
+                <ScalarProperty Name="ReviewerTitle" ColumnName="ReviewerTitle" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="ServiceDetails" ColumnName="ServiceDetails" />
+                <ScalarProperty Name="SubscriptionPlanName" ColumnName="SubscriptionPlanName" />
+                <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
+                <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
+                <ScalarProperty Name="LoginUsed" ColumnName="LoginUsed" />
+                <ScalarProperty Name="LoginAvailable" ColumnName="LoginAvailable" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="PaypalPaymentConfirmationNum" ColumnName="PaypalPaymentConfirmationNum" />
+                <ScalarProperty Name="PaypalPaymentDate" ColumnName="PaypalPaymentDate" />
+                <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
+                <ScalarProperty Name="TotalAmtPaid" ColumnName="TotalAmtPaid" />
+                <ScalarProperty Name="RecurringAmountPaid" ColumnName="RecurringAmountPaid" />
+                <ScalarProperty Name="RecurringAmountPaidDate" ColumnName="RecurringAmountPaidDate" />
+                <ScalarProperty Name="RegistrationFeeCharged" ColumnName="RegistrationFeeCharged" />
+                <ScalarProperty Name="RegistrationFeePaid" ColumnName="RegistrationFeePaid" />
+                <ScalarProperty Name="RegistrationFeePaidDate" ColumnName="RegistrationFeePaidDate" />
+                <ScalarProperty Name="LateFeeCharged" ColumnName="LateFeeCharged" />
+                <ScalarProperty Name="LateFeeAmountPaid" ColumnName="LateFeeAmountPaid" />
+                <ScalarProperty Name="LateFeePaidDate" ColumnName="LateFeePaidDate" />
+                <ScalarProperty Name="CancellationFeeCharged" ColumnName="CancellationFeeCharged" />
+                <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+                <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="EmployerAdminName" ColumnName="EmployerAdminName" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+                <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+                <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="Issues" ColumnName="Issues" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+                <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+                <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="WebAppAdminID" ColumnName="WebAppAdminID" />
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebAppOwners">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.WebAppOwner">
+              <MappingFragment StoreEntitySet="WebAppOwner">
+                <ScalarProperty Name="AppOwnerAdminId" ColumnName="AppOwnerAdminId" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="BusinessPhoneNumber" ColumnName="BusinessPhoneNumber" />
+                <ScalarProperty Name="PrimaryPhoneNumber" ColumnName="PrimaryPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessEmail1" ColumnName="BusinessEmail1" />
+                <ScalarProperty Name="BusinessEmail2" ColumnName="BusinessEmail2" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddErrorLog" FunctionName="E2EWebPortalModel.Store.sp_AddErrorLog" />
+          <FunctionImportMapping FunctionImportName="sp_E2EWebPortalLogin" FunctionName="E2EWebPortalModel.Store.sp_E2EWebPortalLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_E2EWebPortalLogin_Result">
+                <ScalarProperty Name="AppOwnerAdminId" ColumnName="AppOwnerAdminId" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="BusinessPhoneNumber" ColumnName="BusinessPhoneNumber" />
+                <ScalarProperty Name="PrimaryPhoneNumber" ColumnName="PrimaryPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessEmail1" ColumnName="BusinessEmail1" />
+                <ScalarProperty Name="BusinessEmail2" ColumnName="BusinessEmail2" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="E2EWebPortalModel.Store.sp_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_Login_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="BusinessPhoneNumber" ColumnName="BusinessPhoneNumber" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessEmail1" ColumnName="BusinessEmail1" />
+                <ScalarProperty Name="BusinessEmail2" ColumnName="BusinessEmail2" />
+                <ScalarProperty Name="CurrentVisaStatus" ColumnName="CurrentVisaStatus" />
+                <ScalarProperty Name="CurrentVisaValidity" ColumnName="CurrentVisaValidity" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="InceptionDate" ColumnName="InceptionDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="test" FunctionName="E2EWebPortalModel.Store.test" />
+          <EntitySetMapping Name="UserMIS">
+            <EntityTypeMapping TypeName="E2EWebPortalModel.UserMI">
+              <MappingFragment StoreEntitySet="UserMIS">
+                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+                <ScalarProperty Name="FailAttempts" ColumnName="FailAttempts" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
