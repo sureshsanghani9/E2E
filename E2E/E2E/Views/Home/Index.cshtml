@@ -3,12 +3,17 @@
     Layout = "~/Views/Shared/_LayoutPageLogin.cshtml";
 }
 
-
+<style>
+    body#login {
+        width: auto !important;
+        max-width: 515px !important;
+    }
+</style>
 
 <form id="loginform">
-    <fieldset>
+    <fieldset style="display: inline-block; width: 350px; vertical-align: top;">
         <section>
-            <label for="username">Username</label>
+            <label for="username">Username <a href="~/Home/ForgetUserName">Forget Username?</a></label>
             <div><input type="text" id="username" name="username" autofocus value="@ViewBag.UserName"></div>
         </section>
         <section>
@@ -21,14 +26,21 @@
         </section>
         <input type="hidden" value="@ViewBag.ReturnUrl" id="hdnReturnUrl" />
     </fieldset>
+    <fieldset style="display: inline-block; max-width: 115px; vertical-align: top; margin-top: 4px; margin-right: 0px; border: 0px;">
+        <section style="border: 0px;">
+            <label>
+                Don’t have E2EWebPortal Login? Please contact to your Employer to setup.<br/><br/>
+                If you are business and using this application first time, please <a href="~/Home/ContactUs" style="float: none; text-decoration: underline;"> Contact Us</a> to start service.
+            </label>
+        </section>
+    </fieldset>
 </form>
 
 <script>
     $(document).ready(function () {
         var alertBox;
         $("#btnSubmit").on('click', function () {
-            if (alertBox != null)
-            {
+            if (alertBox != null) {
                 $(alertBox).wl_Alert('close');
             }
             var username = $("#username").val();
@@ -36,8 +48,7 @@
             var returnUrl = $("#hdnReturnUrl").val();
             var rememberMe = $("#remember").is(":checked");
 
-            if (username == "")
-            {
+            if (username == "") {
                 alertBox = $.wl_Alert("User Name is Required", 'warning', '#content');
                 $("#username").focus();
                 return false;
@@ -63,7 +74,7 @@
                 else {
                     alertBox = $.wl_Alert(result.Message, 'warning', '#content');
                 }
-                });
+            });
             return false;
         });
     });

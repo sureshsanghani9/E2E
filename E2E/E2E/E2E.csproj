@@ -984,6 +984,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\e2ewebportal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\e2ewebportal - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\e2ewebportal - Web Deploy.pubxml" />
     <Content Include="Views\Shared\_LayoutPageLogin.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
@@ -994,6 +995,8 @@
     <Content Include="Views\EmployerAdmin\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Home\Confirmation.cshtml" />
+    <Content Include="Views\Home\ForgetUserName.cshtml" />
+    <None Include="Properties\PublishProfiles\e2ewebportal - Web Deploy1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

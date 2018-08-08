@@ -4,3 +4,9 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Release\E2EViewMo
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.csproj.CoreCompileInputs.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.pdb
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\bin\Release\E2EViewModals.dll
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\bin\Release\E2EViewModals.pdb
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.csprojAssemblyReference.cache
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.csproj.CoreCompileInputs.cache
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.dll
+C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\obj\Release\E2EViewModals.pdb

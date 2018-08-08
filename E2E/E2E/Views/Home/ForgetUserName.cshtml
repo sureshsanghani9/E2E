@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ForgetUserName";
+    ViewBag.FormTitle = "Forget Username";
+    Layout = "~/Views/Shared/_LayoutPageLogin.cshtml";
+}
+
+<style>
+    body#error #content h1 {
+        font-size: 70px !important;
+        letter-spacing: -4px !important;
+    }
+</style>
+
+<h1>Hello,</h1>
+<h2>Forget Username ?</h2>
+<hr>
+<p>Your Username is typically your email address which is used to create new login.</p>
+<p> If you haven’t setup your login yet, please contact your employer  to create new login.</p>
+<a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+
+<script>
+    $(document).ready(function () {
+        $("body").attr("id", "error");
+    });
+</script>
+

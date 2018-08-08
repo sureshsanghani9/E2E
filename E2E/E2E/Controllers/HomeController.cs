@@ -149,6 +149,11 @@ namespace E2E.Controllers
             return View();
         }
 
+        public ActionResult ForgetUserName()
+        {
+            return View();
+        }
+
         [Authorize]
         public ActionResult Dashboard()
         {

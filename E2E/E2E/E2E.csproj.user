@@ -18,8 +18,9 @@
     <WebStackScaffolding_LayoutPageFile>~/Views/Shared/_LayoutPageLogin.cshtml</WebStackScaffolding_LayoutPageFile>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
-    <NameOfLastUsedPublishProfile>e2ewebportal - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>e2ewebportal - Web Deploy1</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_AreaDialogWidth>600</WebStackScaffolding_AreaDialogWidth>
+    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
