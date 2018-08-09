@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Businesses">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Business">
         <MappingFragment StoreEntitySet="Business">
+          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
           <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
           <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
           <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
@@ -73,6 +74,7 @@
     <EntitySetMapping Name="EmployerAdmins">
       <EntityTypeMapping TypeName="E2EWebPortalModel.EmployerAdmin">
         <MappingFragment StoreEntitySet="EmployerAdmin">
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
           <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
           <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
           <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
@@ -369,7 +371,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="test" FunctionName="E2EWebPortalModel.Store.test" />
     <EntitySetMapping Name="UserMIS">
       <EntityTypeMapping TypeName="E2EWebPortalModel.UserMI">
         <MappingFragment StoreEntitySet="UserMIS">
@@ -381,5 +382,46 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetBusinessList" FunctionName="E2EWebPortalModel.Store.sp_GetBusinessList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetBusinessList_Result">
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+          <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetSubscriptionInfo" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionInfo_Result">
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+          <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
+          <ScalarProperty Name="TotalLoginUsed" ColumnName="TotalLoginUsed" />
+          <ScalarProperty Name="TotalLoginAvailable" ColumnName="TotalLoginAvailable" />
+          <ScalarProperty Name="TotalEmployeeLogin" ColumnName="TotalEmployeeLogin" />
+          <ScalarProperty Name="TotalReviewerLogin" ColumnName="TotalReviewerLogin" />
+          <ScalarProperty Name="TotalEmployerAdmin" ColumnName="TotalEmployerAdmin" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ManageBusinessActivation" FunctionName="E2EWebPortalModel.Store.sp_ManageBusinessActivation" />
   </EntityContainerMapping>
 </Mapping>

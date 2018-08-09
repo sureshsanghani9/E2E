@@ -1,15 +1,62 @@
-﻿
+﻿@using E2EViewModals.Subscription
+@model List<SubscriptionInfoViewModal>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+</style>
+
 <section id="content">
 
-    <div class="g12 nodrop">
-        <h1>Web App Admin Dashboard</h1>
-        <p>This is a quick overview of some features</p>
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Dashboard</h1>
+        <p style="margin-bottom: 5px;">List of Clients</p>
     </div>
+
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Payment Due Date</th>
+                <th>Account Number</th>
+                <th>Plan Code</th>
+                <th>Expiration Date</th>
+                <th>Total Login</th>
+                <th>Total Login Used</th>
+                <th>Total Login Available</th>
+                <th>Total Employee Login</th>
+                <th>Total Reviewer Login</th>
+                <th>Total Employer Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SubscriptionInfoViewModal sub in Model)
+            {
+                <tr class="gradeX" EmployerId="@sub.EmployerID">
+                    <td>@sub.EmployerName</td>
+                    <td>@sub.PaymentDueDate.Value.ToShortDateString()</td>
+                    <td>@sub.EmployerAccountNumber</td>
+                    <td>@sub.SubscriptionPlanCode</td>
+                    <td>@sub.ExpirationDate.Value.ToShortDateString()</td>
+                    <td>@sub.TotalLogin</td>
+                    <td>@sub.TotalLoginUsed</td>
+                    <td>@sub.TotalLoginAvailable</td>
+                    <td>@sub.TotalEmployeeLogin</td>
+                    <td>@sub.TotalReviewerLogin</td>
+                    <td>@sub.TotalEmployerAdmin</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </section>
 

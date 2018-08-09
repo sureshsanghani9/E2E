@@ -83,6 +83,7 @@
     <Compile Include="Business.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessRepository.cs" />
     <Compile Include="database_firewall_rules.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -116,6 +117,8 @@
     <Compile Include="ErrorLog.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IBusinessRepository.cs" />
+    <Compile Include="Interface\ISubscriptionRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reviewer.cs">
@@ -124,12 +127,19 @@
     <Compile Include="sp_E2EWebPortalLogin_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetBusinessList_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSubscriptionInfo_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_Login_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Subscription.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubscriptionRepository.cs" />
     <Compile Include="Task.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

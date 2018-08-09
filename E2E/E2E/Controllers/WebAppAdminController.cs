@@ -1,4 +1,6 @@
-﻿using System;
+﻿using E2ERepositories;
+using E2ERepositories.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +14,16 @@ namespace E2E.Controllers
         // GET: WebAppAdmin
         public ActionResult Index()
         {
-            return View();
+            ISubscriptionRepository repo = new SubscriptionRepository();
+            var subscriptionInfo = repo.GetSubscriptionInfo();
+            return View(subscriptionInfo);
+        }
+
+        public ActionResult ManageEmployer()
+        {
+            IBusinessRepository repo = new BusinessRepository();
+            var businessList = repo.GetBusinessList();
+            return View(businessList);
         }
     }
 }

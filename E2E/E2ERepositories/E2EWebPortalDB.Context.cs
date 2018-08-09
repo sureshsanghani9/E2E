@@ -41,13 +41,17 @@ namespace E2ERepositories
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<UserMI> UserMIS { get; set; }
     
-        public virtual int sp_AddErrorLog(string userName)
+        public virtual int sp_AddErrorLog(string userName, string errorMessage)
         {
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddErrorLog", userNameParameter);
+            var errorMessageParameter = errorMessage != null ?
+                new ObjectParameter("ErrorMessage", errorMessage) :
+                new ObjectParameter("ErrorMessage", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddErrorLog", userNameParameter, errorMessageParameter);
         }
     
         public virtual ObjectResult<sp_E2EWebPortalLogin_Result> sp_E2EWebPortalLogin(string userName, string password, ObjectParameter op_RoleID)
@@ -79,6 +83,29 @@ namespace E2ERepositories
         public virtual ObjectResult<Nullable<System.DateTime>> test()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("test");
+        }
+    
+        public virtual ObjectResult<sp_GetBusinessList_Result> sp_GetBusinessList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
+        }
+    
+        public virtual ObjectResult<sp_GetSubscriptionInfo_Result> sp_GetSubscriptionInfo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSubscriptionInfo_Result>("sp_GetSubscriptionInfo");
+        }
+    
+        public virtual int sp_ManageBusinessActivation(string isActive, Nullable<int> employerID)
+        {
+            var isActiveParameter = isActive != null ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(string));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ManageBusinessActivation", isActiveParameter, employerIDParameter);
         }
     }
 }

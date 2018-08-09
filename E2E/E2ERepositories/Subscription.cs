@@ -48,5 +48,8 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+    
+        public virtual Business Business { get; set; }
+        public virtual EmployerAdmin EmployerAdmin { get; set; }
     }
 }

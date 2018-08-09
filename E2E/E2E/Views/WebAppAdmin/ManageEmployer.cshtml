@@ -1,0 +1,71 @@
+﻿@using E2EViewModals.Business
+@model List<BusinessViewModal>
+@{
+    ViewBag.Title = "ManageEmployer";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+</style>
+
+<section id="content">
+
+    <div class="g12 nodrop" style="margin-left: 0px;" >
+        <h1 style="margin-top: 0px;">Manage Employer</h1>
+        <p style="margin-bottom: 5px;">List of Employer</p>
+    </div>
+
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Business Name</th>
+                <th>Active</th>
+                <th>Admin User First Name</th>
+                <th>Admin User Last Name</th>
+                <th>Is Primary?</th>
+                <th>Phone</th>
+                <th>Primary Email</th>
+                <th>Address 1</th>
+                <th>Address 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Account Number</th>
+                <th>Secondary Email</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (BusinessViewModal bis in Model)
+            {
+                <tr class="gradeX" EmployerId="">
+                    <td>@bis.EmployerName</td>
+                    <td>@bis.BusinessName</td>
+                    <td>@( bis.Active != null && bis.Active == "1" ? "Yes" : "No")</td>
+                    <td>@bis.AdminUserFirstName</td>
+                    <td>@bis.AdminUserLastName</td>
+                    <td>@(bis.IsPrimary != null && bis.IsPrimary == 1 ? "Yes" : "No")</td>
+                    <td>@bis.Phone</td>
+                    <td>@bis.PrimaryEmail</td>
+                    <td>@bis.BusinessAddress1</td>
+                    <td>@bis.BusinessAddress2</td>
+                    <td>@bis.City</td>
+                    <td>@bis.State</td>
+                    <td>@bis.zip</td>
+                    <td>@bis.EmployerAccountNumber</td>
+                    <td>@bis.SecondaryEmail</td>
+                    <td>@bis.URL</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</section>

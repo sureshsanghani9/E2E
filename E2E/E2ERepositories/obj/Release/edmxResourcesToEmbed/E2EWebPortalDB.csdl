@@ -30,6 +30,8 @@
     <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Business" FromRole="Business" ToRole="Task" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employer" FromRole="Business" ToRole="UserAccount" />
     <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_Business" FromRole="Business" ToRole="WebAppOwner" />
+    <Property Name="EmployerAccountNumber" Type="Int32" />
+    <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Business" ToRole="Subscription" />
   </EntityType>
   <EntityType Name="E2E_UserRole">
     <Key>
@@ -110,6 +112,8 @@
     <NavigationProperty Name="Business" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="EmployerAdmin" ToRole="Business" />
     <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="EmployerAdmin" ToRole="E2E_UserRole" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
+    <Property Name="IsPrimary" Type="Int32" />
+    <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="EmployerAdmin" ToRole="Subscription" />
   </EntityType>
   <EntityType Name="EndClient">
     <Key>
@@ -226,6 +230,8 @@
     <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Subscription" ToRole="Business" />
+    <NavigationProperty Name="EmployerAdmin" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="Subscription" ToRole="EmployerAdmin" />
   </EntityType>
   <EntityType Name="Task">
     <Key>
@@ -614,6 +620,7 @@
     </AssociationSet>
     <FunctionImport Name="sp_AddErrorLog">
       <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="ErrorMessage" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_E2EWebPortalLogin" ReturnType="Collection(E2EWebPortalModel.sp_E2EWebPortalLogin_Result)">
       <Parameter Name="UserName" Mode="In" Type="String" />
@@ -626,6 +633,20 @@
     </FunctionImport>
     <FunctionImport Name="test" ReturnType="Collection(DateTime)" />
     <EntitySet Name="UserMIS" EntityType="E2EWebPortalModel.UserMI" />
+    <AssociationSet Name="FK_Subscription_Business" Association="E2EWebPortalModel.FK_Subscription_Business">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="Subscription" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="E2EWebPortalModel.FK_Subscription_EmployerAdmin">
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+      <End Role="Subscription" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
+    <FunctionImport Name="sp_GetSubscriptionInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionInfo_Result)" />
+    <FunctionImport Name="sp_ManageBusinessActivation">
+      <Parameter Name="IsActive" Mode="In" Type="String" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -696,4 +717,60 @@
     <Property Name="FailAttempts" Type="Int32" />
     <Property Name="IsBlocked" Type="Int32" />
   </EntityType>
+  <Association Name="FK_Subscription_Business">
+    <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="0..1" />
+    <End Type="E2EWebPortalModel.Subscription" Role="Subscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Subscription">
+        <PropertyRef Name="EmployerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscription_EmployerAdmin">
+    <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="0..1" />
+    <End Type="E2EWebPortalModel.Subscription" Role="Subscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployerAdmin">
+        <PropertyRef Name="AdminUserID" />
+      </Principal>
+      <Dependent Role="Subscription">
+        <PropertyRef Name="AdminUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_GetBusinessList_Result">
+    <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IsPrimary" Nullable="true" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+    <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="sp_GetSubscriptionInfo_Result">
+    <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
+    <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+    <Property Type="String" Name="SubscriptionPlanCode" Nullable="true" MaxLength="10" />
+    <Property Type="DateTime" Name="ExpirationDate" Nullable="true" />
+    <Property Type="Int32" Name="TotalLogin" Nullable="true" />
+    <Property Type="Int32" Name="TotalLoginUsed" Nullable="true" />
+    <Property Type="Int32" Name="TotalLoginAvailable" Nullable="true" />
+    <Property Type="Int32" Name="TotalEmployeeLogin" Nullable="true" />
+    <Property Type="Int32" Name="TotalReviewerLogin" Nullable="true" />
+    <Property Type="Int32" Name="TotalEmployerAdmin" Nullable="true" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+  </ComplexType>
 </Schema>

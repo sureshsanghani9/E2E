@@ -28,6 +28,7 @@
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="EmployerAccountNumber" Type="int" />
         </EntityType>
         <EntityType Name="E2E_UserRole">
           <Key>
@@ -96,6 +97,7 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="EmployerID" Type="int" Nullable="false" />
+          <Property Name="IsPrimary" Type="int" />
         </EntityType>
         <EntityType Name="EndClient">
           <Key>
@@ -406,6 +408,30 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Subscription_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_EmployerAdmin">
+          <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployerAdmin">
+              <PropertyRef Name="AdminUserID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="AdminUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Task_Business">
           <End Role="Business" Type="Self.Business" Multiplicity="1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
@@ -520,17 +546,23 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         </Function>
         <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ManageBusinessActivation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsActive" Type="varchar" Mode="In" />
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="E2EWebPortalModelStoreContainer">
           <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" Schema="dbo" store:Type="Tables" />
@@ -585,6 +617,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
             <End Role="Business" EntitySet="Business" />
             <End Role="Reviewer" EntitySet="Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Business" Association="Self.FK_Subscription_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="Self.FK_Subscription_EmployerAdmin">
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+            <End Role="Subscription" EntitySet="Subscription" />
           </AssociationSet>
           <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
             <End Role="Business" EntitySet="Business" />
@@ -657,6 +697,8 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Business" FromRole="Business" ToRole="Task" />
           <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employer" FromRole="Business" ToRole="UserAccount" />
           <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_Business" FromRole="Business" ToRole="WebAppOwner" />
+          <Property Name="EmployerAccountNumber" Type="Int32" />
+          <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Business" ToRole="Subscription" />
         </EntityType>
         <EntityType Name="E2E_UserRole">
           <Key>
@@ -737,6 +779,8 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <NavigationProperty Name="Business" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="EmployerAdmin" ToRole="Business" />
           <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="EmployerAdmin" ToRole="E2E_UserRole" />
           <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
+          <Property Name="IsPrimary" Type="Int32" />
+          <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="EmployerAdmin" ToRole="Subscription" />
         </EntityType>
         <EntityType Name="EndClient">
           <Key>
@@ -853,6 +897,8 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Subscription" ToRole="Business" />
+          <NavigationProperty Name="EmployerAdmin" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="Subscription" ToRole="EmployerAdmin" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1241,6 +1287,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           </AssociationSet>
           <FunctionImport Name="sp_AddErrorLog">
           <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="ErrorMessage" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_E2EWebPortalLogin" ReturnType="Collection(E2EWebPortalModel.sp_E2EWebPortalLogin_Result)">
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -1253,6 +1300,20 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           </FunctionImport>
           <FunctionImport Name="test" ReturnType="Collection(DateTime)" />
           <EntitySet Name="UserMIS" EntityType="E2EWebPortalModel.UserMI" />
+          <AssociationSet Name="FK_Subscription_Business" Association="E2EWebPortalModel.FK_Subscription_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="E2EWebPortalModel.FK_Subscription_EmployerAdmin">
+            <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
+          <FunctionImport Name="sp_GetSubscriptionInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionInfo_Result)" />
+          <FunctionImport Name="sp_ManageBusinessActivation">
+            <Parameter Name="IsActive" Mode="In" Type="String" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1323,6 +1384,62 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Name="FailAttempts" Type="Int32" />
           <Property Name="IsBlocked" Type="Int32" />
         </EntityType>
+        <Association Name="FK_Subscription_Business">
+          <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="0..1" />
+          <End Type="E2EWebPortalModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="EmployerID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_EmployerAdmin">
+          <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="0..1" />
+          <End Type="E2EWebPortalModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployerAdmin">
+              <PropertyRef Name="AdminUserID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="AdminUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetBusinessList_Result">
+          <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IsPrimary" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_GetSubscriptionInfo_Result">
+          <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
+          <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+          <Property Type="String" Name="SubscriptionPlanCode" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="ExpirationDate" Nullable="true" />
+          <Property Type="Int32" Name="TotalLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalLoginUsed" Nullable="true" />
+          <Property Type="Int32" Name="TotalLoginAvailable" Nullable="true" />
+          <Property Type="Int32" Name="TotalEmployeeLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalReviewerLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalEmployerAdmin" Nullable="true" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1332,6 +1449,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <EntitySetMapping Name="Businesses">
             <EntityTypeMapping TypeName="E2EWebPortalModel.Business">
               <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
                 <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
                 <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
@@ -1401,6 +1519,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <EntitySetMapping Name="EmployerAdmins">
             <EntityTypeMapping TypeName="E2EWebPortalModel.EmployerAdmin">
               <MappingFragment StoreEntitySet="EmployerAdmin">
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
                 <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
                 <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
                 <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
@@ -1697,7 +1816,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="test" FunctionName="E2EWebPortalModel.Store.test" />
           <EntitySetMapping Name="UserMIS">
             <EntityTypeMapping TypeName="E2EWebPortalModel.UserMI">
               <MappingFragment StoreEntitySet="UserMIS">
@@ -1709,6 +1827,47 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetBusinessList" FunctionName="E2EWebPortalModel.Store.sp_GetBusinessList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetBusinessList_Result">
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetSubscriptionInfo" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionInfo_Result">
+                <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+                <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
+                <ScalarProperty Name="TotalLoginUsed" ColumnName="TotalLoginUsed" />
+                <ScalarProperty Name="TotalLoginAvailable" ColumnName="TotalLoginAvailable" />
+                <ScalarProperty Name="TotalEmployeeLogin" ColumnName="TotalEmployeeLogin" />
+                <ScalarProperty Name="TotalReviewerLogin" ColumnName="TotalReviewerLogin" />
+                <ScalarProperty Name="TotalEmployerAdmin" ColumnName="TotalEmployerAdmin" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ManageBusinessActivation" FunctionName="E2EWebPortalModel.Store.sp_ManageBusinessActivation" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

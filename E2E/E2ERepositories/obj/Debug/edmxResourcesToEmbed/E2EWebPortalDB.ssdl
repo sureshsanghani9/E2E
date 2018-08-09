@@ -23,6 +23,7 @@
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="EmployerAccountNumber" Type="int" />
   </EntityType>
   <EntityType Name="E2E_UserRole">
     <Key>
@@ -91,6 +92,7 @@
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
     <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="IsPrimary" Type="int" />
   </EntityType>
   <EntityType Name="EndClient">
     <Key>
@@ -401,6 +403,30 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Subscription_Business">
+    <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+    <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Subscription">
+        <PropertyRef Name="EmployerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscription_EmployerAdmin">
+    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
+    <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployerAdmin">
+        <PropertyRef Name="AdminUserID" />
+      </Principal>
+      <Dependent Role="Subscription">
+        <PropertyRef Name="AdminUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Task_Business">
     <End Role="Business" Type="Self.Business" Multiplicity="1" />
     <End Role="Task" Type="Self.Task" Multiplicity="*" />
@@ -515,17 +541,23 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   </Function>
   <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
     <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ManageBusinessActivation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IsActive" Type="varchar" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="E2EWebPortalModelStoreContainer">
     <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" Schema="dbo" store:Type="Tables" />
@@ -580,6 +612,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
       <End Role="Business" EntitySet="Business" />
       <End Role="Reviewer" EntitySet="Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscription_Business" Association="Self.FK_Subscription_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="Subscription" EntitySet="Subscription" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="Self.FK_Subscription_EmployerAdmin">
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
+      <End Role="Subscription" EntitySet="Subscription" />
     </AssociationSet>
     <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
       <End Role="Business" EntitySet="Business" />

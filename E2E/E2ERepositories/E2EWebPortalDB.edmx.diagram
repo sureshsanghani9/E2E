@@ -35,6 +35,8 @@
         <AssociationConnector Association="E2EWebPortalModel.FK_Task_EndClient" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_UserAccount_Reviewer" ManuallyRouted="false" />
         <EntityTypeShape EntityType="E2EWebPortalModel.UserMI" Width="1.5" PointX="5.375" PointY="3.75" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_Subscription_Business" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_Subscription_EmployerAdmin" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
