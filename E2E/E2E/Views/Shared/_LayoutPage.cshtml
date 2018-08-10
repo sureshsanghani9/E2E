@@ -16,6 +16,7 @@
 
     <!-- include the skins (change to dark if you like) -->
     <link rel="stylesheet" href="~/assets/css/light/theme.css" id="themestyle">
+    <link rel="stylesheet" href="~/assets/css/SwitchButtons.css">
     <!-- <link rel="stylesheet" href="css/dark/theme.css" id="themestyle"> -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -73,7 +74,7 @@
     <script src="~/assets/js/script.js"></script>
 
     <style>
-        
+
         #logo {
             background: none !important;
             text-indent: unset !important;
@@ -81,6 +82,11 @@
 
         #logo a {
             color: #555555 !important;
+        }
+
+        section#content {
+            padding-left: 10px;
+            padding-right: 10px;
         }
     </style>
 </head>
@@ -108,28 +114,36 @@
             <ul id="headernav">
                 <li>
                     <ul>
-                        <li><a href="icons.html">Icons</a><span>300+</span></li>
-                        <li>
-                            <a href="#">Submenu</a><span>4</span>
-                            <ul>
-                                <li><a href="#">Just</a></li>
-                                <li><a href="#">another</a></li>
-                                <li><a href="#">Dropdown</a></li>
-                                <li><a href="#">Menu</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="wizard.html">Wizard</a><span>Bonus</span></li>
-                        <li>
-                            <a href="#">Errorpage</a><span>new</span>
-                            <ul>
-                                <li><a href="error-403.html">403</a></li>
-                                <li><a href="error-404.html">404</a></li>
-                                <li><a href="error-405.html">405</a></li>
-                                <li><a href="error-500.html">500</a></li>
-                                <li><a href="error-503.html">503</a></li>
-                            </ul>
-                        </li>
+                        @{
+
+                            if (user.RoleID == 1)
+                            {
+                                <li><a href="~/WebAppAdmin/Index">Dashboard</a></li>
+                                <li><a href="~/WebAppAdmin/AddEmployer">Add Employer</a></li>
+                                <li><a href="~/WebAppAdmin/ManageEmployer">Manage Employer</a></li>
+                                <li><a href="~/WebAppAdmin/Reports">Reports</a></li>
+                                <li><a href="~/WebAppAdmin/ManageAlerts">Manage Alerts</a></li>
+                                <li><a href="~/WebAppAdmin/ViewActivityLog">View Activity Log</a></li>
+                            }
+                            else if (user.RoleID == 2)
+                            {
+                                <li><a href="~/EmployerAdmin/Index">Dashboard</a></li>
+                                <li><a href="~/EmployerAdmin/Profile">My Profile</a></li>
+                                <li><a href="~/EmployerAdmin/Reviewers">Reviewers</a></li>
+                            }
+                            else if (user.RoleID == 3)
+                            {
+                                <li><a href="~/Reviewer/Index">Dashboard</a></li>
+                                <li><a href="~/Reviewer/Profile">My Profile</a></li>
+                                <li><a href="~/Reviewer/Employees">Employees</a></li>
+                            }
+                            else if (user.RoleID == 4)
+                            {
+                                <li><a href="~/Employee/Index">Dashboard</a></li>
+                                <li><a href="~/Employee/Profile">My Profile</a></li>
+                                <li><a href="~/Employee/Task">Task</a></li>
+                            }
+                        }
                     </ul>
                 </li>
             </ul>
@@ -142,45 +156,45 @@
         </div>
     </header>
 
-    <nav>
-        <ul id="nav">
+    @*<nav>
+            <ul id="nav">
 
-            @{
+                @{
 
-                if (user.RoleID == 1)
-                {
-                    <li class="i_house"><a href="~/WebAppAdmin/Index"><span>Dashboard</span></a></li>
-                    <li class="i_images"><a href="~/WebAppAdmin/AddEmployer"><span>Add Employer</span></a></li>
-                    <li class="i_table"><a href="~/WebAppAdmin/ManageEmployer"><span>Manage Employer</span></a></li>
-                    <li class="i_graph"><a href="~/WebAppAdmin/Reports"><span>Reports</span></a></li>
-                    <li class="i_speech_bubbles_2"><a href="~/WebAppAdmin/ManageAlerts"><span>Manage Alerts</span></a></li>
-                    <li class="i_calendar_day"><a href="~/WebAppAdmin/ViewActivityLog"><span>View Activity Log</span></a></li>
+                    if (user.RoleID == 1)
+                    {
+                        <li class="i_house"><a href="~/WebAppAdmin/Index"><span>Dashboard</span></a></li>
+                        <li class="i_images"><a href="~/WebAppAdmin/AddEmployer"><span>Add Employer</span></a></li>
+                        <li class="i_table"><a href="~/WebAppAdmin/ManageEmployer"><span>Manage Employer</span></a></li>
+                        <li class="i_graph"><a href="~/WebAppAdmin/Reports"><span>Reports</span></a></li>
+                        <li class="i_speech_bubbles_2"><a href="~/WebAppAdmin/ManageAlerts"><span>Manage Alerts</span></a></li>
+                        <li class="i_calendar_day"><a href="~/WebAppAdmin/ViewActivityLog"><span>View Activity Log</span></a></li>
+                    }
+                    else if (user.RoleID == 2)
+                    {
+                        <li class="i_house"><a href="~/EmployerAdmin/Index"><span>Dashboard</span></a></li>
+                        <li class="i_images"><a href="~/EmployerAdmin/Profile"><span>My Profile</span></a></li>
+                        <li class="i_graph"><a href="~/EmployerAdmin/Reviewers"><span>Reviewers</span></a></li>
+                    }
+                    else if (user.RoleID == 3)
+                    {
+                        <li class="i_house"><a href="~/Reviewer/Index"><span>Dashboard</span></a></li>
+                        <li class="i_images"><a href="~/Reviewer/Profile"><span>My Profile</span></a></li>
+                        <li class="i_graph"><a href="~/Reviewer/Employees"><span>Employees</span></a></li>
+                    }
+                    else if (user.RoleID == 4)
+                    {
+                        <li class="i_house"><a href="~/Employee/Index"><span>Dashboard</span></a></li>
+                        <li class="i_images"><a href="~/Employee/Profile"><span>My Profile</span></a></li>
+                        <li class="i_graph"><a href="~/Employee/Task"><span>Task</span></a></li>
+                    }
                 }
-                else if (user.RoleID == 2)
-                {
-                    <li class="i_house"><a href="~/EmployerAdmin/Index"><span>Dashboard</span></a></li>
-                    <li class="i_images"><a href="~/EmployerAdmin/Profile"><span>My Profile</span></a></li>
-                    <li class="i_graph"><a href="~/EmployerAdmin/Reviewers"><span>Reviewers</span></a></li>
-                }
-                else if (user.RoleID == 3)
-                {
-                    <li class="i_house"><a href="~/Reviewer/Index"><span>Dashboard</span></a></li>
-                    <li class="i_images"><a href="~/Reviewer/Profile"><span>My Profile</span></a></li>
-                    <li class="i_graph"><a href="~/Reviewer/Employees"><span>Employees</span></a></li>
-                }
-                else if (user.RoleID == 4)
-                {
-                    <li class="i_house"><a href="~/Employee/Index"><span>Dashboard</span></a></li>
-                    <li class="i_images"><a href="~/Employee/Profile"><span>My Profile</span></a></li>
-                    <li class="i_graph"><a href="~/Employee/Task"><span>Task</span></a></li>
-                }
-            }
 
-        </ul>
-    </nav>
-    
+            </ul>
+        </nav>*@
+
     @RenderBody()
-    
+
     <footer>© Copyright by - E2EWebPortal</footer>
 </body>
 </html>

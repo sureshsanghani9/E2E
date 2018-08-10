@@ -85,11 +85,6 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("test");
         }
     
-        public virtual ObjectResult<sp_GetBusinessList_Result> sp_GetBusinessList()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
-        }
-    
         public virtual ObjectResult<sp_GetSubscriptionInfo_Result> sp_GetSubscriptionInfo()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSubscriptionInfo_Result>("sp_GetSubscriptionInfo");
@@ -106,6 +101,11 @@ namespace E2ERepositories
                 new ObjectParameter("EmployerID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ManageBusinessActivation", isActiveParameter, employerIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetBusinessList_Result> sp_GetBusinessList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
     }
 }

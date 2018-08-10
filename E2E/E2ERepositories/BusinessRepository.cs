@@ -19,5 +19,13 @@ namespace E2ERepositories
                 return Mapper.Map<List<sp_GetBusinessList_Result>, List<BusinessViewModal>>(businessList);
             }
         }
+
+        public int ManageBusinessActivation(int EmployerID, string IsActive)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_ManageBusinessActivation(IsActive, EmployerID);
+            }
+        }
     }
 }

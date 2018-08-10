@@ -929,6 +929,7 @@
     <Content Include="assets\css\light\jquery.wysiwyg.css" />
     <Content Include="assets\css\light\theme.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\SwitchButtons.css" />
     <Content Include="assets\js\calendar.js" />
     <Content Include="assets\js\config.js" />
     <Content Include="assets\js\datatables.js" />

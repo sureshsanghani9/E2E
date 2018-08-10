@@ -10,5 +10,6 @@ namespace E2ERepositories.Interface
     public interface IBusinessRepository
     {
         List<BusinessViewModal> GetBusinessList();
+        int ManageBusinessActivation(int EmployerID, string IsActive);
     }
 }

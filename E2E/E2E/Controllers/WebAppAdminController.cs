@@ -25,5 +25,21 @@ namespace E2E.Controllers
             var businessList = repo.GetBusinessList();
             return View(businessList);
         }
+
+        [HttpPost]
+        public JsonResult ActiveDeactiveEmployer(int employerId, bool isActive)
+        {
+            IBusinessRepository repo = new BusinessRepository();
+            int result = repo.ManageBusinessActivation(employerId, isActive ? "Activate" : "Deactivate");
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "Employer has been "+ (isActive ? "activated" : "deactivated") + " successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+            
+        }
     }
 }

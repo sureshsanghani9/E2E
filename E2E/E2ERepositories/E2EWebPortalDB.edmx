@@ -1286,7 +1286,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <End Role="UserAccount" EntitySet="UserAccounts" />
           </AssociationSet>
           <FunctionImport Name="sp_AddErrorLog">
-          <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="ErrorMessage" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_E2EWebPortalLogin" ReturnType="Collection(E2EWebPortalModel.sp_E2EWebPortalLogin_Result)">
@@ -1308,12 +1308,12 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
             <End Role="Subscription" EntitySet="Subscriptions" />
           </AssociationSet>
-          <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
           <FunctionImport Name="sp_GetSubscriptionInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionInfo_Result)" />
           <FunctionImport Name="sp_ManageBusinessActivation">
             <Parameter Name="IsActive" Mode="In" Type="String" />
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1408,7 +1408,22 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_GetSubscriptionInfo_Result">
+          <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
+          <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+          <Property Type="String" Name="SubscriptionPlanCode" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="ExpirationDate" Nullable="true" />
+          <Property Type="Int32" Name="TotalLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalLoginUsed" Nullable="true" />
+          <Property Type="Int32" Name="TotalLoginAvailable" Nullable="true" />
+          <Property Type="Int32" Name="TotalEmployeeLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalReviewerLogin" Nullable="true" />
+          <Property Type="Int32" Name="TotalEmployerAdmin" Nullable="true" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="sp_GetBusinessList_Result">
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
           <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
@@ -1425,20 +1440,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
           <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
-        </ComplexType>
-        <ComplexType Name="sp_GetSubscriptionInfo_Result">
-          <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
-          <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
-          <Property Type="String" Name="SubscriptionPlanCode" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="ExpirationDate" Nullable="true" />
-          <Property Type="Int32" Name="TotalLogin" Nullable="true" />
-          <Property Type="Int32" Name="TotalLoginUsed" Nullable="true" />
-          <Property Type="Int32" Name="TotalLoginAvailable" Nullable="true" />
-          <Property Type="Int32" Name="TotalEmployeeLogin" Nullable="true" />
-          <Property Type="Int32" Name="TotalReviewerLogin" Nullable="true" />
-          <Property Type="Int32" Name="TotalEmployerAdmin" Nullable="true" />
-          <Property Type="Int32" Name="EmployerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1827,28 +1828,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetBusinessList" FunctionName="E2EWebPortalModel.Store.sp_GetBusinessList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetBusinessList_Result">
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
-                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
-                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
-                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
-                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="zip" ColumnName="zip" />
-                <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
-                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetSubscriptionInfo" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionInfo">
             <ResultMapping>
               <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionInfo_Result">
@@ -1868,6 +1847,29 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ManageBusinessActivation" FunctionName="E2EWebPortalModel.Store.sp_ManageBusinessActivation" />
+          <FunctionImportMapping FunctionImportName="sp_GetBusinessList" FunctionName="E2EWebPortalModel.Store.sp_GetBusinessList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetBusinessList_Result">
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

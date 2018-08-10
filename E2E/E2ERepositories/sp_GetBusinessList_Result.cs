@@ -13,6 +13,7 @@ namespace E2ERepositories
     
     public partial class sp_GetBusinessList_Result
     {
+        public int EmployerID { get; set; }
         public string EmployerName { get; set; }
         public string BusinessName { get; set; }
         public string Active { get; set; }

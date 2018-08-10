@@ -8,6 +8,7 @@ namespace E2EViewModals.Business
 {
     public partial class BusinessViewModal
     {
+        public int EmployerID { get; set; }
         public string EmployerName { get; set; }
         public string BusinessName { get; set; }
         public string Active { get; set; }
