@@ -107,5 +107,74 @@ namespace E2ERepositories
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
+    
+        public virtual int sp_InsertNewBusiness(string employerName, string businessName, string businessAddress1, string businessAddress2, string city, string state, string zip, string phone, string fax, string primaryEmail, string secondaryEmail, string uRL, Nullable<int> totalEmployees, string businessTaxID, string active, string userName)
+        {
+            var employerNameParameter = employerName != null ?
+                new ObjectParameter("EmployerName", employerName) :
+                new ObjectParameter("EmployerName", typeof(string));
+    
+            var businessNameParameter = businessName != null ?
+                new ObjectParameter("BusinessName", businessName) :
+                new ObjectParameter("BusinessName", typeof(string));
+    
+            var businessAddress1Parameter = businessAddress1 != null ?
+                new ObjectParameter("BusinessAddress1", businessAddress1) :
+                new ObjectParameter("BusinessAddress1", typeof(string));
+    
+            var businessAddress2Parameter = businessAddress2 != null ?
+                new ObjectParameter("BusinessAddress2", businessAddress2) :
+                new ObjectParameter("BusinessAddress2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var faxParameter = fax != null ?
+                new ObjectParameter("Fax", fax) :
+                new ObjectParameter("Fax", typeof(string));
+    
+            var primaryEmailParameter = primaryEmail != null ?
+                new ObjectParameter("PrimaryEmail", primaryEmail) :
+                new ObjectParameter("PrimaryEmail", typeof(string));
+    
+            var secondaryEmailParameter = secondaryEmail != null ?
+                new ObjectParameter("SecondaryEmail", secondaryEmail) :
+                new ObjectParameter("SecondaryEmail", typeof(string));
+    
+            var uRLParameter = uRL != null ?
+                new ObjectParameter("URL", uRL) :
+                new ObjectParameter("URL", typeof(string));
+    
+            var totalEmployeesParameter = totalEmployees.HasValue ?
+                new ObjectParameter("TotalEmployees", totalEmployees) :
+                new ObjectParameter("TotalEmployees", typeof(int));
+    
+            var businessTaxIDParameter = businessTaxID != null ?
+                new ObjectParameter("BusinessTaxID", businessTaxID) :
+                new ObjectParameter("BusinessTaxID", typeof(string));
+    
+            var activeParameter = active != null ?
+                new ObjectParameter("Active", active) :
+                new ObjectParameter("Active", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertNewBusiness", employerNameParameter, businessNameParameter, businessAddress1Parameter, businessAddress2Parameter, cityParameter, stateParameter, zipParameter, phoneParameter, faxParameter, primaryEmailParameter, secondaryEmailParameter, uRLParameter, totalEmployeesParameter, businessTaxIDParameter, activeParameter, userNameParameter);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using E2ERepositories;
 using E2ERepositories.Interface;
+using E2EViewModals.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,12 @@ namespace E2E.Controllers
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
             }
             
+        }
+
+        public ActionResult AddEmployer()
+        {
+            var modal = new BusinessViewModal();
+            return View(modal);
         }
     }
 }

@@ -999,6 +999,7 @@
     <Content Include="Views\Home\ForgetUserName.cshtml" />
     <None Include="Properties\PublishProfiles\e2ewebportal - Web Deploy1.pubxml" />
     <Content Include="Views\WebAppAdmin\ManageEmployer.cshtml" />
+    <Content Include="Views\WebAppAdmin\AddEmployer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

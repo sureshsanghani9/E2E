@@ -555,6 +555,24 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         </Function>
         <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_InsertNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployerName" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessName" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessAddress1" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessAddress2" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="State" Type="varchar" Mode="In" />
+          <Parameter Name="zip" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="varchar" Mode="In" />
+          <Parameter Name="Fax" Type="varchar" Mode="In" />
+          <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="URL" Type="varchar" Mode="In" />
+          <Parameter Name="TotalEmployees" Type="int" Mode="In" />
+          <Parameter Name="BusinessTaxID" Type="varchar" Mode="In" />
+          <Parameter Name="Active" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -1314,6 +1332,24 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
+          <FunctionImport Name="sp_InsertNewBusiness">
+            <Parameter Name="EmployerName" Mode="In" Type="String" />
+            <Parameter Name="BusinessName" Mode="In" Type="String" />
+            <Parameter Name="BusinessAddress1" Mode="In" Type="String" />
+            <Parameter Name="BusinessAddress2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Fax" Mode="In" Type="String" />
+            <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+            <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+            <Parameter Name="URL" Mode="In" Type="String" />
+            <Parameter Name="TotalEmployees" Mode="In" Type="Int32" />
+            <Parameter Name="BusinessTaxID" Mode="In" Type="String" />
+            <Parameter Name="Active" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1427,9 +1463,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="IsPrimary" Nullable="true" />
           <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
@@ -1440,6 +1473,16 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
           <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="TotalEmployees" Nullable="true" />
+          <Property Type="String" Name="BusinessTaxID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="AdminUserID" Nullable="true" />
+          <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IsPrimary" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="Int32" Name="UserAccountID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1854,9 +1897,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
                 <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
-                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
-                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
                 <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
@@ -1867,9 +1907,20 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
                 <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
                 <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+                <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
