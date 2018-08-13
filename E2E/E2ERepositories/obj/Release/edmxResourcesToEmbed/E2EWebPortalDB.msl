@@ -176,6 +176,12 @@
     <EntitySetMapping Name="Subscriptions">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Subscription">
         <MappingFragment StoreEntitySet="Subscription">
+          <ScalarProperty Name="CancellationFeePaid" ColumnName="CancellationFeePaid" />
+          <ScalarProperty Name="RecurringAmountCharged" ColumnName="RecurringAmountCharged" />
+          <ScalarProperty Name="SubscriptionFeePaidDate" ColumnName="SubscriptionFeePaidDate" />
+          <ScalarProperty Name="SubscriptionFeePaid" ColumnName="SubscriptionFeePaid" />
+          <ScalarProperty Name="SubscriptionFeeCharged" ColumnName="SubscriptionFeeCharged" />
+          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
           <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
           <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
           <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
@@ -408,9 +414,6 @@
           <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
           <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
           <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
-          <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
-          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
           <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
@@ -421,8 +424,19 @@
           <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
           <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
           <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+          <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
+          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+          <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+          <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+          <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness" />
   </EntityContainerMapping>
 </Mapping>

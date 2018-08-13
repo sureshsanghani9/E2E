@@ -176,6 +176,12 @@
     <EntitySetMapping Name="Subscriptions">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Subscription">
         <MappingFragment StoreEntitySet="Subscription">
+          <ScalarProperty Name="CancellationFeePaid" ColumnName="CancellationFeePaid" />
+          <ScalarProperty Name="RecurringAmountCharged" ColumnName="RecurringAmountCharged" />
+          <ScalarProperty Name="SubscriptionFeePaidDate" ColumnName="SubscriptionFeePaidDate" />
+          <ScalarProperty Name="SubscriptionFeePaid" ColumnName="SubscriptionFeePaid" />
+          <ScalarProperty Name="SubscriptionFeeCharged" ColumnName="SubscriptionFeeCharged" />
+          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
           <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
           <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
           <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />

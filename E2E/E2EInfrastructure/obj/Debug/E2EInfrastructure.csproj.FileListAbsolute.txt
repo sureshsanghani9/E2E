@@ -1,6 +1,5 @@
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\E2EInfrastructure.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\E2EInfrastructure.pdb
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojResolveAssemblyReference.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csproj.CoreCompileInputs.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.pdb

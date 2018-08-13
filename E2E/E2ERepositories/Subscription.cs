@@ -48,6 +48,12 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public string SubscriptionType { get; set; }
+        public Nullable<decimal> SubscriptionFeeCharged { get; set; }
+        public Nullable<decimal> SubscriptionFeePaid { get; set; }
+        public Nullable<System.DateTime> SubscriptionFeePaidDate { get; set; }
+        public Nullable<decimal> RecurringAmountCharged { get; set; }
+        public Nullable<decimal> CancellationFeePaid { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual EmployerAdmin EmployerAdmin { get; set; }

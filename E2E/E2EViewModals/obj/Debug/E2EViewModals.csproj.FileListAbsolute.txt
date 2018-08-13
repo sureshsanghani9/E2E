@@ -3,7 +3,6 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\bin\Debug\E2EViewModa
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Debug\E2EViewModals.csproj.CoreCompileInputs.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Debug\E2EViewModals.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Debug\E2EViewModals.pdb
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EViewModals\obj\Debug\E2EViewModals.csprojResolveAssemblyReference.cache
 C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\bin\Debug\E2EViewModals.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\bin\Debug\E2EViewModals.pdb
 C:\Suresh\Projects\Temp\E2E\E2E\E2EViewModals\obj\Debug\E2EViewModals.csproj.CoreCompileInputs.cache

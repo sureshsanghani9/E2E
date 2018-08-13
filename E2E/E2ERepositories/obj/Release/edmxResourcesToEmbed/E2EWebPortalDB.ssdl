@@ -173,6 +173,7 @@
     <Property Name="SubscriptionStatus" Type="varchar" MaxLength="20" />
     <Property Name="SubscriptionDate" Type="date" />
     <Property Name="ServiceDetails" Type="varchar" MaxLength="100" />
+    <Property Name="SubscriptionType" Type="varchar" MaxLength="100" />
     <Property Name="SubscriptionPlanName" Type="varchar" MaxLength="100" />
     <Property Name="SubscriptionPlanCode" Type="varchar" MaxLength="10" />
     <Property Name="TotalLogin" Type="int" />
@@ -184,15 +185,20 @@
     <Property Name="PaypalPaymentDate" Type="datetime" />
     <Property Name="AmountCharged" Type="money" />
     <Property Name="TotalAmtPaid" Type="money" />
-    <Property Name="RecurringAmountPaid" Type="money" />
-    <Property Name="RecurringAmountPaidDate" Type="datetime" />
     <Property Name="RegistrationFeeCharged" Type="money" />
     <Property Name="RegistrationFeePaid" Type="money" />
     <Property Name="RegistrationFeePaidDate" Type="datetime" />
+    <Property Name="SubscriptionFeeCharged" Type="money" />
+    <Property Name="SubscriptionFeePaid" Type="money" />
+    <Property Name="SubscriptionFeePaidDate" Type="datetime" />
+    <Property Name="RecurringAmountCharged" Type="money" />
+    <Property Name="RecurringAmountPaid" Type="money" />
+    <Property Name="RecurringAmountPaidDate" Type="datetime" />
     <Property Name="LateFeeCharged" Type="money" />
     <Property Name="LateFeeAmountPaid" Type="money" />
     <Property Name="LateFeePaidDate" Type="datetime" />
     <Property Name="CancellationFeeCharged" Type="money" />
+    <Property Name="CancellationFeePaid" Type="money" />
     <Property Name="CancellationDate" Type="datetime" />
     <Property Name="PaymentDueDate" Type="date" />
     <Property Name="EmployerId" Type="int" />
@@ -415,18 +421,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Subscription_EmployerAdmin">
-    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
-    <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EmployerAdmin">
-        <PropertyRef Name="AdminUserID" />
-      </Principal>
-      <Dependent Role="Subscription">
-        <PropertyRef Name="AdminUserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Task_Business">
     <End Role="Business" Type="Self.Business" Multiplicity="1" />
     <End Role="Task" Type="Self.Task" Multiplicity="*" />
@@ -550,6 +544,36 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   </Function>
   <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_InsertNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerName" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessName" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessAddress1" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessAddress2" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="Phone" Type="varchar" Mode="In" />
+    <Parameter Name="Fax" Type="varchar" Mode="In" />
+    <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="URL" Type="varchar" Mode="In" />
+    <Parameter Name="TotalEmployees" Type="int" Mode="In" />
+    <Parameter Name="BusinessTaxID" Type="varchar" Mode="In" />
+    <Parameter Name="Active" Type="varchar" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionDate" Type="date" Mode="In" />
+    <Parameter Name="ServiceDetails" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionType" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionPlanName" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionPlanCode" Type="varchar" Mode="In" />
+    <Parameter Name="TotalLogin" Type="int" Mode="In" />
+    <Parameter Name="EffectiveDate" Type="date" Mode="In" />
+    <Parameter Name="ExpirationDate" Type="date" Mode="In" />
+    <Parameter Name="AmountCharged" Type="money" Mode="In" />
+    <Parameter Name="RegistrationFeeCharged" Type="money" Mode="In" />
+    <Parameter Name="SubscriptionFeeCharged" Type="money" Mode="In" />
+    <Parameter Name="PaymentDueDate" Type="date" Mode="In" />
+  </Function>
   <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -615,10 +639,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     </AssociationSet>
     <AssociationSet Name="FK_Subscription_Business" Association="Self.FK_Subscription_Business">
       <End Role="Business" EntitySet="Business" />
-      <End Role="Subscription" EntitySet="Subscription" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="Self.FK_Subscription_EmployerAdmin">
-      <End Role="EmployerAdmin" EntitySet="EmployerAdmin" />
       <End Role="Subscription" EntitySet="Subscription" />
     </AssociationSet>
     <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">

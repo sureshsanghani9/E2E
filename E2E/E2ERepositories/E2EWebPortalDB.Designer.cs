@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Suresh\Projects\Temp\E2E\E2E\E2ERepositories\E2EWebPortalDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\E2EWebPortalDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

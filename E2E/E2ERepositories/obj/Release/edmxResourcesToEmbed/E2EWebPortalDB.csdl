@@ -232,6 +232,12 @@
     <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Subscription" ToRole="Business" />
     <NavigationProperty Name="EmployerAdmin" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="Subscription" ToRole="EmployerAdmin" />
+    <Property Name="SubscriptionType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SubscriptionFeeCharged" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SubscriptionFeePaid" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SubscriptionFeePaidDate" Type="DateTime" Precision="3" />
+    <Property Name="RecurringAmountCharged" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="CancellationFeePaid" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
   <EntityType Name="Task">
     <Key>
@@ -647,6 +653,36 @@
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
+    <FunctionImport Name="sp_InsertNewBusiness">
+      <Parameter Name="EmployerName" Mode="In" Type="String" />
+      <Parameter Name="BusinessName" Mode="In" Type="String" />
+      <Parameter Name="BusinessAddress1" Mode="In" Type="String" />
+      <Parameter Name="BusinessAddress2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Fax" Mode="In" Type="String" />
+      <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+      <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+      <Parameter Name="URL" Mode="In" Type="String" />
+      <Parameter Name="TotalEmployees" Mode="In" Type="Int32" />
+      <Parameter Name="BusinessTaxID" Mode="In" Type="String" />
+      <Parameter Name="Active" Mode="In" Type="String" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ServiceDetails" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionType" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionPlanName" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionPlanCode" Mode="In" Type="String" />
+      <Parameter Name="TotalLogin" Mode="In" Type="Int32" />
+      <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ExpirationDate" Mode="In" Type="DateTime" />
+      <Parameter Name="AmountCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="RegistrationFeeCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -760,9 +796,6 @@
     <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
     <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="IsPrimary" Nullable="true" />
     <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
@@ -773,5 +806,15 @@
     <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
     <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="TotalEmployees" Nullable="true" />
+    <Property Type="String" Name="BusinessTaxID" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="AdminUserID" Nullable="true" />
+    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IsPrimary" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RoleID" Nullable="true" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="true" />
   </ComplexType>
 </Schema>
