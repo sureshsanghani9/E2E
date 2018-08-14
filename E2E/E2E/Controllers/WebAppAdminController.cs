@@ -68,7 +68,7 @@ namespace E2E.Controllers
             string URL = Convert.ToString(form["URL"].ToString());
             int TotalEmployees = Convert.ToInt16(form["TotalEmployees"].ToString());
             string BusinessTaxID = Convert.ToString(form["BusinessTaxID"].ToString());
-            string Active = Convert.ToString(form["Active"].ToString());
+            string Active = Convert.ToString(form["Active"].ToString()) == "Yes" ? "1" : "0";
             string UserName = user.UserName;
             DateTime SubscriptionDate = Convert.ToDateTime(form["SubscriptionDate"].ToString());
             string ServiceDetails = Convert.ToString(form["ServiceDetails"].ToString());
