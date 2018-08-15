@@ -1,9 +1,11 @@
-﻿using E2ERepositories;
+﻿using E2EInfrastructure.Helpers;
+using E2ERepositories;
 using E2ERepositories.Interface;
 using E2EViewModals.Business;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -66,24 +68,24 @@ namespace E2E.Controllers
             string PrimaryEmail = Convert.ToString(form["PrimaryEmail"].ToString());
             string SecondaryEmail = Convert.ToString(form["SecondaryEmail"].ToString());
             string URL = Convert.ToString(form["URL"].ToString());
-            int TotalEmployees = Convert.ToInt16(form["TotalEmployees"].ToString());
+            int TotalEmployees = Convert.ToInt16(form["TotalEmployees"] != "" ? form["TotalEmployees"].ToString() : "0");
             string BusinessTaxID = Convert.ToString(form["BusinessTaxID"].ToString());
             string Active = Convert.ToString(form["Active"].ToString()) == "Yes" ? "1" : "0";
             string UserName = user.UserName;
-            DateTime SubscriptionDate = Convert.ToDateTime(form["SubscriptionDate"].ToString());
+            DateTime SubscriptionDate = Convert.ToDateTime(form["SubscriptionDate"] != "null" ? form["SubscriptionDate"].ToString() : "1970/1/1");
             string ServiceDetails = Convert.ToString(form["ServiceDetails"].ToString());
             string SubscriptionType = Convert.ToString(form["SubscriptionType"].ToString());
             string SubscriptionPlanName = Convert.ToString(form["SubscriptionPlanName"].ToString());
             string SubscriptionPlanCode = Convert.ToString(form["SubscriptionPlanCode"].ToString());
-            int TotalLogin = Convert.ToInt16(form["TotalLogin"].ToString());
-            DateTime EffectiveDate = Convert.ToDateTime(form["EffectiveDate"].ToString());
-            DateTime ExpirationDate = Convert.ToDateTime(form["ExpirationDate"].ToString());
-            decimal AmountCharged = Convert.ToDecimal(form["AmountCharged"].ToString());
-            decimal RegistrationFeeCharged = Convert.ToDecimal(form["RegistrationFeeCharged"].ToString());
-            decimal SubscriptionFeeCharged = Convert.ToDecimal(form["SubscriptionFeeCharged"].ToString());
-            DateTime PaymentDueDate = Convert.ToDateTime(form["PaymentDueDate"].ToString());
+            int TotalLogin = Convert.ToInt16(form["TotalLogin"] != "" ? form["TotalLogin"].ToString() : "0");
+            DateTime EffectiveDate = Convert.ToDateTime(form["EffectiveDate"] != "null" ? form["EffectiveDate"].ToString(): "1970/1/1");
+            DateTime ExpirationDate = Convert.ToDateTime(form["ExpirationDate"] != "null" ? form["ExpirationDate"].ToString() : "1970/1/1");
+            decimal AmountCharged = Convert.ToDecimal(form["AmountCharged"] != "" ? form["AmountCharged"].ToString() : "0");
+            decimal RegistrationFeeCharged = Convert.ToDecimal(form["RegistrationFeeCharged"] != "" ? form["RegistrationFeeCharged"].ToString() : "0");
+            decimal SubscriptionFeeCharged = Convert.ToDecimal(form["SubscriptionFeeCharged"] != "" ? form["SubscriptionFeeCharged"].ToString() : "0");
+            DateTime PaymentDueDate = Convert.ToDateTime(form["PaymentDueDate"] != "null" ? form["PaymentDueDate"].ToString() : "");
 
-            ISubscriptionRepository repo = new SubscriptionRepository();
+            IBusinessRepository repo = new BusinessRepository();
             var result = repo.InsertNewBusiness(EmployerName
                                     , BusinessName
                                     , BusinessAddress1
@@ -113,8 +115,11 @@ namespace E2E.Controllers
                                     , SubscriptionFeeCharged
                                     , PaymentDueDate);
 
-            if (result == -1)
+            if (result.EmployerID > 0)
             {
+                string code = EncryptionHelper.Encrypt(result.EmployerID.ToString() + "|" + result.SubscriptionID.ToString());
+                SendResetPasswordLink(PrimaryEmail, code);
+
                 return Json(new { Code = 1, Message = "Employer has been added successfully." });
             }
             else
@@ -122,5 +127,27 @@ namespace E2E.Controllers
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
             }
         }
+
+
+        private void SendResetPasswordLink(string toEmail, string Code)
+        {
+            string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            string subject = "Welcome to E2EWebPortal new account setup";
+            String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal web applicaion. <br/><br/> Please follow below instructions to setup new account to start service : <br/><br/>"
+                + "1. Click on below link to create new business account and primary Admin user. <br/><br/>"
+                + "Link : <a href='" + baseURL + "/EmployerAdmin/AddEmployerAdmin?code=" + Code + "'>Click here</a> <br/><br/>"
+                + "2. After completion of information fill out, your account will be created and you will be redirected to Payment page. <br/>"
+                + "3. Please make payment through Paypal. <br/>"
+                + "4. Upon successful payment process, your account will be activated within 1 business day. Meanwhile, review User manual to learn more about this application service. <br/>"
+                + "5. Once account activated successfully, you can start to use this portal service. <br/><br/>"
+                + "Thanks again for choosing E2EWebPortal!!! Feel free to call us for any issues or comment.<br/><br/>"
+                + "Your Sincerely, <br/> E2EWebPortal Admin";
+
+
+                
+            string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
+            EmailHelper.SendEmail(From, toEmail, subject, emailBody, null, "", true);
+        }
+
     }
 }

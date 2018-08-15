@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\AddBusinessViewModal.cs" />
     <Compile Include="Business\BusinessViewModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subscription\SubscriptionInfoViewModal.cs" />

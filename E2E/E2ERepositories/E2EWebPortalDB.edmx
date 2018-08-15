@@ -1340,7 +1340,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
-          <FunctionImport Name="sp_InsertNewBusiness">
+          <FunctionImport Name="sp_InsertNewBusiness" ReturnType="Collection(E2EWebPortalModel.sp_InsertNewBusiness_Result)">
             <Parameter Name="EmployerName" Mode="In" Type="String" />
             <Parameter Name="BusinessName" Mode="In" Type="String" />
             <Parameter Name="BusinessAddress1" Mode="In" Type="String" />
@@ -1503,6 +1503,10 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="RoleID" Nullable="true" />
           <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsertNewBusiness_Result">
+          <Property Type="Int32" Name="EmployerID" Nullable="true" />
+          <Property Type="Int32" Name="SubscriptionID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1946,7 +1950,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness" />
+          <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_InsertNewBusiness_Result">
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

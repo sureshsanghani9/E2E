@@ -18,7 +18,7 @@ namespace E2EInfrastructure.Helpers
         private static string smtpUserName = ConfigurationManager.AppSettings["SMTPUserName"] != null ? ConfigurationManager.AppSettings["SMTPUserName"].ToString() : "";
         private static string smtpPassword = ConfigurationManager.AppSettings["SMTPPassword"] != null ? ConfigurationManager.AppSettings["SMTPPassword"].ToString() : "";
 
-        public static bool SendEmail(string From, string To, string Subject, string Body, Stream file, string FileName, bool IsBodyHtml)
+        public static bool SendEmail(string From, string To, string Subject, String Body, Stream file, string FileName, bool IsBodyHtml)
         {
             bool isSuccess = false;
             using (MailMessage mm = new MailMessage(From, To))

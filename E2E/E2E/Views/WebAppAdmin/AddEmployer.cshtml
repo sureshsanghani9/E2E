@@ -22,7 +22,7 @@
 
                 <section>
                     <label for="BusinessName">Business Name</label>
-                    <div><input type="text" id="BusinessName" name="BusinessName" required class="g6"></div>
+                    <div><input type="text" id="BusinessName" name="BusinessName" class="g6"></div>
                 </section>
 
                 <section>
@@ -32,7 +32,7 @@
 
                 <section>
                     <label for="BusinessAddress2">Business Address2</label>
-                    <div><textarea id="BusinessAddress2" name="BusinessAddress2" required class="g12" rows="2"></textarea></div>
+                    <div><textarea id="BusinessAddress2" name="BusinessAddress2" class="g12" rows="2"></textarea></div>
                 </section>
 
                 <section>
@@ -52,12 +52,12 @@
 
                 <section>
                     <label for="Phone">Phone</label>
-                    <div><input type="text" id="Phone" name="Phone" required class="g3"></div>
+                    <div><input type="phone" id="Phone" name="Phone" required class="g3"></div>
                 </section>
 
                 <section>
                     <label for="Fax">Fax</label>
-                    <div><input type="text" id="Fax" name="Fax" required class="g3"></div>
+                    <div><input type="text" id="Fax" name="Fax" class="g3"></div>
                 </section>
 
                 <section>
@@ -67,28 +67,28 @@
 
                 <section>
                     <label for="SecondaryEmail">Secondary Email</label>
-                    <div><input type="email" id="SecondaryEmail" name="SecondaryEmail" required class="g4"></div>
+                    <div><input type="email" id="SecondaryEmail" name="SecondaryEmail" class="g4"></div>
                 </section>
 
                 <section>
                     <label for="URL">URL</label>
-                    <div><input type="url" id="URL" name="URL" required class="g8 placeholder" placeholder="http://"></div>
+                    <div><input type="url" id="URL" name="URL" class="g8 placeholder" placeholder="http://"></div>
                 </section>
 
                 <section>
                     <label for="TotalEmployees">Total Employees</label>
-                    <div><input type="number" id="TotalEmployees" name="TotalEmployees" required class="g1 integer"></div>
+                    <div><input type="number" id="TotalEmployees" name="TotalEmployees"  class="g1 integer"></div>
                 </section>
 
                 <section>
                     <label for="BusinessTaxID">Business Tax ID</label>
-                    <div><input type="text" id="BusinessTaxID" name="BusinessTaxID" required class="g4"></div>
+                    <div><input type="text" id="BusinessTaxID" name="BusinessTaxID"  class="g4"></div>
                 </section>
 
                 <section>
                     <label>Active</label>
                     <div>
-                        <input type="radio" id="ActiveYes" name="Active" value="Yes" required checked><label for="required_first_radio">Yes</label>
+                        <input type="radio" id="ActiveYes" name="Active" value="Yes" checked><label for="required_first_radio">Yes</label>
                         <input type="radio" id="ActiveNo" name="Active" value="No"><label for="required_second_radio">No</label>
                     </div>
                 </section>
@@ -100,7 +100,7 @@
 
                 <section>
                     <label for="ServiceDetails">Service Details</label>
-                    <div><textarea id="ServiceDetails" name="ServiceDetails" required class="g12" rows="3"></textarea></div>
+                    <div><textarea id="ServiceDetails" name="ServiceDetails" class="g12" rows="3"></textarea></div>
                 </section>
 
                 <section>
@@ -136,28 +136,28 @@
 
                 <section>
                     <label for="AmountCharged">Amount Charged</label>
-                    <div><input type="number" id="AmountCharged" name="AmountCharged" required class="g1 decimal"></div>
+                    <div><input type="number" id="AmountCharged" name="AmountCharged" class="g1 decimal"></div>
                 </section>
 
                 <section>
                     <label for="RegistrationFeeCharged">Registration Fee Charged</label>
-                    <div><input type="number" id="RegistrationFeeCharged" name="RegistrationFeeCharged" required class="g1 decimal"></div>
+                    <div><input type="number" id="RegistrationFeeCharged" name="RegistrationFeeCharged" class="g1 decimal"></div>
                 </section>
 
                 <section>
                     <label for="SubscriptionFeeCharged">Subscription Fee Charged</label>
-                    <div><input type="number" id="SubscriptionFeeCharged" name="SubscriptionFeeCharged" required class="g1 decimal"></div>
+                    <div><input type="number" id="SubscriptionFeeCharged" name="SubscriptionFeeCharged" class="g1 decimal"></div>
                 </section>
 
                 <section>
                     <label for="PaymentDueDate">Payment Due Date</label>
-                    <div><input type="text" id="PaymentDueDate" name="PaymentDueDate" required class="g2 date"></div>
+                    <div><input type="text" id="PaymentDueDate" name="PaymentDueDate" class="g2 date"></div>
                 </section>
 
                 <section>
                     <div>
-                        <button class="reset">Reset</button>
                         <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                        <button class="reset">Reset</button>
                     </div>
                 </section>
             </fieldset>
@@ -170,11 +170,13 @@
     var $content = $('#content');
     $content.find('form').wl_Form({
         onSuccess: function (data, status) {
+            debugger;
             var res = JSON.parse(data);
-            $.msg(res.Code);
+            $.msg(res.Message);
+            $content.find('form').wl_Form('reset');
     	},
     	onError: function(status, error, jqXHR){
-            $.msg(res.Code);
+            $.msg(res.Message);
     	}
     });
 

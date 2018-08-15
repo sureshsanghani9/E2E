@@ -15,6 +15,7 @@ namespace E2E
             CreateMap<sp_Login_Result, UserViewModal>();
             CreateMap<sp_GetSubscriptionInfo_Result, SubscriptionInfoViewModal>();
             CreateMap<sp_GetBusinessList_Result, BusinessViewModal>();
+            CreateMap<sp_InsertNewBusiness_Result, AddBusinessViewModal>();
         }
     }
 }

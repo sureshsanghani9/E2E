@@ -437,6 +437,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness" />
+    <FunctionImportMapping FunctionImportName="sp_InsertNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_InsertNewBusiness">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_InsertNewBusiness_Result">
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
