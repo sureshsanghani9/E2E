@@ -14,13 +14,18 @@ namespace E2E.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUserRepository _userRepo;
+        public HomeController(IUserRepository userRepo)
+        {
+            _userRepo = userRepo;
+        }
+
         // GET: Home
         public ActionResult Index(string returnUrl)
         {
             HttpCookie cookie = Request.Cookies.Get("E2EWebPortalCookies");
             if (cookie != null)
             {
-                IUserRepository repo = new UserRepository();
                 
                 string value = EncryptionHelper.Decrypt(cookie.Value);
                 ViewBag.UserName = value.Split('-')[1];
@@ -41,8 +46,7 @@ namespace E2E.Controllers
         [HttpPost]
         public JsonResult Login(string username, string password, bool rememberMe)
         {
-            IUserRepository repo = new UserRepository();
-            UserViewModal user = repo.GetUser(username, password);
+            UserViewModal user = _userRepo.GetUser(username, password);
 
             if (user != null && user.UserId != 0 && user.UserId != -1)
             {
@@ -95,8 +99,7 @@ namespace E2E.Controllers
         [HttpPost]
         public JsonResult ForgetPassword(string userName)
         {
-            IUserRepository repo = new UserRepository();
-            string resetCode = repo.SetResetCode(userName);
+            string resetCode = _userRepo.SetResetCode(userName);
 
             if (!string.IsNullOrEmpty(resetCode))
             {
@@ -113,13 +116,12 @@ namespace E2E.Controllers
         [HttpPost]
         public JsonResult ResetPassword(string password, string resetCode)
         {
-            IUserRepository repo = new UserRepository();
-            string userName = repo.ValidateResetCode(resetCode);
+            string userName = _userRepo.ValidateResetCode(resetCode);
             if (string.IsNullOrEmpty(userName))
             {
                 return Json(new { Code = -1, Message = "Invalid Reset Link!" });
             }
-            repo.resetPassword(userName, password, resetCode);
+            _userRepo.resetPassword(userName, password, resetCode);
             TempData["ConfirmationType"] = "PasswordReset";
             return Json(new { Code = 1, Message = "Password has been reset successfully!" });
         }

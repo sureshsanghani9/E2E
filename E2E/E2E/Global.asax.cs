@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
+using E2E.App_Start;
+
 namespace E2E
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -14,7 +12,8 @@ namespace E2E
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperConfiguration>());
+            DependencyResolver.SetResolver(new NinjectResolver());
+            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperConfiguration>());
         }
     }
 }

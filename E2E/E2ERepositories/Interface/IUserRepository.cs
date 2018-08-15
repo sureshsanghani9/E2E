@@ -23,5 +23,9 @@ namespace E2ERepositories.Interface
 
         void resetPassword(string userName, string password, string resetCode);
 
+        int AddEmpAdminUser(string userName, string password, int employerID, int roleID, int active, string adminUserFirstName, string adminuserMiddleName,
+            string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip,
+            string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, bool isPrimary);
+
     }
 }

@@ -33,6 +33,16 @@
         <p>You can login now using your new password.</p>
         <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
     }
+    else if (TempData["ConfirmationType"] != null && TempData["ConfirmationType"].ToString() == "InvalidCode")
+    {
+
+        <h1>Invalid</h1>
+        <h2>Code!</h2>
+        <hr>
+        <p>There is invalid code in URL.</p>
+        <p>Please check your email for valid link or Contact Website Administrator!</p>
+        <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+    }
     else
     {
     }

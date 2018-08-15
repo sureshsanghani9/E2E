@@ -114,6 +114,7 @@
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
     <Property Name="IsPrimary" Type="Int32" />
     <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="EmployerAdmin" ToRole="Subscription" />
+    <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="EndClient">
     <Key>
@@ -682,6 +683,29 @@
       <Parameter Name="RegistrationFeeCharged" Mode="In" Type="Decimal" />
       <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
       <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertEmpAdminUser">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="Active" Mode="In" Type="Int32" />
+      <Parameter Name="AdminUserFirstName" Mode="In" Type="String" />
+      <Parameter Name="AdminuserMiddleName" Mode="In" Type="String" />
+      <Parameter Name="AdminUserLastName" Mode="In" Type="String" />
+      <Parameter Name="AdminUserNickName" Mode="In" Type="String" />
+      <Parameter Name="AdminTitle" Mode="In" Type="String" />
+      <Parameter Name="Address1" Mode="In" Type="String" />
+      <Parameter Name="Address2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="WorkPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Extn" Mode="In" Type="String" />
+      <Parameter Name="CellPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+      <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+      <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">

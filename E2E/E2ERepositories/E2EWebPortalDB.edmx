@@ -97,7 +97,8 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="EmployerID" Type="int" Nullable="false" />
-          <Property Name="IsPrimary" Type="int" />
+          <Property Name="IsPrimary" Type="bit" />
+          <Property Name="Extn" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="EndClient">
           <Key>
@@ -549,6 +550,29 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         </Function>
         <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_InsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="Active" Type="int" Mode="In" />
+          <Parameter Name="AdminUserFirstName" Type="varchar" Mode="In" />
+          <Parameter Name="AdminuserMiddleName" Type="varchar" Mode="In" />
+          <Parameter Name="AdminUserLastName" Type="varchar" Mode="In" />
+          <Parameter Name="AdminUserNickName" Type="varchar" Mode="In" />
+          <Parameter Name="AdminTitle" Type="varchar" Mode="In" />
+          <Parameter Name="Address1" Type="varchar" Mode="In" />
+          <Parameter Name="Address2" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="State" Type="varchar" Mode="In" />
+          <Parameter Name="zip" Type="varchar" Mode="In" />
+          <Parameter Name="WorkPhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Extn" Type="varchar" Mode="In" />
+          <Parameter Name="CellPhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="IsPrimary" Type="bit" Mode="In" />
+        </Function>
         <Function Name="sp_InsertNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerName" Type="varchar" Mode="In" />
           <Parameter Name="BusinessName" Type="varchar" Mode="In" />
@@ -801,6 +825,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
           <Property Name="IsPrimary" Type="Int32" />
           <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="EmployerAdmin" ToRole="Subscription" />
+          <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EndClient">
           <Key>
@@ -1370,6 +1395,29 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
             <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="sp_InsertEmpAdminUser">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="Active" Mode="In" Type="Int32" />
+            <Parameter Name="AdminUserFirstName" Mode="In" Type="String" />
+            <Parameter Name="AdminuserMiddleName" Mode="In" Type="String" />
+            <Parameter Name="AdminUserLastName" Mode="In" Type="String" />
+            <Parameter Name="AdminUserNickName" Mode="In" Type="String" />
+            <Parameter Name="AdminTitle" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="String" />
+            <Parameter Name="WorkPhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="Extn" Mode="In" Type="String" />
+            <Parameter Name="CellPhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+            <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+            <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1587,6 +1635,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <EntitySetMapping Name="EmployerAdmins">
             <EntityTypeMapping TypeName="E2EWebPortalModel.EmployerAdmin">
               <MappingFragment StoreEntitySet="EmployerAdmin">
+                <ScalarProperty Name="Extn" ColumnName="Extn" />
                 <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
                 <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
                 <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
@@ -1958,6 +2007,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_InsertEmpAdminUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

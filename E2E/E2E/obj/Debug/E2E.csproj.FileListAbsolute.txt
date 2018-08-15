@@ -77,3 +77,5 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Debug\E2E.csproj.CoreCompileInputs.cache
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Debug\E2E.csproj.CopyComplete
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Debug\E2E.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Debug\E2E.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Ninject.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Ninject.xml

@@ -77,3 +77,5 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Release\E2E.csproj.CoreCompileInputs.cac
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Release\E2E.csproj.CopyComplete
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Release\E2E.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2E\obj\Release\E2E.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Ninject.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Ninject.xml

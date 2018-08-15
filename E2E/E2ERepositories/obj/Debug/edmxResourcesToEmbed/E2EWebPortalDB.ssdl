@@ -92,7 +92,8 @@
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
     <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
-    <Property Name="IsPrimary" Type="int" />
+    <Property Name="IsPrimary" Type="bit" />
+    <Property Name="Extn" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="EndClient">
     <Key>
@@ -544,6 +545,29 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   </Function>
   <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_InsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="Active" Type="int" Mode="In" />
+    <Parameter Name="AdminUserFirstName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminuserMiddleName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminUserLastName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminUserNickName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminTitle" Type="varchar" Mode="In" />
+    <Parameter Name="Address1" Type="varchar" Mode="In" />
+    <Parameter Name="Address2" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="WorkPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="Extn" Type="varchar" Mode="In" />
+    <Parameter Name="CellPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="IsPrimary" Type="bit" Mode="In" />
+  </Function>
   <Function Name="sp_InsertNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerName" Type="varchar" Mode="In" />
     <Parameter Name="BusinessName" Type="varchar" Mode="In" />

@@ -15,26 +15,31 @@ namespace E2E.Controllers
     [Authorize]
     public class WebAppAdminController : Controller
     {
+        private readonly ISubscriptionRepository _subscriptionRepo;
+        private readonly IBusinessRepository _businessRepo;
+        public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo)
+        {
+            _subscriptionRepo = SubscriptionRepo;
+            _businessRepo = businessRepo;
+        }
+
         // GET: WebAppAdmin
         public ActionResult Index()
         {
-            ISubscriptionRepository repo = new SubscriptionRepository();
-            var subscriptionInfo = repo.GetSubscriptionInfo();
+            var subscriptionInfo = _subscriptionRepo.GetSubscriptionInfo();
             return View(subscriptionInfo);
         }
 
         public ActionResult ManageEmployer()
         {
-            IBusinessRepository repo = new BusinessRepository();
-            var businessList = repo.GetBusinessList();
+            var businessList = _businessRepo.GetBusinessList();
             return View(businessList);
         }
 
         [HttpPost]
         public JsonResult ActiveDeactiveEmployer(int employerId, bool isActive)
         {
-            IBusinessRepository repo = new BusinessRepository();
-            int result = repo.ManageBusinessActivation(employerId, isActive ? "Activate" : "Deactivate");
+            int result = _businessRepo.ManageBusinessActivation(employerId, isActive ? "Activate" : "Deactivate");
             if (result == -1)
             {
                 return Json(new { Code = 1, Message = "Employer has been "+ (isActive ? "activated" : "deactivated") + " successfully." });
@@ -52,6 +57,7 @@ namespace E2E.Controllers
             return View(modal);
         }
 
+        [HttpPost]
         public JsonResult AddEmployerData(FormCollection form)
         {
             var user = (UserViewModal) Session["User"];
@@ -85,8 +91,7 @@ namespace E2E.Controllers
             decimal SubscriptionFeeCharged = Convert.ToDecimal(form["SubscriptionFeeCharged"] != "" ? form["SubscriptionFeeCharged"].ToString() : "0");
             DateTime PaymentDueDate = Convert.ToDateTime(form["PaymentDueDate"] != "null" ? form["PaymentDueDate"].ToString() : "");
 
-            IBusinessRepository repo = new BusinessRepository();
-            var result = repo.InsertNewBusiness(EmployerName
+            var result = _businessRepo.InsertNewBusiness(EmployerName
                                     , BusinessName
                                     , BusinessAddress1
                                     , BusinessAddress2

@@ -74,6 +74,7 @@
     <EntitySetMapping Name="EmployerAdmins">
       <EntityTypeMapping TypeName="E2EWebPortalModel.EmployerAdmin">
         <MappingFragment StoreEntitySet="EmployerAdmin">
+          <ScalarProperty Name="Extn" ColumnName="Extn" />
           <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
           <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
           <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
@@ -445,5 +446,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_InsertEmpAdminUser" />
   </EntityContainerMapping>
 </Mapping>

@@ -56,7 +56,7 @@ namespace E2ERepositories
                     }
                     else
                     {
-                        UserMI userMis = new UserMI {  UserId = user.UserAccountID , FailAttempts = 0, ResetCode = resetCode };
+                        UserMI userMis = new UserMI { UserId = user.UserAccountID, FailAttempts = 0, ResetCode = resetCode };
                     }
                     db.SaveChanges();
 
@@ -75,12 +75,12 @@ namespace E2ERepositories
             string userName = string.Empty;
             using (var db = new E2EWebPortalEntities())
             {
-                var user =  db.UserMIS.Where(u => u.ResetCode == resetCode).FirstOrDefault();
+                var user = db.UserMIS.Where(u => u.ResetCode == resetCode).FirstOrDefault();
                 if (user != null && user.UserId != 0)
                 {
-                    userName = db.UserAccounts.Where(u=>u.UserAccountID == user.UserId).FirstOrDefault().UserName;
+                    userName = db.UserAccounts.Where(u => u.UserAccountID == user.UserId).FirstOrDefault().UserName;
                 }
-                
+
             }
             return userName;
         }
@@ -108,5 +108,19 @@ namespace E2ERepositories
                 db.SaveChanges();
             }
         }
+
+        public int AddEmpAdminUser(string userName, string password, int employerID, int roleID, int active, string adminUserFirstName, string adminuserMiddleName,
+            string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip,
+            string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, bool isPrimary)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_InsertEmpAdminUser(userName, password, employerID, roleID, active, adminUserFirstName, adminuserMiddleName,
+                        adminUserLastName,  adminUserNickName, adminTitle, address1, address2, city, state, zip,
+                        workPhoneNumber, extn, cellPhoneNumber, primaryEmail, secondaryEmail, isPrimary);
+            }
+
+        }
+
     }
 }
