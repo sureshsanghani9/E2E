@@ -74,15 +74,14 @@
     <script src="~/assets/js/script.js"></script>
 
     <style>
-
         #logo {
             background: none !important;
             text-indent: unset !important;
         }
 
-        #logo a {
-            color: #555555 !important;
-        }
+            #logo a {
+                color: #555555 !important;
+            }
 
         section#content {
             padding-left: 10px;
@@ -94,18 +93,20 @@
     @{
         var user = (UserViewModal)Session["User"];
     }
-    <div id="pageoptions">
-        <ul>
-            <li><a href="~/Home/Logoff">Hi @user.FirstName , Logout</a></li>
-            <li><a href="#" id="wl_config">Configuration</a></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
-        <div>
-            <h3>Place for some configs</h3>
-            <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.</p>
+    @if (user != null)
+    {
+        <div id="pageoptions">
+            <ul>
+                <li><a href="~/Home/Logoff">Hi @user.FirstName , Logout</a></li>
+                <li><a href="#" id="wl_config">Configuration</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+            <div>
+                <h3>Place for some configs</h3>
+                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.</p>
+            </div>
         </div>
-    </div>
-
+    }
     <header>
         <div id="logo">
             <a href="dashboard.html">E2EWebPortal</a>
@@ -115,33 +116,36 @@
                 <li>
                     <ul>
                         @{
+                            if (user != null)
+                            {
 
-                            if (user.RoleID == 1)
-                            {
-                                <li><a href="~/WebAppAdmin/Index">Dashboard</a></li>
-                                <li><a href="~/WebAppAdmin/AddEmployer">Add Employer</a></li>
-                                <li><a href="~/WebAppAdmin/ManageEmployer">Manage Employer</a></li>
-                                <li><a href="~/WebAppAdmin/Reports">Reports</a></li>
-                                <li><a href="~/WebAppAdmin/ManageAlerts">Manage Alerts</a></li>
-                                <li><a href="~/WebAppAdmin/ViewActivityLog">View Activity Log</a></li>
-                            }
-                            else if (user.RoleID == 2)
-                            {
-                                <li><a href="~/EmployerAdmin/Index">Dashboard</a></li>
-                                <li><a href="~/EmployerAdmin/Profile">My Profile</a></li>
-                                <li><a href="~/EmployerAdmin/Reviewers">Reviewers</a></li>
-                            }
-                            else if (user.RoleID == 3)
-                            {
-                                <li><a href="~/Reviewer/Index">Dashboard</a></li>
-                                <li><a href="~/Reviewer/Profile">My Profile</a></li>
-                                <li><a href="~/Reviewer/Employees">Employees</a></li>
-                            }
-                            else if (user.RoleID == 4)
-                            {
-                                <li><a href="~/Employee/Index">Dashboard</a></li>
-                                <li><a href="~/Employee/Profile">My Profile</a></li>
-                                <li><a href="~/Employee/Task">Task</a></li>
+                                if (user.RoleID == 1)
+                                {
+                                    <li><a href="~/WebAppAdmin/Index">Dashboard</a></li>
+                                    <li><a href="~/WebAppAdmin/AddEmployer">Add Employer</a></li>
+                                    <li><a href="~/WebAppAdmin/ManageEmployer">Manage Employer</a></li>
+                                    <li><a href="~/WebAppAdmin/Reports">Reports</a></li>
+                                    <li><a href="~/WebAppAdmin/ManageAlerts">Manage Alerts</a></li>
+                                    <li><a href="~/WebAppAdmin/Subscription">Subscription</a></li>
+                                }
+                                else if (user.RoleID == 2)
+                                {
+                                    <li><a href="~/EmployerAdmin/Index">Dashboard</a></li>
+                                    <li><a href="~/EmployerAdmin/Profile">My Profile</a></li>
+                                    <li><a href="~/EmployerAdmin/Reviewers">Reviewers</a></li>
+                                }
+                                else if (user.RoleID == 3)
+                                {
+                                    <li><a href="~/Reviewer/Index">Dashboard</a></li>
+                                    <li><a href="~/Reviewer/Profile">My Profile</a></li>
+                                    <li><a href="~/Reviewer/Employees">Employees</a></li>
+                                }
+                                else if (user.RoleID == 4)
+                                {
+                                    <li><a href="~/Employee/Index">Dashboard</a></li>
+                                    <li><a href="~/Employee/Profile">My Profile</a></li>
+                                    <li><a href="~/Employee/Task">Task</a></li>
+                                }
                             }
                         }
                     </ul>

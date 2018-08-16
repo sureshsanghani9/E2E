@@ -113,6 +113,7 @@ namespace E2ERepositories
             string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip,
             string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, bool isPrimary)
         {
+            password = EncryptionHelper.Encrypt(password);
             using (var db = new E2EWebPortalEntities())
             {
                 return db.sp_InsertEmpAdminUser(userName, password, employerID, roleID, active, adminUserFirstName, adminuserMiddleName,

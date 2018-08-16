@@ -30,7 +30,6 @@ namespace E2ERepositories
         public virtual DbSet<Business> Businesses { get; set; }
         public virtual DbSet<E2E_UserRole> E2E_UserRole { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<EmployerAdmin> EmployerAdmins { get; set; }
         public virtual DbSet<EndClient> EndClients { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<Reviewer> Reviewers { get; set; }
@@ -40,6 +39,7 @@ namespace E2ERepositories
         public virtual DbSet<WebAppOwner> WebAppOwners { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<UserMI> UserMIS { get; set; }
+        public virtual DbSet<EmployerAdmin> EmployerAdmins { get; set; }
     
         public virtual int sp_AddErrorLog(string userName, string errorMessage)
         {
@@ -101,11 +101,6 @@ namespace E2ERepositories
                 new ObjectParameter("EmployerID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ManageBusinessActivation", isActiveParameter, employerIDParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetBusinessList_Result> sp_GetBusinessList()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
     
         public virtual ObjectResult<sp_InsertNewBusiness_Result> sp_InsertNewBusiness(string employerName, string businessName, string businessAddress1, string businessAddress2, string city, string state, string zip, string phone, string fax, string primaryEmail, string secondaryEmail, string uRL, Nullable<int> totalEmployees, string businessTaxID, string active, string userName, Nullable<System.DateTime> subscriptionDate, string serviceDetails, string subscriptionType, string subscriptionPlanName, string subscriptionPlanCode, Nullable<int> totalLogin, Nullable<System.DateTime> effectiveDate, Nullable<System.DateTime> expirationDate, Nullable<decimal> amountCharged, Nullable<decimal> registrationFeeCharged, Nullable<decimal> subscriptionFeeCharged, Nullable<System.DateTime> paymentDueDate)
@@ -312,6 +307,11 @@ namespace E2ERepositories
                 new ObjectParameter("IsPrimary", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertEmpAdminUser", userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, adminUserFirstNameParameter, adminuserMiddleNameParameter, adminUserLastNameParameter, adminUserNickNameParameter, adminTitleParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter, isPrimaryParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetBusinessList_Result> sp_GetBusinessList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
     }
 }

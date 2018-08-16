@@ -24,7 +24,6 @@
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Employer" FromRole="Business" ToRole="Employee" />
-    <NavigationProperty Name="EmployerAdmins" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="Business" ToRole="EmployerAdmin" />
     <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Business" FromRole="Business" ToRole="EndClient" />
     <NavigationProperty Name="Reviewers" Relationship="Self.FK_Reviewer_Employer" FromRole="Business" ToRole="Reviewer" />
     <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Business" FromRole="Business" ToRole="Task" />
@@ -32,6 +31,7 @@
     <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_Business" FromRole="Business" ToRole="WebAppOwner" />
     <Property Name="EmployerAccountNumber" Type="Int32" />
     <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Business" ToRole="Subscription" />
+    <NavigationProperty Name="EmployerAdmins" Relationship="E2EWebPortalModel.FK_EmployerAdmin_Employer" FromRole="Business" ToRole="EmployerAdmin" />
   </EntityType>
   <EntityType Name="E2E_UserRole">
     <Key>
@@ -45,9 +45,9 @@
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_E2E_UserRole" FromRole="E2E_UserRole" ToRole="Employee" />
-    <NavigationProperty Name="EmployerAdmins" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="E2E_UserRole" ToRole="EmployerAdmin" />
     <NavigationProperty Name="Reviewers" Relationship="Self.FK_Reviewer_E2E_UserRole" FromRole="E2E_UserRole" ToRole="Reviewer" />
     <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_E2E_UserRole" FromRole="E2E_UserRole" ToRole="WebAppOwner" />
+    <NavigationProperty Name="EmployerAdmins" Relationship="E2EWebPortalModel.FK_EmployerAdmin_E2E_UserRole" FromRole="E2E_UserRole" ToRole="EmployerAdmin" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -83,38 +83,6 @@
     <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
     <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Employee" FromRole="Employee" ToRole="Task" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employee" FromRole="Employee" ToRole="UserAccount" />
-  </EntityType>
-  <EntityType Name="EmployerAdmin">
-    <Key>
-      <PropertyRef Name="AdminUserID" />
-    </Key>
-    <Property Name="AdminUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="AdminUserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AdminuserMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AdminUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AdminUserNickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AdminTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="WorkPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="RoleID" Type="Int32" Nullable="false" />
-    <Property Name="EmployerID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Business" Relationship="Self.FK_EmployerAdmin_Employer" FromRole="EmployerAdmin" ToRole="Business" />
-    <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_EmployerAdmin_E2E_UserRole" FromRole="EmployerAdmin" ToRole="E2E_UserRole" />
-    <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
-    <Property Name="IsPrimary" Type="Int32" />
-    <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="EmployerAdmin" ToRole="Subscription" />
-    <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="EndClient">
     <Key>
@@ -232,7 +200,6 @@
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Subscription" ToRole="Business" />
-    <NavigationProperty Name="EmployerAdmin" Relationship="E2EWebPortalModel.FK_Subscription_EmployerAdmin" FromRole="Subscription" ToRole="EmployerAdmin" />
     <Property Name="SubscriptionType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="SubscriptionFeeCharged" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SubscriptionFeePaid" Type="Decimal" Precision="19" Scale="4" />
@@ -290,8 +257,8 @@
     <Property Name="RoleID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Business" Relationship="Self.FK_UserAccount_Employer" FromRole="UserAccount" ToRole="Business" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_UserAccount_Employee" FromRole="UserAccount" ToRole="Employee" />
-    <NavigationProperty Name="EmployerAdmin" Relationship="Self.FK_UserAccount_EmployerAdmin" FromRole="UserAccount" ToRole="EmployerAdmin" />
     <NavigationProperty Name="Reviewer" Relationship="Self.FK_UserAccount_Reviewer" FromRole="UserAccount" ToRole="Reviewer" />
+    <NavigationProperty Name="EmployerAdmin" Relationship="E2EWebPortalModel.FK_UserAccount_EmployerAdmin" FromRole="UserAccount" ToRole="EmployerAdmin" />
   </EntityType>
   <EntityType Name="WebAppOwner">
     <Key>
@@ -348,18 +315,6 @@
         <PropertyRef Name="EmployerID" />
       </Principal>
       <Dependent Role="Employee">
-        <PropertyRef Name="EmployerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EmployerAdmin_Employer">
-    <End Role="Business" Type="Self.Business" Multiplicity="1" />
-    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Business">
-        <PropertyRef Name="EmployerID" />
-      </Principal>
-      <Dependent Role="EmployerAdmin">
         <PropertyRef Name="EmployerID" />
       </Dependent>
     </ReferentialConstraint>
@@ -436,18 +391,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EmployerAdmin_E2E_UserRole">
-    <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
-    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="E2E_UserRole">
-        <PropertyRef Name="RoleID" />
-      </Principal>
-      <Dependent Role="EmployerAdmin">
-        <PropertyRef Name="RoleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Reviewer_E2E_UserRole">
     <End Role="E2E_UserRole" Type="Self.E2E_UserRole" Multiplicity="1" />
     <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
@@ -508,18 +451,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserAccount_EmployerAdmin">
-    <End Role="EmployerAdmin" Type="Self.EmployerAdmin" Multiplicity="0..1" />
-    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EmployerAdmin">
-        <PropertyRef Name="AdminUserID" />
-      </Principal>
-      <Dependent Role="UserAccount">
-        <PropertyRef Name="AdminUserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Task_EndClient">
     <End Role="EndClient" Type="Self.EndClient" Multiplicity="1" />
     <End Role="Task" Type="Self.Task" Multiplicity="*" />
@@ -548,7 +479,6 @@
     <EntitySet Name="Businesses" EntityType="Self.Business" />
     <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" />
     <EntitySet Name="Employees" EntityType="Self.Employee" />
-    <EntitySet Name="EmployerAdmins" EntityType="Self.EmployerAdmin" />
     <EntitySet Name="EndClients" EntityType="Self.EndClient" />
     <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
     <EntitySet Name="Reviewers" EntityType="Self.Reviewer" />
@@ -560,10 +490,6 @@
     <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Employee" EntitySet="Employees" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EmployerAdmin_Employer" Association="Self.FK_EmployerAdmin_Employer">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
     </AssociationSet>
     <AssociationSet Name="FK_EndClient_Business" Association="Self.FK_EndClient_Business">
       <End Role="Business" EntitySet="Businesses" />
@@ -589,10 +515,6 @@
       <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
       <End Role="Employee" EntitySet="Employees" />
     </AssociationSet>
-    <AssociationSet Name="FK_EmployerAdmin_E2E_UserRole" Association="Self.FK_EmployerAdmin_E2E_UserRole">
-      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
-      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
-    </AssociationSet>
     <AssociationSet Name="FK_Reviewer_E2E_UserRole" Association="Self.FK_Reviewer_E2E_UserRole">
       <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
       <End Role="Reviewer" EntitySet="Reviewers" />
@@ -611,10 +533,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
       <End Role="Employee" EntitySet="Employees" />
-      <End Role="UserAccount" EntitySet="UserAccounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserAccount_EmployerAdmin" Association="Self.FK_UserAccount_EmployerAdmin">
-      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
       <End Role="UserAccount" EntitySet="UserAccounts" />
     </AssociationSet>
     <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
@@ -644,16 +562,11 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Subscription" EntitySet="Subscriptions" />
     </AssociationSet>
-    <AssociationSet Name="FK_Subscription_EmployerAdmin" Association="E2EWebPortalModel.FK_Subscription_EmployerAdmin">
-      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
-      <End Role="Subscription" EntitySet="Subscriptions" />
-    </AssociationSet>
     <FunctionImport Name="sp_GetSubscriptionInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionInfo_Result)" />
     <FunctionImport Name="sp_ManageBusinessActivation">
       <Parameter Name="IsActive" Mode="In" Type="String" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
     <FunctionImport Name="sp_InsertNewBusiness" ReturnType="Collection(E2EWebPortalModel.sp_InsertNewBusiness_Result)">
       <Parameter Name="EmployerName" Mode="In" Type="String" />
       <Parameter Name="BusinessName" Mode="In" Type="String" />
@@ -707,6 +620,20 @@
       <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
       <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
     </FunctionImport>
+    <EntitySet Name="EmployerAdmins" EntityType="E2EWebPortalModel.EmployerAdmin" />
+    <AssociationSet Name="FK_EmployerAdmin_Employer" Association="E2EWebPortalModel.FK_EmployerAdmin_Employer">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployerAdmin_E2E_UserRole" Association="E2EWebPortalModel.FK_EmployerAdmin_E2E_UserRole">
+      <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccount_EmployerAdmin" Association="E2EWebPortalModel.FK_UserAccount_EmployerAdmin">
+      <End Role="EmployerAdmin" EntitySet="EmployerAdmins" />
+      <End Role="UserAccount" EntitySet="UserAccounts" />
+    </AssociationSet>
+    <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -789,18 +716,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Subscription_EmployerAdmin">
-    <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="0..1" />
-    <End Type="E2EWebPortalModel.Subscription" Role="Subscription" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EmployerAdmin">
-        <PropertyRef Name="AdminUserID" />
-      </Principal>
-      <Dependent Role="Subscription">
-        <PropertyRef Name="AdminUserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <ComplexType Name="sp_GetSubscriptionInfo_Result">
     <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
     <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
@@ -815,6 +730,77 @@
     <Property Type="Int32" Name="TotalEmployerAdmin" Nullable="true" />
     <Property Type="Int32" Name="EmployerID" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="sp_InsertNewBusiness_Result">
+    <Property Type="Int32" Name="EmployerID" Nullable="true" />
+    <Property Type="Int32" Name="SubscriptionID" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="EmployerAdmin">
+    <Key>
+      <PropertyRef Name="AdminUserID" />
+    </Key>
+    <Property Name="AdminUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminUserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminuserMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminUserNickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="WorkPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CellPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PrimaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SecondaryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="EmployerID" Type="Int32" Nullable="false" />
+    <Property Name="IsPrimary" Type="Boolean" />
+    <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_EmployerAdmin_Employer" FromRole="EmployerAdmin" ToRole="Business" />
+    <NavigationProperty Name="E2E_UserRole" Relationship="E2EWebPortalModel.FK_EmployerAdmin_E2E_UserRole" FromRole="EmployerAdmin" ToRole="E2E_UserRole" />
+    <NavigationProperty Name="UserAccounts" Relationship="E2EWebPortalModel.FK_UserAccount_EmployerAdmin" FromRole="EmployerAdmin" ToRole="UserAccount" />
+  </EntityType>
+  <Association Name="FK_EmployerAdmin_Employer">
+    <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="EmployerAdmin">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployerAdmin_E2E_UserRole">
+    <End Type="E2EWebPortalModel.E2E_UserRole" Role="E2E_UserRole" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="E2E_UserRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="EmployerAdmin">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccount_EmployerAdmin">
+    <End Type="E2EWebPortalModel.EmployerAdmin" Role="EmployerAdmin" Multiplicity="0..1" />
+    <End Type="E2EWebPortalModel.UserAccount" Role="UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployerAdmin">
+        <PropertyRef Name="AdminUserID" />
+      </Principal>
+      <Dependent Role="UserAccount">
+        <PropertyRef Name="AdminUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <ComplexType Name="sp_GetBusinessList_Result">
     <Property Type="Int32" Name="EmployerID" Nullable="false" />
     <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
@@ -836,13 +822,9 @@
     <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="IsPrimary" Nullable="true" />
+    <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
     <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
     <Property Type="Int32" Name="RoleID" Nullable="true" />
     <Property Type="Int32" Name="UserAccountID" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_InsertNewBusiness_Result">
-    <Property Type="Int32" Name="EmployerID" Nullable="true" />
-    <Property Type="Int32" Name="SubscriptionID" Nullable="true" />
   </ComplexType>
 </Schema>

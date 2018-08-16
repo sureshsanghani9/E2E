@@ -28,7 +28,7 @@ namespace E2EViewModals.Business
         public string AdminUserFirstName { get; set; }
         public string AdminUserLastName { get; set; }
         public string AdminTitle { get; set; }
-        public Nullable<int> IsPrimary { get; set; }
+        public Nullable<bool> IsPrimary { get; set; }
         public string UserName { get; set; }
         public Nullable<int> RoleID { get; set; }
         public Nullable<int> UserAccountID { get; set; }

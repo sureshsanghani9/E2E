@@ -89,7 +89,7 @@ namespace E2E.Controllers
             decimal AmountCharged = Convert.ToDecimal(form["AmountCharged"] != "" ? form["AmountCharged"].ToString() : "0");
             decimal RegistrationFeeCharged = Convert.ToDecimal(form["RegistrationFeeCharged"] != "" ? form["RegistrationFeeCharged"].ToString() : "0");
             decimal SubscriptionFeeCharged = Convert.ToDecimal(form["SubscriptionFeeCharged"] != "" ? form["SubscriptionFeeCharged"].ToString() : "0");
-            DateTime PaymentDueDate = Convert.ToDateTime(form["PaymentDueDate"] != "null" ? form["PaymentDueDate"].ToString() : "");
+            DateTime PaymentDueDate = Convert.ToDateTime(form["PaymentDueDate"] != "null" ? form["PaymentDueDate"].ToString() : "1970/1/1");
 
             var result = _businessRepo.InsertNewBusiness(EmployerName
                                     , BusinessName
@@ -152,6 +152,21 @@ namespace E2E.Controllers
                 
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, toEmail, subject, emailBody, null, "", true);
+        }
+
+        public ActionResult Reports()
+        {
+            return View();
+        }
+
+        public ActionResult ManageAlerts()
+        {
+            return View();
+        }
+
+        public ActionResult Subscription()
+        {
+            return View();
         }
 
     }

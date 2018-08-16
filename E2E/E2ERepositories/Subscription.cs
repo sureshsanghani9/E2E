@@ -56,6 +56,5 @@ namespace E2ERepositories
         public Nullable<decimal> CancellationFeePaid { get; set; }
     
         public virtual Business Business { get; set; }
-        public virtual EmployerAdmin EmployerAdmin { get; set; }
     }
 }

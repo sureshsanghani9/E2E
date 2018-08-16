@@ -18,13 +18,13 @@ namespace E2ERepositories
         public Business()
         {
             this.Employees = new HashSet<Employee>();
-            this.EmployerAdmins = new HashSet<EmployerAdmin>();
             this.EndClients = new HashSet<EndClient>();
             this.Reviewers = new HashSet<Reviewer>();
             this.Tasks = new HashSet<Task>();
             this.UserAccounts = new HashSet<UserAccount>();
             this.WebAppOwners = new HashSet<WebAppOwner>();
             this.Subscriptions = new HashSet<Subscription>();
+            this.EmployerAdmins = new HashSet<EmployerAdmin>();
         }
     
         public int EmployerID { get; set; }
@@ -51,8 +51,6 @@ namespace E2ERepositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EndClient> EndClients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviewer> Reviewers { get; set; }
@@ -64,5 +62,7 @@ namespace E2ERepositories
         public virtual ICollection<WebAppOwner> WebAppOwners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
     }
 }

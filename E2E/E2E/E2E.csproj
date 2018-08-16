@@ -1005,6 +1005,9 @@
     <Content Include="Views\WebAppAdmin\ManageEmployer.cshtml" />
     <Content Include="Views\WebAppAdmin\AddEmployer.cshtml" />
     <Content Include="Views\EmployerAdmin\AddEmployerAdmin.cshtml" />
+    <Content Include="Views\WebAppAdmin\Reports.cshtml" />
+    <Content Include="Views\WebAppAdmin\ManageAlerts.cshtml" />
+    <Content Include="Views\WebAppAdmin\Subscription.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

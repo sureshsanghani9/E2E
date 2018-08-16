@@ -30,7 +30,7 @@ namespace E2ERepositories
     
         public virtual Business Business { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual EmployerAdmin EmployerAdmin { get; set; }
         public virtual Reviewer Reviewer { get; set; }
+        public virtual EmployerAdmin EmployerAdmin { get; set; }
     }
 }

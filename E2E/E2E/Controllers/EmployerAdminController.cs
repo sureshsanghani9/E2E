@@ -26,7 +26,7 @@ namespace E2E.Controllers
         [AllowAnonymous]
         public ActionResult AddEmployerAdmin(string code)
         {
-            if (!string.IsNullOrEmpty(code) && EncryptionHelper.Decrypt(code).Split('|').Length > 2)
+            if (!string.IsNullOrEmpty(code) && EncryptionHelper.Decrypt(code).Split('|').Length >= 2)
             {
                 ViewBag.EmployerID = EncryptionHelper.Decrypt(code).Split('|')[0];
                 ViewBag.SubscriptionID = EncryptionHelper.Decrypt(code).Split('|')[1];
@@ -36,7 +36,7 @@ namespace E2E.Controllers
             else
             {
                 TempData["ConfirmationType"] = "InvalidCode";
-                return RedirectToAction("Home", "Confirmation");
+                return RedirectToAction("Confirmation", "Home");
             }
 
         }
@@ -65,7 +65,7 @@ namespace E2E.Controllers
             string CellPhoneNumber = Convert.ToString(form["CellPhoneNumber"].ToString());
             string PrimaryEmail = Convert.ToString(form["PrimaryEmail"].ToString());
             string SecondaryEmail = Convert.ToString(form["SecondaryEmail"].ToString());
-            bool IsPrimary = Convert.ToBoolean(form["IsPrimary"] == "Yes");
+            bool IsPrimary = Convert.ToBoolean(form["Primary"] == "Yes");
 
 
 

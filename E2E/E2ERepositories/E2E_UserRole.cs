@@ -18,9 +18,9 @@ namespace E2ERepositories
         public E2E_UserRole()
         {
             this.Employees = new HashSet<Employee>();
-            this.EmployerAdmins = new HashSet<EmployerAdmin>();
             this.Reviewers = new HashSet<Reviewer>();
             this.WebAppOwners = new HashSet<WebAppOwner>();
+            this.EmployerAdmins = new HashSet<EmployerAdmin>();
         }
     
         public int RoleID { get; set; }
@@ -34,10 +34,10 @@ namespace E2ERepositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviewer> Reviewers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WebAppOwner> WebAppOwners { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
     }
 }

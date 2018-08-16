@@ -18,7 +18,6 @@ namespace E2ERepositories
         public EmployerAdmin()
         {
             this.UserAccounts = new HashSet<UserAccount>();
-            this.Subscriptions = new HashSet<Subscription>();
         }
     
         public int AdminUserID { get; set; }
@@ -42,14 +41,12 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public int RoleID { get; set; }
         public int EmployerID { get; set; }
-        public Nullable<int> IsPrimary { get; set; }
+        public Nullable<bool> IsPrimary { get; set; }
         public string Extn { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual E2E_UserRole E2E_UserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAccount> UserAccounts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
     }
 }
