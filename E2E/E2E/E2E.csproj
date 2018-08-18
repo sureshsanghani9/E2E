@@ -1008,6 +1008,10 @@
     <Content Include="Views\WebAppAdmin\Reports.cshtml" />
     <Content Include="Views\WebAppAdmin\ManageAlerts.cshtml" />
     <Content Include="Views\WebAppAdmin\Subscription.cshtml" />
+    <Content Include="Views\EmployerAdmin\ManageEmployee.cshtml" />
+    <Content Include="Views\EmployerAdmin\ManageAdmin.cshtml" />
+    <Content Include="Views\EmployerAdmin\Reports.cshtml" />
+    <Content Include="Views\EmployerAdmin\Subscription.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

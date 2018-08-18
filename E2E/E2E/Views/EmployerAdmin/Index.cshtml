@@ -4,12 +4,189 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+<style>
+    input.g9.integer {
+        width: 93%;
+    }
+
+    span.mHide {
+        display: none;
+    }
+
+    td span {
+        color: red;
+    }
+
+    td.error {
+        background-color: #fdd4d4;
+    }
+</style>
+
 <section id="content">
 
     <div class="g12 nodrop">
         <h1>Employer Admin Dashboard</h1>
-        <p>This is a quick overview of some features</p>
+        <p>Send Invitations!</p>
     </div>
 
-</section>
 
+    <table id="tblEmailInvitations">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Additional Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" name="FirstName" class="g12" />
+                    <span class="error mHide"></span>
+                </td>
+                <td>
+                    <input type="text" name="LastName" class="g12" />
+                    <span class="error mHide"></span>
+                </td>
+                <td>
+                    <input type="text" name="Email" class="g12" />
+                    <span class="error mHide"></span>
+                </td>
+                <td>
+                    <input type="number" name="Role" class="g9 integer" min="1" max="4" value="2">
+                    <span class="error mHide"></span>
+                </td>
+                <td>
+                    <input type="text" name="AdditionalNotes" class="g12" />
+                </td>
+                <td class="delRow"><a class="btn i_trashcan " title="Delete"></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="i_plus icon" id="btnAddMore">Add More</button>
+    <button class="i_play icon" id="btnSend">Send</button>
+</section>
+<script>
+    $(document).ready(function () {
+
+        var tr = '<tr>';
+        tr += '<td>';
+        tr += '    <input type="text" name="FirstName" class="g12" />';
+        tr += '    <span class="error mHide"></span>';
+        tr += '</td>';
+        tr += '<td>';
+        tr += '    <input type="text" name="LastName" class="g12" />';
+        tr += '    <span class="error mHide"></span>';
+        tr += '</td>';
+        tr += '<td>';
+        tr += '    <input type="text" name="Email" class="g12" />';
+        tr += '    <span class="error mHide"></span>';
+        tr += '</td>';
+        tr += '<td>';
+        tr += '    <input type="number" name="Role" class="g9 integer" min="1" max="4" value="2">';
+        tr += '    <span class="error mHide"></span>';
+        tr += '</td>';
+        tr += '<td>';
+        tr += '    <input type="text" name="AdditionalNotes" class="g12" />';
+        tr += '</td>';
+        tr += '<td class="delRow"><a class="btn i_trashcan " title="Delete"></a></td>';
+        tr += '</tr>';
+
+        $("#btnAddMore").on("click", function () {
+            $("#tblEmailInvitations tbody").append(tr);
+        });
+
+        $("#btnSend").on("click", function () {
+            var isValid = true;
+            var Invitations = { Invites: null };
+            var invites = new Array();
+            var invite = { FirstName: "", LastName: "", Email: "", Role: 2, AdditionalNotes: "" };
+            $.each($("#tblEmailInvitations td").not(".delRow"), function (i, obj) {
+                var td = $(obj);
+                var input = $(td).children('input:first-child');
+                var span = $(td).children('span');
+                var name = $(input).attr("name");
+                var val = $(input).val();
+                if (name != "AdditionalNotes") {
+                    if (val == "") {
+                        isValid = false;
+                        $(td).addClass('error');
+                        $(span).text('this is required field!');
+                        $(span).removeClass('mHide');
+                    }
+                    else {
+                        if (name == "Email" && !validateEmail(val)) {
+                            isValid = false;
+                            $(td).addClass('error');
+                            $(span).text('Email is not valid!');
+                            $(span).removeClass('mHide');
+                        }
+                        else {
+                            $(td).removeClass('error');
+                            $(span).text('');
+                            $(span).addClass('mHide');
+
+                            if (name == 'FirstName') {
+                                invite.FirstName = val;
+                            }
+                            else if (name == 'LastName') {
+                                invite.LastName = val;
+                            }
+                            else if (name == 'Email') {
+                                invite.Email = val;
+                            }
+                            else if (name == 'Role') {
+                                invite.Role = parseInt(val);
+                            }
+                            else if (name == 'AdditionalNotes') {
+
+                            }
+                        }
+                    }
+                }
+                else {
+                    invite.AdditionalNotes = val;
+                    invites.push(invite);
+                    invite = { FirstName: "", LastName: "", Email: "", Role: 2, AdditionalNotes: "" };
+                }
+            });
+            Invitations.Invites = invites;
+            if (!isValid)
+            {
+                $.msg("Please fill all required details!");
+                return;
+            }
+            $.ajax({
+                url: '/EmployerAdmin/SendInvitations',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { Invitations: JSON.parse(JSON.stringify(Invitations)) }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $("#tblEmailInvitations tbody").html(tr);
+                    $.msg(result.Message);
+                }
+                else {
+                    $.msg(result.Message);
+                }
+            });
+        });
+    });
+
+    $("#tblEmailInvitations").on("click", '.delRow a', function () {
+        var trs = $("#tblEmailInvitations tbody tr");
+        if (trs.length > 1) {
+            $(this).parents('tr').remove();
+        }
+        return false;
+    });
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+</script>
