@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "AddEmployerAdmin";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<section id="content">
+
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Add Employer Admin</h1>
+        <p style="margin-bottom: 5px;">Add new Employer</p>
+    </div>
+
+    <div class="g12" style="margin: auto 0px;">
+        <form id="formAddEmployerAdmin" action="/EmployerAdmin/AddEmployerAdminData" method="post" autocomplete="on">
+
+            <input type="hidden" id="EmployerID" name="EmployerID" value="@ViewBag.EmployerID" />
+            <input type="hidden" id="SubscriptionID" name="SubscriptionID" value="@ViewBag.SubscriptionID" />
+            <input type="hidden" id="RoleID" name="RoleID" value="@ViewBag.RoleID" />
+
+            <fieldset>
+
+                <section>
+                    <label for="UserName">User Name</label>
+                    <div><input type="text" id="UserName" name="UserName" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="Password">Password</label>
+                    <div>
+                        <input type="Password" id="Password" name="Password" required class="g3" data-regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@@$!%*?&]{8,}">
+                        <br><span>Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter and one number!</span>
+                    </div>
+                </section>
+
+                <section>
+                    <label for="AdminUserFirstName">Admin User First Name</label>
+                    <div><input type="text" id="AdminUserFirstName" name="AdminUserFirstName" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="AdminuserMiddleName">Admin User Middle Name</label>
+                    <div><input type="text" id="AdminuserMiddleName" name="AdminuserMiddleName" class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="AdminUserLastName">Admin User Last Name</label>
+                    <div><input type="text" id="AdminUserLastName" name="AdminUserLastName" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="AdminUserNickName">Admin User Nick Name</label>
+                    <div><input type="text" id="AdminUserNickName" name="AdminUserNickName" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="AdminTitle">Admin Title</label>
+                    <div><input type="text" id="AdminTitle" name="AdminTitle" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="Address1">Address1</label>
+                    <div><textarea id="Address1" name="Address1" required class="g12" rows="4"></textarea></div>
+                </section>
+
+                <section>
+                    <label for="Address2">Address2</label>
+                    <div><textarea id="Address2" name="Address2" class="g12" rows="2"></textarea></div>
+                </section>
+
+                <section>
+                    <label for="City">City</label>
+                    <div><input type="text" id="City" name="City" required class="g2"></div>
+                </section>
+
+                <section>
+                    <label for="State">State</label>
+                    <div><input type="text" id="State" name="State" required class="g2"></div>
+                </section>
+
+                <section>
+                    <label for="zip">zip</label>
+                    <div><input type="number" id="zip" name="zip" required class="g1 integer"></div>
+                </section>
+
+                <section>
+                    <label for="WorkPhoneNumber">Work Phone Number</label>
+                    <div><input type="text" id="WorkPhoneNumber" name="WorkPhoneNumber" required class="g2"></div>
+                </section>
+
+                <section>
+                    <label for="Extn">Extn</label>
+                    <div><input type="text" id="Extn" name="Extn" class="g1"></div>
+                </section>
+
+                <section>
+                    <label for="CellPhoneNumber">Cell Phone Number</label>
+                    <div><input type="text" id="CellPhoneNumber" name="CellPhoneNumber" required class="g2"></div>
+                </section>
+
+                <section>
+                    <label for="PrimaryEmail">PrimaryEmail</label>
+                    <div><input type="email" id="PrimaryEmail" name="PrimaryEmail" required class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="SecondaryEmail">Secondary Email</label>
+                    <div><input type="email" id="SecondaryEmail" name="SecondaryEmail" class="g4"></div>
+                </section>
+
+                <section>
+                    <label>Active</label>
+                    <div>
+                        <input type="radio" id="ActiveYes" name="Active" value="Yes" checked><label for="required_first_radio">Yes</label>
+                        <input type="radio" id="ActiveNo" name="Active" value="No"><label for="required_second_radio">No</label>
+                    </div>
+                </section>
+
+                <section>
+                    <label>Primary</label>
+                    <div>
+                        <input type="radio" id="PrimaryYes" name="Primary" value="Yes" checked><label for="required_first_radio">Yes</label>
+                        <input type="radio" id="PrimaryNo" name="Primary" value="No"><label for="required_second_radio">No</label>
+                    </div>
+                </section>
+
+                <section>
+                    <div>
+                        <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                        <button class="reset">Reset</button>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    var $content = $('#content');
+    $content.find('form').wl_Form({
+        onSuccess: function (data, status) {
+            debugger;
+            var res = JSON.parse(data);
+            $.msg(res.Message);
+            $content.find('form').wl_Form('reset');
+    	},
+    	onError: function(status, error, jqXHR){
+            $.msg(res.Message);
+    	}
+    });
+
+</script>
+

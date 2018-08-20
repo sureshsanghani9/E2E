@@ -28,7 +28,7 @@ namespace E2ERepositories
         public string LastName { get; set; }
         public string NickName { get; set; }
         public string Title { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
@@ -46,7 +46,7 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public int RoleID { get; set; }
         public int EmployerID { get; set; }
-        public System.DateTime InceptionDate { get; set; }
+        public Nullable<System.DateTime> InceptionDate { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual E2E_UserRole E2E_UserRole { get; set; }

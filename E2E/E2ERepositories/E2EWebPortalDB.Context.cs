@@ -313,5 +313,10 @@ namespace E2ERepositories
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
+    
+        public virtual int sp_AddLoginSendInvite(ObjectParameter userId)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddLoginSendInvite", userId);
+        }
     }
 }

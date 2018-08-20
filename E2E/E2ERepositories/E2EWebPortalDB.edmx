@@ -52,7 +52,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="NickName" Type="varchar" MaxLength="50" />
           <Property Name="Title" Type="varchar" MaxLength="50" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="Address1" Type="varchar" MaxLength="100" />
           <Property Name="Address2" Type="varchar" MaxLength="100" />
           <Property Name="City" Type="varchar" MaxLength="70" />
@@ -70,7 +70,7 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="EmployerID" Type="int" Nullable="false" />
-          <Property Name="InceptionDate" Type="date" Nullable="false" />
+          <Property Name="InceptionDate" Type="date" />
         </EntityType>
         <EntityType Name="EmployerAdmin">
           <Key>
@@ -543,6 +543,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_AddLoginSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -770,7 +773,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
@@ -788,7 +791,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="EmployerID" Type="Int32" Nullable="false" />
-          <Property Name="InceptionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="InceptionDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Business" Relationship="Self.FK_Employee_Employer" FromRole="Employee" ToRole="Business" />
           <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_Employee_E2E_UserRole" FromRole="Employee" ToRole="E2E_UserRole" />
           <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
@@ -1345,6 +1348,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <End Role="UserAccount" EntitySet="UserAccounts" />
           </AssociationSet>
           <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
+          <FunctionImport Name="sp_AddLoginSendInvite">
+            <Parameter Name="UserId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1990,6 +1996,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddLoginSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddLoginSendInvite" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
