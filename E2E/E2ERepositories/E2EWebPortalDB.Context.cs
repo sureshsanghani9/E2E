@@ -314,9 +314,107 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessList_Result>("sp_GetBusinessList");
         }
     
-        public virtual int sp_AddLoginSendInvite(ObjectParameter userId)
+        public virtual int sp_UpdateLoginCount()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddLoginSendInvite", userId);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateLoginCount");
+        }
+    
+        public virtual int sp_UpsertEmpAdminUser(Nullable<int> adminUserID, string userName, string password, Nullable<int> employerID, Nullable<int> roleID, Nullable<int> active, string adminUserFirstName, string adminuserMiddleName, string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip, string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, Nullable<bool> isPrimary)
+        {
+            var adminUserIDParameter = adminUserID.HasValue ?
+                new ObjectParameter("AdminUserID", adminUserID) :
+                new ObjectParameter("AdminUserID", typeof(int));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("Active", active) :
+                new ObjectParameter("Active", typeof(int));
+    
+            var adminUserFirstNameParameter = adminUserFirstName != null ?
+                new ObjectParameter("AdminUserFirstName", adminUserFirstName) :
+                new ObjectParameter("AdminUserFirstName", typeof(string));
+    
+            var adminuserMiddleNameParameter = adminuserMiddleName != null ?
+                new ObjectParameter("AdminuserMiddleName", adminuserMiddleName) :
+                new ObjectParameter("AdminuserMiddleName", typeof(string));
+    
+            var adminUserLastNameParameter = adminUserLastName != null ?
+                new ObjectParameter("AdminUserLastName", adminUserLastName) :
+                new ObjectParameter("AdminUserLastName", typeof(string));
+    
+            var adminUserNickNameParameter = adminUserNickName != null ?
+                new ObjectParameter("AdminUserNickName", adminUserNickName) :
+                new ObjectParameter("AdminUserNickName", typeof(string));
+    
+            var adminTitleParameter = adminTitle != null ?
+                new ObjectParameter("AdminTitle", adminTitle) :
+                new ObjectParameter("AdminTitle", typeof(string));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("Address1", address1) :
+                new ObjectParameter("Address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("Address2", address2) :
+                new ObjectParameter("Address2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var workPhoneNumberParameter = workPhoneNumber != null ?
+                new ObjectParameter("WorkPhoneNumber", workPhoneNumber) :
+                new ObjectParameter("WorkPhoneNumber", typeof(string));
+    
+            var extnParameter = extn != null ?
+                new ObjectParameter("Extn", extn) :
+                new ObjectParameter("Extn", typeof(string));
+    
+            var cellPhoneNumberParameter = cellPhoneNumber != null ?
+                new ObjectParameter("CellPhoneNumber", cellPhoneNumber) :
+                new ObjectParameter("CellPhoneNumber", typeof(string));
+    
+            var primaryEmailParameter = primaryEmail != null ?
+                new ObjectParameter("PrimaryEmail", primaryEmail) :
+                new ObjectParameter("PrimaryEmail", typeof(string));
+    
+            var secondaryEmailParameter = secondaryEmail != null ?
+                new ObjectParameter("SecondaryEmail", secondaryEmail) :
+                new ObjectParameter("SecondaryEmail", typeof(string));
+    
+            var isPrimaryParameter = isPrimary.HasValue ?
+                new ObjectParameter("IsPrimary", isPrimary) :
+                new ObjectParameter("IsPrimary", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertEmpAdminUser", adminUserIDParameter, userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, adminUserFirstNameParameter, adminuserMiddleNameParameter, adminUserLastNameParameter, adminUserNickNameParameter, adminTitleParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter, isPrimaryParameter);
+        }
+    
+        public virtual int sp_AddUserSendInvite()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUserSendInvite");
         }
     }
 }

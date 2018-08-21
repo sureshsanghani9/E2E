@@ -1,4 +1,5 @@
-﻿using E2EViewModals.User;
+﻿using E2EViewModals.Invitations;
+using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace E2ERepositories.Interface
         int AddEmpAdminUser(string userName, string password, int employerID, int roleID, int active, string adminUserFirstName, string adminuserMiddleName,
             string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip,
             string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, bool isPrimary);
+
+        bool AddUserSendInvite(List<Invite> invites, int? EmployerID);
 
     }
 }

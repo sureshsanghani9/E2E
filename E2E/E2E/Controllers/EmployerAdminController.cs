@@ -118,9 +118,16 @@ namespace E2E.Controllers
             }
             else
             {
+                var isSuccess = _userRepo.AddUserSendInvite(Invitations.Invites, user.EmployerID);
+
+                if (!isSuccess)
+                {
+                    return Json(new { Code = 0, Message = "Something wrong is occured. Please try after sometime!" });
+                }
+
                 foreach (Invite invite in Invitations.Invites)
                 {
-                    string code = EncryptionHelper.Encrypt(invite.FirstName + "||" + invite.LastName + "||" + invite.Role);
+                    string code = EncryptionHelper.Encrypt(invite.UserID + "||" + invite.FirstName + "||" + invite.LastName + "||" + invite.Role);
                     SendInvitationEmail(invite.Email, invite.AdditionalNotes, user.BusinessName, code);
                 }
 

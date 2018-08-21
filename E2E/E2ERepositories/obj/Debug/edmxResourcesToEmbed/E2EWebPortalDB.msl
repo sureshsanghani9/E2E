@@ -120,6 +120,7 @@
     <EntitySetMapping Name="Reviewers">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Reviewer">
         <MappingFragment StoreEntitySet="Reviewer">
+          <ScalarProperty Name="Extn" ColumnName="Extn" />
           <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
           <ScalarProperty Name="ReviewerFirstName" ColumnName="ReviewerFirstName" />
           <ScalarProperty Name="ReviewerMiddleName" ColumnName="ReviewerMiddleName" />
@@ -447,6 +448,8 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_AddLoginSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddLoginSendInvite" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateLoginCount" FunctionName="E2EWebPortalModel.Store.sp_UpdateLoginCount" />
+    <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
+    <FunctionImportMapping FunctionImportName="sp_AddUserSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddUserSendInvite" />
   </EntityContainerMapping>
 </Mapping>

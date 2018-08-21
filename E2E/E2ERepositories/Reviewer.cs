@@ -42,6 +42,7 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public int RoleID { get; set; }
         public int EmployerID { get; set; }
+        public string Extn { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual E2E_UserRole E2E_UserRole { get; set; }

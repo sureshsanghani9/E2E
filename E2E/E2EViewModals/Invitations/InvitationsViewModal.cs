@@ -18,5 +18,6 @@ namespace E2EViewModals.Invitations
         public string Email { get; set; }
         public int Role { get; set; }
         public string AdditionalNotes { get; set; }
+        public int UserID { get; set; }
     }
 }

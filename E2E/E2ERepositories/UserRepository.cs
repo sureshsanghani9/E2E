@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using E2EViewModals.User;
 using AutoMapper;
 using E2EInfrastructure.Helpers;
+using E2EViewModals.Invitations;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace E2ERepositories
 {
@@ -117,11 +120,47 @@ namespace E2ERepositories
             using (var db = new E2EWebPortalEntities())
             {
                 return db.sp_InsertEmpAdminUser(userName, password, employerID, roleID, active, adminUserFirstName, adminuserMiddleName,
-                        adminUserLastName,  adminUserNickName, adminTitle, address1, address2, city, state, zip,
+                        adminUserLastName, adminUserNickName, adminTitle, address1, address2, city, state, zip,
                         workPhoneNumber, extn, cellPhoneNumber, primaryEmail, secondaryEmail, isPrimary);
             }
 
         }
+
+        public bool AddUserSendInvite(List<Invite> invites, int? EmployerID)
+        {
+            //using (SqlConnection conn = new SqlConnection("data source=kumudini.database.windows.net;initial catalog=E2EWebPortal;persist security info=True;user id=SRV_E2EWebPortal;password=Admin@e2e;MultipleActiveResultSets=True;"))
+            using (var db = new E2EWebPortalEntities())
+            {
+                var dt = new DataTable();
+                dt.Columns.Add("FirstName");
+                dt.Columns.Add("LastName");
+                dt.Columns.Add("Email");
+                dt.Columns.Add("RoleID");
+                dt.Columns.Add("Notes");
+                dt.Columns.Add("EmployerID");
+                dt.Columns.Add("UserName");
+
+                foreach (Invite invite in invites)
+                {
+                    dt.Rows.Add(invite.FirstName, invite.LastName, invite.Email, invite.Role, invite.AdditionalNotes,  EmployerID, invite.Email);
+                }
+
+
+                var inviteList = new SqlParameter("InviteList", dt);
+                inviteList.TypeName = "[dbo].[SendInvitation]";
+
+                var users = db.Database.SqlQuery<int>("exec sp_AddUserSendInvite @InviteList", inviteList).ToList();
+
+                int i = 0;
+                foreach (int user in users)
+                {
+                    invites[i].UserID = user;
+                    i++;
+                }
+                return users.Any();
+            }
+        }
+
 
     }
 }

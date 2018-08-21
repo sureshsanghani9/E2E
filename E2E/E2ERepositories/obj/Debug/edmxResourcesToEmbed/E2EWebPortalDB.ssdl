@@ -165,6 +165,7 @@
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
     <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
+    <Property Name="Extn" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Subscription">
     <Key>
@@ -538,9 +539,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="sp_AddLoginSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="UserId" Type="int" Mode="InOut" />
-  </Function>
+  <Function Name="sp_AddUserSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -608,6 +607,31 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   <Function Name="sp_ManageBusinessActivation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IsActive" Type="varchar" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdateLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_UpsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AdminUserID" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="Active" Type="int" Mode="In" />
+    <Parameter Name="AdminUserFirstName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminuserMiddleName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminUserLastName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminUserNickName" Type="varchar" Mode="In" />
+    <Parameter Name="AdminTitle" Type="varchar" Mode="In" />
+    <Parameter Name="Address1" Type="varchar" Mode="In" />
+    <Parameter Name="Address2" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="WorkPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="Extn" Type="varchar" Mode="In" />
+    <Parameter Name="CellPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="IsPrimary" Type="bit" Mode="In" />
   </Function>
   <EntityContainer Name="E2EWebPortalModelStoreContainer">
     <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />

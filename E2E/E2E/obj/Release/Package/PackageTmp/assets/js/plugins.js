@@ -1078,7 +1078,7 @@
                     if (elem.attr("multiple") != true) {
                         //element is not a multi-select
                         if (elem.attr("size") == undefined || elem.attr("size") <= 1) {
-                            doSelect(elem);
+                            if (!elem.hasClass("noselect")) { doSelect(elem); }
                         }
                     }
                 } else if (elem.is(":checkbox")) {

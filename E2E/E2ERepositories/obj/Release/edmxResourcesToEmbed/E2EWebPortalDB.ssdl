@@ -47,7 +47,7 @@
     <Property Name="LastName" Type="varchar" MaxLength="50" />
     <Property Name="NickName" Type="varchar" MaxLength="50" />
     <Property Name="Title" Type="varchar" MaxLength="50" />
-    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="DateOfBirth" Type="date" />
     <Property Name="Address1" Type="varchar" MaxLength="100" />
     <Property Name="Address2" Type="varchar" MaxLength="100" />
     <Property Name="City" Type="varchar" MaxLength="70" />
@@ -65,7 +65,7 @@
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
     <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
-    <Property Name="InceptionDate" Type="date" Nullable="false" />
+    <Property Name="InceptionDate" Type="date" />
   </EntityType>
   <EntityType Name="EmployerAdmin">
     <Key>
@@ -537,6 +537,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AddLoginSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="InOut" />
   </Function>
   <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />

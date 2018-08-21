@@ -56,7 +56,13 @@
                     <span class="error mHide"></span>
                 </td>
                 <td>
-                    <input type="number" name="Role" class="g9 integer" min="1" max="4" value="2">
+                    <select name="Role" class="g12 noselect">
+                        <optgroup label="Roles">
+                            <option value="2" selected="selected">EmployerAdmin</option>
+                            <option value="3">Reviewer</option>
+                            <option value="4">Employee</option>
+                        </optgroup>
+                    </select>
                     <span class="error mHide"></span>
                 </td>
                 <td>
@@ -86,7 +92,13 @@
         tr += '    <span class="error mHide"></span>';
         tr += '</td>';
         tr += '<td>';
-        tr += '    <input type="number" name="Role" class="g9 integer" min="1" max="4" value="2">';
+        tr += '    <select name="Role" class="g12 noselect">';
+        tr += '        <optgroup label="Roles">';
+        tr += '             <option value="2" selected="selected">EmployerAdmin</option>';
+        tr += '             <option value="3">Reviewer</option>';
+        tr += '             <option value="4">Employee</option>';
+        tr += '        </optgroup>';
+        tr += '    </select>';
         tr += '    <span class="error mHide"></span>';
         tr += '</td>';
         tr += '<td>';
@@ -106,7 +118,7 @@
             var invite = { FirstName: "", LastName: "", Email: "", Role: 2, AdditionalNotes: "" };
             $.each($("#tblEmailInvitations td").not(".delRow"), function (i, obj) {
                 var td = $(obj);
-                var input = $(td).children('input:first-child');
+                var input = $(td).children('input:first-child, select:first-child');
                 var span = $(td).children('span');
                 var name = $(input).attr("name");
                 var val = $(input).val();
@@ -154,8 +166,7 @@
                 }
             });
             Invitations.Invites = invites;
-            if (!isValid)
-            {
+            if (!isValid) {
                 $.msg("Please fill all required details!");
                 return;
             }
