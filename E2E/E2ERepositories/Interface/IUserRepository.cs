@@ -28,7 +28,10 @@ namespace E2ERepositories.Interface
             string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip,
             string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, bool isPrimary);
 
-        bool AddUserSendInvite(List<Invite> invites, int? EmployerID);
+        bool AddUserSendInvite(List<Invite> invites, int? EmployerID, string UserName);
+
+        bool IsUserAddedIntoUserAccount(int UserID, int RoleID);
+        int UpsertEmpAdminUser(EmployerAdminViewModal user);
 
     }
 }

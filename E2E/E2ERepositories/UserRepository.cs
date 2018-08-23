@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E2EViewModals.User;
 using AutoMapper;
 using E2EInfrastructure.Helpers;
 using E2EViewModals.Invitations;
 using System.Data;
 using System.Data.SqlClient;
+using static E2EViewModals.CommanEnums;
 
 namespace E2ERepositories
 {
@@ -126,7 +125,7 @@ namespace E2ERepositories
 
         }
 
-        public bool AddUserSendInvite(List<Invite> invites, int? EmployerID)
+        public bool AddUserSendInvite(List<Invite> invites, int? EmployerID, string UserName)
         {
             //using (SqlConnection conn = new SqlConnection("data source=kumudini.database.windows.net;initial catalog=E2EWebPortal;persist security info=True;user id=SRV_E2EWebPortal;password=Admin@e2e;MultipleActiveResultSets=True;"))
             using (var db = new E2EWebPortalEntities())
@@ -142,7 +141,7 @@ namespace E2ERepositories
 
                 foreach (Invite invite in invites)
                 {
-                    dt.Rows.Add(invite.FirstName, invite.LastName, invite.Email, invite.Role, invite.AdditionalNotes,  EmployerID, invite.Email);
+                    dt.Rows.Add(invite.FirstName, invite.LastName, invite.Email, invite.Role, invite.AdditionalNotes, EmployerID, UserName);
                 }
 
 
@@ -161,6 +160,54 @@ namespace E2ERepositories
             }
         }
 
+        public bool IsUserAddedIntoUserAccount(int UserID, int RoleID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                switch (RoleID)
+                {
+                    case (int)UserRoles.EmployerAdmin:
+                        return db.UserAccounts.Any(u => u.AdminUserID == UserID);
+                    case (int)UserRoles.Reviewer:
+                        return db.UserAccounts.Any(u => u.ReviewerID == UserID);
+                    case (int)UserRoles.Employee:
+                        return db.UserAccounts.Any(u => u.EmployeeID == UserID);
+                    default:
+                        return true;
+                }
+            }
+        }
+
+        public int UpsertEmpAdminUser(EmployerAdminViewModal user)
+        {
+            user.Password = EncryptionHelper.Encrypt(user.Password);
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpsertEmpAdminUser( user.AdminUserID
+                                                ,user.UserName
+                                                ,user.Password
+                                                ,user.EmployerID
+                                                ,user.RoleID
+                                                ,user.Active
+                                                ,user.AdminUserFirstName
+                                                ,user.AdminuserMiddleName
+                                                ,user.AdminUserLastName
+                                                ,user.AdminUserNickName
+                                                ,user.AdminTitle
+                                                ,user.Address1
+                                                ,user.Address2
+                                                ,user.City
+                                                ,user.State
+                                                ,user.zip
+                                                ,user.WorkPhoneNumber
+                                                ,user.Extn
+                                                ,user.CellPhoneNumber
+                                                ,user.PrimaryEmail
+                                                ,user.SecondaryEmail
+                                                ,user.IsPrimary);
+            }
+
+        }
 
     }
 }

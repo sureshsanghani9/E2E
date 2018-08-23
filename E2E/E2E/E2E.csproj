@@ -978,6 +978,7 @@
     <Compile Include="Controllers\EmployerAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WebAppAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1012,6 +1013,7 @@
     <Content Include="Views\EmployerAdmin\ManageAdmin.cshtml" />
     <Content Include="Views\EmployerAdmin\Reports.cshtml" />
     <Content Include="Views\EmployerAdmin\Subscription.cshtml" />
+    <Content Include="Views\EmployerAdmin\Signup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1023,6 +1025,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\css\dark\images\images\" />
     <Folder Include="assets\css\light\images\images\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E2EInfrastructure\E2EInfrastructure.csproj">

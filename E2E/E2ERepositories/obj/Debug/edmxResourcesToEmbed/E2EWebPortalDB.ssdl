@@ -633,6 +633,30 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
     <Parameter Name="IsPrimary" Type="bit" Mode="In" />
   </Function>
+  <Function Name="sp_UpsertReviewer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ReviewerID" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="Active" Type="int" Mode="In" />
+    <Parameter Name="ReviewerFirstName" Type="varchar" Mode="In" />
+    <Parameter Name="ReviewerMiddleName" Type="varchar" Mode="In" />
+    <Parameter Name="ReviewerLastName" Type="varchar" Mode="In" />
+    <Parameter Name="ReviewerNickName" Type="varchar" Mode="In" />
+    <Parameter Name="ReviewerTitle" Type="varchar" Mode="In" />
+    <Parameter Name="DateOfBirth" Type="date" Mode="In" />
+    <Parameter Name="Address1" Type="varchar" Mode="In" />
+    <Parameter Name="Address2" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="WorkPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="Extn" Type="varchar" Mode="In" />
+    <Parameter Name="CellPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+  </Function>
   <EntityContainer Name="E2EWebPortalModelStoreContainer">
     <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" Schema="dbo" store:Type="Tables" />

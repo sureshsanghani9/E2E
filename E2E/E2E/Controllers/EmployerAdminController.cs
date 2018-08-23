@@ -108,7 +108,6 @@ namespace E2E.Controllers
             return View();
         }
 
-
         public JsonResult SendInvitations(InvitationsViewModal Invitations)
         {
             var user = (UserViewModal)Session["User"];
@@ -118,7 +117,7 @@ namespace E2E.Controllers
             }
             else
             {
-                var isSuccess = _userRepo.AddUserSendInvite(Invitations.Invites, user.EmployerID);
+                var isSuccess = _userRepo.AddUserSendInvite(Invitations.Invites, user.EmployerID, user.UserName);
 
                 if (!isSuccess)
                 {
@@ -127,7 +126,7 @@ namespace E2E.Controllers
 
                 foreach (Invite invite in Invitations.Invites)
                 {
-                    string code = EncryptionHelper.Encrypt(invite.UserID + "||" + invite.FirstName + "||" + invite.LastName + "||" + invite.Role);
+                    string code = EncryptionHelper.Encrypt(invite.UserID + "||" + invite.FirstName + "||" + invite.LastName + "||" + invite.Role + "||" + user.EmployerID + "||" + invite.Email);
                     SendInvitationEmail(invite.Email, invite.AdditionalNotes, user.BusinessName, code);
                 }
 
@@ -138,6 +137,8 @@ namespace E2E.Controllers
 
         private void SendInvitationEmail(string Email, string AdditionalNotes, string BusinessName, string Code)
         {
+            Email = "suresh.sanghani88@gmail.com";
+
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Create your new E2EWebPortal Login Profile.";
             String emailBody = "Hello, <br/><br/> Please click on following link/button to create New Login profile and password  for E2EWebPortal. <br/>"
@@ -149,6 +150,72 @@ namespace E2E.Controllers
 
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, Email, subject, emailBody, null, "", true);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Signup()
+        {
+            if (TempData["SignUpCode"] == null)
+            {
+                TempData["ConfirmationType"] = "AlreadySignUp";
+                return RedirectToAction("Confirmation", "Home");
+            }
+
+            var userData = EncryptionHelper.Decrypt(TempData["SignUpCode"].ToString()).Split(new string[] { "||" }, StringSplitOptions.None);
+
+            ViewBag.FirstName = userData[1];
+            ViewBag.LastName = userData[2];
+            ViewBag.AdminUserID = Convert.ToInt16(userData[0]);
+            ViewBag.RoleID = Convert.ToInt16(userData[3]);
+            ViewBag.EmployerID = Convert.ToInt16(userData[3]);
+            ViewBag.UserName = userData[5];
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult SignUpEmployerAdmin(FormCollection form)
+        {
+            EmployerAdminViewModal user = new EmployerAdminViewModal();
+            user.UserName = Convert.ToString(form["UserName"].ToString());
+            user.Password = Convert.ToString(form["Password"].ToString());
+            user.AdminUserID = Convert.ToInt16(form["AdminUserID"] != "" ? form["AdminUserID"].ToString() : "0");
+            user.EmployerID = Convert.ToInt16(form["EmployerID"] != "" ? form["EmployerID"].ToString() : "0");
+            user.RoleID = Convert.ToInt16(form["RoleID"] != "" ? form["RoleID"].ToString() : "0");
+            user.Active = Convert.ToInt16(form["Active"] == "Yes" ? "1" : "0");
+            user.AdminUserFirstName = Convert.ToString(form["AdminUserFirstName"].ToString());
+            user.AdminuserMiddleName = Convert.ToString(form["AdminuserMiddleName"].ToString());
+            user.AdminUserLastName = Convert.ToString(form["AdminUserLastName"].ToString());
+            user.AdminUserNickName = Convert.ToString(form["AdminUserNickName"].ToString());
+            user.AdminTitle = Convert.ToString(form["AdminTitle"].ToString());
+            user.Address1 = Convert.ToString(form["Address1"].ToString());
+            user.Address2 = Convert.ToString(form["Address2"].ToString());
+            user.City = Convert.ToString(form["City"].ToString());
+            user.State = Convert.ToString(form["State"].ToString());
+            user.zip = Convert.ToString(form["zip"].ToString());
+            user.WorkPhoneNumber = Convert.ToString(form["WorkPhoneNumber"].ToString());
+            user.Extn = Convert.ToString(form["Extn"].ToString());
+            user.CellPhoneNumber = Convert.ToString(form["CellPhoneNumber"].ToString());
+            user.PrimaryEmail = Convert.ToString(form["PrimaryEmail"].ToString());
+            user.SecondaryEmail = Convert.ToString(form["SecondaryEmail"].ToString());
+            user.IsPrimary = Convert.ToBoolean(form["Primary"] == "Yes");
+
+
+
+            var result = _userRepo.UpsertEmpAdminUser(user);
+
+            if (result > 0)
+            {
+                TempData["ConfirmationType"] = "SignUpSuccessful"; 
+                return Json(new { Code = 1, Message = "You are registered successfully with E2EWebPortal." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+
         }
 
     }
