@@ -451,5 +451,6 @@
     <FunctionImportMapping FunctionImportName="sp_UpdateLoginCount" FunctionName="E2EWebPortalModel.Store.sp_UpdateLoginCount" />
     <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
     <FunctionImportMapping FunctionImportName="sp_AddUserSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddUserSendInvite" />
+    <FunctionImportMapping FunctionImportName="sp_UpsertReviewer" FunctionName="E2EWebPortalModel.Store.sp_UpsertReviewer" />
   </EntityContainerMapping>
 </Mapping>

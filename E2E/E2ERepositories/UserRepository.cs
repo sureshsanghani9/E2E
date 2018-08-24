@@ -209,5 +209,36 @@ namespace E2ERepositories
 
         }
 
+        public int UpsertReviewer(ReviewerViewModal user)
+        {
+            user.Password = EncryptionHelper.Encrypt(user.Password);
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpsertReviewer(user.ReviewerID
+                                                , user.UserName
+                                                , user.Password
+                                                , user.EmployerID
+                                                , user.RoleID
+                                                , user.Active
+                                                , user.ReviewerFirstName
+                                                , user.ReviewerMiddleName
+                                                , user.ReviewerLastName
+                                                , user.ReviewerNickName
+                                                , user.ReviewerTitle
+                                                , user.DateOfBirth
+                                                , user.Address1
+                                                , user.Address2
+                                                , user.City
+                                                , user.State
+                                                , user.zip
+                                                , user.WorkPhoneNumber
+                                                , user.Extn
+                                                , user.CellPhoneNumber
+                                                , user.PrimaryEmail
+                                                , user.SecondaryEmail);
+            }
+
+        }
+
     }
 }

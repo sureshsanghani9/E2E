@@ -1398,6 +1398,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           </AssociationSet>
           <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
           <FunctionImport Name="sp_UpdateLoginCount" />
+          <FunctionImport Name="sp_AddUserSendInvite" />
           <FunctionImport Name="sp_UpsertEmpAdminUser">
             <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -1422,7 +1423,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
             <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="sp_AddUserSendInvite" />
           <FunctionImport Name="sp_UpsertReviewer">
             <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -2094,8 +2094,8 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_UpdateLoginCount" FunctionName="E2EWebPortalModel.Store.sp_UpdateLoginCount" />
-          <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
           <FunctionImportMapping FunctionImportName="sp_AddUserSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddUserSendInvite" />
+          <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
           <FunctionImportMapping FunctionImportName="sp_UpsertReviewer" FunctionName="E2EWebPortalModel.Store.sp_UpsertReviewer" />
         </EntityContainerMapping>
       </Mapping>

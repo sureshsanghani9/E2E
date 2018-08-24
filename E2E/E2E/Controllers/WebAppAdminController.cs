@@ -136,11 +136,12 @@ namespace E2E.Controllers
 
         private void SendResetPasswordLink(string toEmail, string Code)
         {
+            toEmail = "suresh.sanghani88@gmail.com";
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Welcome to E2EWebPortal new account setup";
             String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal web applicaion. <br/><br/> Please follow below instructions to setup new account to start service : <br/><br/>"
                 + "1. Click on below link to create new business account and primary Admin user. <br/><br/>"
-                + "Link : <a href='" + baseURL + "/EmployerAdmin/AddEmployerAdmin?code=" + Code + "'>Click here</a> <br/><br/>"
+                + "Link : <a href='" + baseURL + "/EmployerAdmin/AddEmployerAdmin?code=" + HttpUtility.UrlEncode(Code) + "'>Click here</a> <br/><br/>"
                 + "2. After completion of information fill out, your account will be created and you will be redirected to Payment page. <br/>"
                 + "3. Please make payment through Paypal. <br/>"
                 + "4. Upon successful payment process, your account will be activated within 1 business day. Meanwhile, review User manual to learn more about this application service. <br/>"

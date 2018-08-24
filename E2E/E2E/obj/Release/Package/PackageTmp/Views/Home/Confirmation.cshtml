@@ -43,6 +43,26 @@
         <p>Please check your email for valid link or Contact Website Administrator!</p>
         <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
     }
+    else if (TempData["ConfirmationType"] != null && TempData["ConfirmationType"].ToString() == "AlreadySignUp")
+    {
+
+        <h1>Already</h1>
+        <h2>Signup!</h2>
+        <hr>
+        <p>You have already signup with E2EWebPortal</p>
+        <p>Please login with your Email. If you forget your password, You can reset it using Froget Password on Login Page!</p>
+        <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+    }
+    else if (TempData["ConfirmationType"] != null && TempData["ConfirmationType"].ToString() == "SignUpSuccessful")
+    {
+
+        <h1>Success</h1>
+        <h2>Signup!</h2>
+        <hr>
+        <p>You have successfully signup with E2EWebPortal</p>
+        <p>Please login with your User Name and Password!</p>
+        <a class="btn small" href="~/Home/Index">&lsaquo; Back to Login</a>
+    }
     else
     {
     }

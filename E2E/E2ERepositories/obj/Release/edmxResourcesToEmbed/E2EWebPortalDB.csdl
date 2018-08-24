@@ -661,6 +661,30 @@
       <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
     </FunctionImport>
     <FunctionImport Name="sp_AddUserSendInvite" />
+    <FunctionImport Name="sp_UpsertReviewer">
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="Active" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerFirstName" Mode="In" Type="String" />
+      <Parameter Name="ReviewerMiddleName" Mode="In" Type="String" />
+      <Parameter Name="ReviewerLastName" Mode="In" Type="String" />
+      <Parameter Name="ReviewerNickName" Mode="In" Type="String" />
+      <Parameter Name="ReviewerTitle" Mode="In" Type="String" />
+      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="Address1" Mode="In" Type="String" />
+      <Parameter Name="Address2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="WorkPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Extn" Mode="In" Type="String" />
+      <Parameter Name="CellPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+      <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />

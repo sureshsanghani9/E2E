@@ -33,5 +33,7 @@ namespace E2ERepositories.Interface
         bool IsUserAddedIntoUserAccount(int UserID, int RoleID);
         int UpsertEmpAdminUser(EmployerAdminViewModal user);
 
+        int UpsertReviewer(ReviewerViewModal user);
+
     }
 }

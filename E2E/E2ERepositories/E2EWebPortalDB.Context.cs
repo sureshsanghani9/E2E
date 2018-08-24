@@ -319,6 +319,11 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateLoginCount");
         }
     
+        public virtual int sp_AddUserSendInvite()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUserSendInvite");
+        }
+    
         public virtual int sp_UpsertEmpAdminUser(Nullable<int> adminUserID, string userName, string password, Nullable<int> employerID, Nullable<int> roleID, Nullable<int> active, string adminUserFirstName, string adminuserMiddleName, string adminUserLastName, string adminUserNickName, string adminTitle, string address1, string address2, string city, string state, string zip, string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, Nullable<bool> isPrimary)
         {
             var adminUserIDParameter = adminUserID.HasValue ?
@@ -410,11 +415,6 @@ namespace E2ERepositories
                 new ObjectParameter("IsPrimary", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertEmpAdminUser", adminUserIDParameter, userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, adminUserFirstNameParameter, adminuserMiddleNameParameter, adminUserLastNameParameter, adminUserNickNameParameter, adminTitleParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter, isPrimaryParameter);
-        }
-    
-        public virtual int sp_AddUserSendInvite()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUserSendInvite");
         }
     
         public virtual int sp_UpsertReviewer(Nullable<int> reviewerID, string userName, string password, Nullable<int> employerID, Nullable<int> roleID, Nullable<int> active, string reviewerFirstName, string reviewerMiddleName, string reviewerLastName, string reviewerNickName, string reviewerTitle, Nullable<System.DateTime> dateOfBirth, string address1, string address2, string city, string state, string zip, string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail)

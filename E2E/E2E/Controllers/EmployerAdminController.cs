@@ -142,7 +142,7 @@ namespace E2E.Controllers
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Create your new E2EWebPortal Login Profile.";
             String emailBody = "Hello, <br/><br/> Please click on following link/button to create New Login profile and password  for E2EWebPortal. <br/>"
-                + "Link : <a href='" + baseURL + "/User/SignUp?code=" + Code + "'>Click here</a> <br/><br/>"
+                + "Link : <a href='" + baseURL + "/User/SignUp?code=" + HttpUtility.UrlEncode(Code) + "'>Click here</a> <br/><br/>"
                 + (!string.IsNullOrEmpty(AdditionalNotes) ? "Additional Notes : " + AdditionalNotes + "<br/><br/> " : "")
                 + "Regards, <br/> " + BusinessName + " ";
 
@@ -167,7 +167,7 @@ namespace E2E.Controllers
             ViewBag.LastName = userData[2];
             ViewBag.AdminUserID = Convert.ToInt16(userData[0]);
             ViewBag.RoleID = Convert.ToInt16(userData[3]);
-            ViewBag.EmployerID = Convert.ToInt16(userData[3]);
+            ViewBag.EmployerID = Convert.ToInt16(userData[4]);
             ViewBag.UserName = userData[5];
 
             return View();
@@ -205,7 +205,7 @@ namespace E2E.Controllers
 
             var result = _userRepo.UpsertEmpAdminUser(user);
 
-            if (result > 0)
+            if (result == -1)
             {
                 TempData["ConfirmationType"] = "SignUpSuccessful"; 
                 return Json(new { Code = 1, Message = "You are registered successfully with E2EWebPortal." });
