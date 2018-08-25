@@ -1015,6 +1015,7 @@
     <Content Include="Views\EmployerAdmin\Subscription.cshtml" />
     <Content Include="Views\EmployerAdmin\Signup.cshtml" />
     <Content Include="Views\Reviewer\Signup.cshtml" />
+    <Content Include="Views\Employee\Signup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

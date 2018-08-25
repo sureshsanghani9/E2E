@@ -636,6 +636,7 @@
     </AssociationSet>
     <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
     <FunctionImport Name="sp_UpdateLoginCount" />
+    <FunctionImport Name="sp_AddUserSendInvite" />
     <FunctionImport Name="sp_UpsertEmpAdminUser">
       <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
       <Parameter Name="UserName" Mode="In" Type="String" />
@@ -660,7 +661,6 @@
       <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
       <Parameter Name="IsPrimary" Mode="In" Type="Boolean" />
     </FunctionImport>
-    <FunctionImport Name="sp_AddUserSendInvite" />
     <FunctionImport Name="sp_UpsertReviewer">
       <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
       <Parameter Name="UserName" Mode="In" Type="String" />

@@ -137,7 +137,7 @@ namespace E2E.Controllers
 
         private void SendInvitationEmail(string Email, string AdditionalNotes, string BusinessName, string Code)
         {
-            Email = "suresh.sanghani88@gmail.com";
+            //Email = "suresh.sanghani88@gmail.com";
 
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Create your new E2EWebPortal Login Profile.";

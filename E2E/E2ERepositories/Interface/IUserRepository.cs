@@ -35,5 +35,7 @@ namespace E2ERepositories.Interface
 
         int UpsertReviewer(ReviewerViewModal user);
 
+        int UpsertEmployee(EmployeeViewModal user);
+
     }
 }

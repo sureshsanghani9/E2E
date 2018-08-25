@@ -509,5 +509,106 @@ namespace E2ERepositories
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertReviewer", reviewerIDParameter, userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, reviewerFirstNameParameter, reviewerMiddleNameParameter, reviewerLastNameParameter, reviewerNickNameParameter, reviewerTitleParameter, dateOfBirthParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter);
         }
+    
+        public virtual int sp_UpsertEmployee(Nullable<int> employeeID, string userName, string password, Nullable<int> employerID, Nullable<int> roleID, Nullable<int> active, string firstName, string middleName, string lastName, string nickName, string title, Nullable<System.DateTime> dateOfBirth, string address1, string address2, string city, string state, string zip, string workPhoneNumber, string extn, string cellPhoneNumber, string primaryEmail, string secondaryEmail, string currentVisaStatus, string currentVisaValidity)
+        {
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("Active", active) :
+                new ObjectParameter("Active", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var middleNameParameter = middleName != null ?
+                new ObjectParameter("MiddleName", middleName) :
+                new ObjectParameter("MiddleName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var nickNameParameter = nickName != null ?
+                new ObjectParameter("NickName", nickName) :
+                new ObjectParameter("NickName", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var dateOfBirthParameter = dateOfBirth.HasValue ?
+                new ObjectParameter("DateOfBirth", dateOfBirth) :
+                new ObjectParameter("DateOfBirth", typeof(System.DateTime));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("Address1", address1) :
+                new ObjectParameter("Address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("Address2", address2) :
+                new ObjectParameter("Address2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var workPhoneNumberParameter = workPhoneNumber != null ?
+                new ObjectParameter("WorkPhoneNumber", workPhoneNumber) :
+                new ObjectParameter("WorkPhoneNumber", typeof(string));
+    
+            var extnParameter = extn != null ?
+                new ObjectParameter("Extn", extn) :
+                new ObjectParameter("Extn", typeof(string));
+    
+            var cellPhoneNumberParameter = cellPhoneNumber != null ?
+                new ObjectParameter("CellPhoneNumber", cellPhoneNumber) :
+                new ObjectParameter("CellPhoneNumber", typeof(string));
+    
+            var primaryEmailParameter = primaryEmail != null ?
+                new ObjectParameter("PrimaryEmail", primaryEmail) :
+                new ObjectParameter("PrimaryEmail", typeof(string));
+    
+            var secondaryEmailParameter = secondaryEmail != null ?
+                new ObjectParameter("SecondaryEmail", secondaryEmail) :
+                new ObjectParameter("SecondaryEmail", typeof(string));
+    
+            var currentVisaStatusParameter = currentVisaStatus != null ?
+                new ObjectParameter("CurrentVisaStatus", currentVisaStatus) :
+                new ObjectParameter("CurrentVisaStatus", typeof(string));
+    
+            var currentVisaValidityParameter = currentVisaValidity != null ?
+                new ObjectParameter("CurrentVisaValidity", currentVisaValidity) :
+                new ObjectParameter("CurrentVisaValidity", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertEmployee", employeeIDParameter, userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, firstNameParameter, middleNameParameter, lastNameParameter, nickNameParameter, titleParameter, dateOfBirthParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter, currentVisaStatusParameter, currentVisaValidityParameter);
+        }
     }
 }

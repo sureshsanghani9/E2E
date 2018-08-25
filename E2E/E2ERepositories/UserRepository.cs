@@ -240,5 +240,38 @@ namespace E2ERepositories
 
         }
 
+        public int UpsertEmployee(EmployeeViewModal user)
+        {
+            user.Password = EncryptionHelper.Encrypt(user.Password);
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpsertEmployee(user.EmployeeID
+                                                , user.UserName
+                                                , user.Password
+                                                , user.EmployerID
+                                                , user.RoleID
+                                                , user.Active
+                                                , user.FirstName
+                                                , user.MiddleName
+                                                , user.LastName
+                                                , user.NickName
+                                                , user.Title
+                                                , user.DateOfBirth
+                                                , user.Address1
+                                                , user.Address2
+                                                , user.City
+                                                , user.State
+                                                , user.zip
+                                                , user.WorkPhoneNumber
+                                                , user.Extn
+                                                , user.CellPhoneNumber
+                                                , user.PrimaryEmail
+                                                , user.SecondaryEmail
+                                                , user.CurrentVisaStatus
+                                                , user.CurrentVisaValidity);
+            }
+
+        }
+
     }
 }

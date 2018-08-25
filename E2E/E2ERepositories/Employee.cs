@@ -47,6 +47,7 @@ namespace E2ERepositories
         public int RoleID { get; set; }
         public int EmployerID { get; set; }
         public Nullable<System.DateTime> InceptionDate { get; set; }
+        public string Extn { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual E2E_UserRole E2E_UserRole { get; set; }

@@ -136,7 +136,7 @@ namespace E2E.Controllers
 
         private void SendResetPasswordLink(string toEmail, string Code)
         {
-            toEmail = "suresh.sanghani88@gmail.com";
+            //toEmail = "suresh.sanghani88@gmail.com";
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Welcome to E2EWebPortal new account setup";
             String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal web applicaion. <br/><br/> Please follow below instructions to setup new account to start service : <br/><br/>"
