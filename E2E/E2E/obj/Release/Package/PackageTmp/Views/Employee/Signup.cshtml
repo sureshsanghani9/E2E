@@ -8,13 +8,13 @@
 
     <div class="g12 nodrop" style="margin-left: 0px;">
         <h1 style="margin-top: 0px;">Sign Up</h1>
-        <p style="margin-bottom: 5px;">Register yourself as Reviewer!</p>
+        <p style="margin-bottom: 5px;">Register yourself as Employer Admin!</p>
     </div>
 
     <div class="g12" style="margin: auto 0px;">
-        <form id="formAddEmployerAdmin" action="/Reviewer/SignUpReviewer" method="post" autocomplete="on">
+        <form id="formAddEmployerAdmin" action="/Employee/SignUpEmployerAdmin" method="post" autocomplete="on">
 
-            <input type="hidden" id="AdminUserID" name="ReviewerID" value="@ViewBag.ReviewerID" />
+            <input type="hidden" id="EmployeeID" name="EmployeeID" value="@ViewBag.EmployeeID" />
             <input type="hidden" id="RoleID" name="RoleID" value="@ViewBag.RoleID" />
             <input type="hidden" id="EmployerID" name="EmployerID" value="@ViewBag.EmployerID" />
 
@@ -34,28 +34,28 @@
                 </section>
 
                 <section>
-                    <label for="ReviewerFirstName">Reviewer First Name</label>
-                    <div><input type="text" id="ReviewerFirstName" name="ReviewerFirstName" required class="g4" value="@ViewBag.FirstName"></div>
+                    <label for="FirstName">First Name</label>
+                    <div><input type="text" id="FirstName" name="FirstName" required class="g4" value="@ViewBag.FirstName"></div>
                 </section>
 
                 <section>
-                    <label for="ReviewerMiddleName">Reviewer Middle Name</label>
-                    <div><input type="text" id="ReviewerMiddleName" name="ReviewerMiddleName" class="g4"></div>
+                    <label for="MiddleName">Middle Name</label>
+                    <div><input type="text" id="MiddleName" name="MiddleName" class="g4"></div>
                 </section>
 
                 <section>
-                    <label for="ReviewerLastName">Reviewer Last Name</label>
-                    <div><input type="text" id="ReviewerLastName" name="ReviewerLastName" required class="g4" value="@ViewBag.LastName"></div>
+                    <label for="LastName">Last Name</label>
+                    <div><input type="text" id="LastName" name="LastName" required class="g4" value="@ViewBag.LastName"></div>
                 </section>
 
                 <section>
-                    <label for="ReviewerNickName">Reviewer Nick Name</label>
-                    <div><input type="text" id="ReviewerNickName" name="ReviewerNickName" required class="g4"></div>
+                    <label for="NickName">Nick Name</label>
+                    <div><input type="text" id="NickName" name="NickName" required class="g4"></div>
                 </section>
 
                 <section>
-                    <label for="ReviewerTitle">Reviewer Title</label>
-                    <div><input type="text" id="ReviewerTitle" name="ReviewerTitle" required class="g4"></div>
+                    <label for="Title">Reviewer Title</label>
+                    <div><input type="text" id="Title" name="Title" required class="g4"></div>
                 </section>
 
                 <section>
@@ -111,6 +111,16 @@
                 <section>
                     <label for="SecondaryEmail">Secondary Email</label>
                     <div><input type="email" id="SecondaryEmail" name="SecondaryEmail" class="g4"></div>
+                </section>
+
+                <section>
+                    <label for="CurrentVisaStatus">CurrentVisaStatus</label>
+                    <div><input type="text" id="CurrentVisaStatus" name="CurrentVisaStatus" class="g3"></div>
+                </section>
+
+                <section>
+                    <label for="CurrentVisaValidity">CurrentVisaValidity</label>
+                    <div><input type="text" id="CurrentVisaValidity" name="CurrentVisaValidity" class="g3"></div>
                 </section>
 
                 <section style="display: none;">

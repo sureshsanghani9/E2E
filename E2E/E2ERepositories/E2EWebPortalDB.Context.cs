@@ -610,5 +610,92 @@ namespace E2ERepositories
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertEmployee", employeeIDParameter, userNameParameter, passwordParameter, employerIDParameter, roleIDParameter, activeParameter, firstNameParameter, middleNameParameter, lastNameParameter, nickNameParameter, titleParameter, dateOfBirthParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipParameter, workPhoneNumberParameter, extnParameter, cellPhoneNumberParameter, primaryEmailParameter, secondaryEmailParameter, currentVisaStatusParameter, currentVisaValidityParameter);
         }
+    
+        public virtual int sp_Delete_EA_Rew_Emp(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Delete_EA_Rew_Emp", roleIDParameter, employerIDParameter, userIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetEmployeeList_Result> sp_GetEmployeeList(Nullable<int> employeeID)
+        {
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEmployeeList_Result>("sp_GetEmployeeList", employeeIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetEmployerAdminList_Result> sp_GetEmployerAdminList(Nullable<int> adminUserID)
+        {
+            var adminUserIDParameter = adminUserID.HasValue ?
+                new ObjectParameter("AdminUserID", adminUserID) :
+                new ObjectParameter("AdminUserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEmployerAdminList_Result>("sp_GetEmployerAdminList", adminUserIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetList_EA_Rew_Emp_Result> sp_GetList_EA_Rew_Emp(Nullable<int> roleID, Nullable<int> employerID)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetList_EA_Rew_Emp_Result>("sp_GetList_EA_Rew_Emp", roleIDParameter, employerIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetReviewerList_Result> sp_GetReviewerList(Nullable<int> reviewerID)
+        {
+            var reviewerIDParameter = reviewerID.HasValue ?
+                new ObjectParameter("ReviewerID", reviewerID) :
+                new ObjectParameter("ReviewerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReviewerList_Result>("sp_GetReviewerList", reviewerIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetWebAppOwnerList_Result> sp_GetWebAppOwnerList(Nullable<int> appOwnerAdminId)
+        {
+            var appOwnerAdminIdParameter = appOwnerAdminId.HasValue ?
+                new ObjectParameter("AppOwnerAdminId", appOwnerAdminId) :
+                new ObjectParameter("AppOwnerAdminId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetWebAppOwnerList_Result>("sp_GetWebAppOwnerList", appOwnerAdminIdParameter);
+        }
+    
+        public virtual int sp_ManageActivation_EA_Rew_Emp(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID, string isActive)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var isActiveParameter = isActive != null ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ManageActivation_EA_Rew_Emp", roleIDParameter, employerIDParameter, userIDParameter, isActiveParameter);
+        }
     }
 }

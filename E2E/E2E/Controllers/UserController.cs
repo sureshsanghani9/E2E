@@ -52,5 +52,36 @@ namespace E2E.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        public JsonResult ManageUserActivation(int roleID, int employerID, int userID, bool isActive)
+        {
+            int result = _userRepo.ManageUserActivation(roleID, employerID, userID, isActive ? "1" : "0");
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "User has been " + (isActive ? "activated" : "deactivated") + " successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteUser(int roleID, int employerID, int userID)
+        {
+            int result = _userRepo.DeleteUser(roleID, employerID, userID);
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "User has been deleted successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
     }
 }

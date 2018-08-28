@@ -32,5 +32,9 @@ namespace E2EViewModals.User
         public string SecondaryEmail {get; set;}
         public string CurrentVisaStatus {get; set;}
         public string CurrentVisaValidity {get; set;}
+        public DateTime CreationDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public int UserAccountID { get; set; }
     }
 }

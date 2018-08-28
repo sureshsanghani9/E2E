@@ -546,13 +546,34 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_AddUserSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Delete_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetEmployerAdminList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdminUserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetList_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetReviewerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReviewerID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AppOwnerAdminId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_InsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -609,6 +630,12 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ManageActivation_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="IsActive" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_ManageBusinessActivation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IsActive" Type="varchar" Mode="In" />
@@ -1501,6 +1528,33 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="CurrentVisaStatus" Mode="In" Type="String" />
             <Parameter Name="CurrentVisaValidity" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_Delete_EA_Rew_Emp">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetEmployeeList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployeeList_Result)">
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetEmployerAdminList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployerAdminList_Result)">
+            <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetList_EA_Rew_Emp" ReturnType="Collection(E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result)">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
+            <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetWebAppOwnerList" ReturnType="Collection(E2EWebPortalModel.sp_GetWebAppOwnerList_Result)">
+            <Parameter Name="AppOwnerAdminId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ManageActivation_EA_Rew_Emp">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="IsActive" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1693,6 +1747,147 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="RoleID" Nullable="true" />
           <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetEmployeeList_Result">
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CurrentVisaStatus" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CurrentVisaValidity" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="DateTime" Name="InceptionDate" Nullable="true" />
+          <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetEmployerAdminList_Result">
+          <Property Type="Int32" Name="AdminUserID" Nullable="false" />
+          <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
+          <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetList_EA_Rew_Emp_Result">
+          <Property Type="Int32" Name="AdminUserID" Nullable="false" />
+          <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
+          <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_GetReviewerList_Result">
+          <Property Type="Int32" Name="ReviewerID" Nullable="false" />
+          <Property Type="String" Name="ReviewerFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ReviewerMiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ReviewerLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ReviewerNickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ReviewerTitle" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetWebAppOwnerList_Result">
+          <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
+          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="MiddleInitial" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2153,6 +2348,169 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
           <FunctionImportMapping FunctionImportName="sp_UpsertReviewer" FunctionName="E2EWebPortalModel.Store.sp_UpsertReviewer" />
           <FunctionImportMapping FunctionImportName="sp_UpsertEmployee" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmployee" />
+          <FunctionImportMapping FunctionImportName="sp_Delete_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_Delete_EA_Rew_Emp" />
+          <FunctionImportMapping FunctionImportName="sp_GetEmployeeList" FunctionName="E2EWebPortalModel.Store.sp_GetEmployeeList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEmployeeList_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="CurrentVisaStatus" ColumnName="CurrentVisaStatus" />
+                <ScalarProperty Name="CurrentVisaValidity" ColumnName="CurrentVisaValidity" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="InceptionDate" ColumnName="InceptionDate" />
+                <ScalarProperty Name="Extn" ColumnName="Extn" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetEmployerAdminList" FunctionName="E2EWebPortalModel.Store.sp_GetEmployerAdminList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEmployerAdminList_Result">
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="AdminUserNickName" ColumnName="AdminUserNickName" />
+                <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="Extn" ColumnName="Extn" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetList_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_GetList_EA_Rew_Emp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result">
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+                <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
+                <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+                <ScalarProperty Name="AdminUserNickName" ColumnName="AdminUserNickName" />
+                <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="Extn" ColumnName="Extn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReviewerList" FunctionName="E2EWebPortalModel.Store.sp_GetReviewerList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetReviewerList_Result">
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="ReviewerFirstName" ColumnName="ReviewerFirstName" />
+                <ScalarProperty Name="ReviewerMiddleName" ColumnName="ReviewerMiddleName" />
+                <ScalarProperty Name="ReviewerLastName" ColumnName="ReviewerLastName" />
+                <ScalarProperty Name="ReviewerNickName" ColumnName="ReviewerNickName" />
+                <ScalarProperty Name="ReviewerTitle" ColumnName="ReviewerTitle" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="Extn" ColumnName="Extn" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetWebAppOwnerList" FunctionName="E2EWebPortalModel.Store.sp_GetWebAppOwnerList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetWebAppOwnerList_Result">
+                <ScalarProperty Name="AppOwnerAdminId" ColumnName="AppOwnerAdminId" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="BusinessPhoneNumber" ColumnName="BusinessPhoneNumber" />
+                <ScalarProperty Name="PrimaryPhoneNumber" ColumnName="PrimaryPhoneNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="BusinessEmail1" ColumnName="BusinessEmail1" />
+                <ScalarProperty Name="BusinessEmail2" ColumnName="BusinessEmail2" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ManageActivation_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_ManageActivation_EA_Rew_Emp" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

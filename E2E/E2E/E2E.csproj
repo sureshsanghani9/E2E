@@ -1016,6 +1016,7 @@
     <Content Include="Views\EmployerAdmin\Signup.cshtml" />
     <Content Include="Views\Reviewer\Signup.cshtml" />
     <Content Include="Views\Employee\Signup.cshtml" />
+    <Content Include="Views\EmployerAdmin\EditAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

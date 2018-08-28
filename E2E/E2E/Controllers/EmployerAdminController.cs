@@ -95,7 +95,8 @@ namespace E2E.Controllers
 
         public ActionResult ManageAdmin()
         {
-            return View();
+            var employerAdmin = _userRepo.GetEmployerAdminList();
+            return View(employerAdmin);
         }
 
         public ActionResult Reports()
@@ -216,6 +217,16 @@ namespace E2E.Controllers
             }
 
 
+        }
+
+        public ActionResult EditAdmin(int adminUserID)
+        {
+            var employerAdmin = _userRepo.GetEmployerAdminList(adminUserID).FirstOrDefault();
+            if (employerAdmin.AdminUserID > 0)
+            {
+                employerAdmin.Password = EncryptionHelper.Decrypt(employerAdmin.Password);
+            }
+            return View(employerAdmin);
         }
 
     }

@@ -37,5 +37,10 @@ namespace E2ERepositories.Interface
 
         int UpsertEmployee(EmployeeViewModal user);
 
+        List<EmployerAdminViewModal> GetEmployerAdminList(int AdminUserID = -1);
+
+        int ManageUserActivation(int RoleID, int EmployerID, int UserID, string IsActive);
+
+        int DeleteUser(int RoleID, int EmployerID, int UserID);
     }
 }

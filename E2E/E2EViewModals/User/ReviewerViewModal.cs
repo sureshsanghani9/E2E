@@ -30,5 +30,11 @@ namespace E2EViewModals.User
         public string CellPhoneNumber {get; set;}
         public string PrimaryEmail {get; set;}
         public string SecondaryEmail {get; set;}
+        public DateTime CreationDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public int UserAccountID { get; set; }
+
+
     }
 }

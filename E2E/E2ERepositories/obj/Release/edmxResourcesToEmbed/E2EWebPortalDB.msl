@@ -43,6 +43,7 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Extn" ColumnName="Extn" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -452,5 +453,6 @@
     <FunctionImportMapping FunctionImportName="sp_AddUserSendInvite" FunctionName="E2EWebPortalModel.Store.sp_AddUserSendInvite" />
     <FunctionImportMapping FunctionImportName="sp_UpsertEmpAdminUser" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmpAdminUser" />
     <FunctionImportMapping FunctionImportName="sp_UpsertReviewer" FunctionName="E2EWebPortalModel.Store.sp_UpsertReviewer" />
+    <FunctionImportMapping FunctionImportName="sp_UpsertEmployee" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmployee" />
   </EntityContainerMapping>
 </Mapping>
