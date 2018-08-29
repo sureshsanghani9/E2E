@@ -1,7 +1,8 @@
-﻿@using E2EViewModals.User
-@model List<EmployeeViewModal>
+﻿
+@using E2EViewModals.User
+@model List<ReviewerViewModal>
 @{
-    ViewBag.Title = "ManageEmployee";
+    ViewBag.Title = "ManageReviewer";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
@@ -24,15 +25,15 @@
 <section id="content">
 
     <div class="g12 nodrop" style="margin-left: 0px;">
-        <h1 style="margin-top: 0px;">Manage Employee</h1>
-        <p style="margin-bottom: 5px;">List of Employee</p>
+        <h1 style="margin-top: 0px;">Manage Employer Admin</h1>
+        <p style="margin-bottom: 5px;">List of Employer Admin</p>
     </div>
 
     <table class="datatable">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Reviewer First Name</th>
+                <th>Reviewer Last Name</th>
                 <th>Active</th>
                 <th>Cell Phone</th>
                 <th>Work Phone</th>
@@ -46,15 +47,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (EmployeeViewModal user in Model)
+            @foreach (ReviewerViewModal user in Model)
             {
                 <tr class="gradeX">
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
+                    <td>@user.ReviewerFirstName</td>
+                    <td>@user.ReviewerLastName</td>
                     <td>
-                        <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + user.EmployeeID.ToString())" type="checkbox" @(user.Active != null && user.Active == 1 ? "checked" : "")
-                               EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID" />
-                        <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + user.EmployeeID.ToString())"></label>
+                        <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + user.ReviewerID.ToString())" type="checkbox" @(user.Active != null && user.Active == 1 ? "checked" : "")
+                               EmployerId="@user.EmployerID" ReviewerID="@user.ReviewerID" UserAccountID="@user.UserAccountID" />
+                        <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + user.ReviewerID.ToString())"></label>
                     </td>
 
                     <td>@user.CellPhoneNumber</td>
@@ -67,9 +68,9 @@
                     <td>@user.zip</td>
                     <td>
                         <button class="small btnEdit"
-                                EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID">Edit</button>
+                                EmployerId="@user.EmployerID" ReviewerID="@user.ReviewerID" UserAccountID="@user.UserAccountID">Edit</button>
                         <button class="small btnDelete"
-                                EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID">Delete</button>
+                                EmployerId="@user.EmployerID" ReviewerID="@user.ReviewerID" UserAccountID="@user.UserAccountID">Delete</button>
                     </td>
                 </tr>
             }
@@ -81,8 +82,8 @@
 <script>
     $(document).ready(function () {
         $(".cbActive").on("click", function () {
-            var roleID = "4";
-            var userID = parseInt($(this).attr("EmployeeID"));
+            var roleID = "3";
+            var userID = parseInt($(this).attr("ReviewerID"));
             var employerId = parseInt($(this).attr("EmployerId"));
             var isActive = $(this).is(":checked");
 
@@ -104,7 +105,7 @@
 
         $(".btnDelete").on("click", function () {
             var roleID = "2";
-            var userID = parseInt($(this).attr("EmployeeID"));
+            var userID = parseInt($(this).attr("ReviewerID"));
             var employerId = parseInt($(this).attr("EmployerId"));
 
             $.confirm('Are your sure to delete this user?', function () {
@@ -131,8 +132,8 @@
         });
 
         $(".btnEdit").on("click", function () {
-            var employeeID = parseInt($(this).attr("EmployeeID"));
-            window.location = "/EmployerAdmin/EditEmployee?employeeID=" + employeeID;
+            var reviewerID = parseInt($(this).attr("ReviewerID"));
+            window.location = "/EmployerAdmin/EditReviewer?reviewerID=" + reviewerID;
         });
     });
 </script>

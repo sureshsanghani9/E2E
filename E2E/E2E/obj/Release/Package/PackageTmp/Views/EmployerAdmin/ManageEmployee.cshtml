@@ -1,15 +1,139 @@
-﻿
+﻿@using E2EViewModals.User
+@model List<EmployeeViewModal>
 @{
     ViewBag.Title = "ManageEmployee";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+
+    label.tgl-btn {
+        margin: auto;
+    }
+</style>
+
 <section id="content">
 
-    <div class="g12 nodrop">
-        <h1>Manage Employee</h1>
-        <p>List of all Employee</p>
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Manage Employee</h1>
+        <p style="margin-bottom: 5px;">List of Employee</p>
     </div>
 
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Active</th>
+                <th>Cell Phone</th>
+                <th>Work Phone</th>
+                <th>Primary Email</th>
+                <th>Address 1</th>
+                <th>Address 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EmployeeViewModal user in Model)
+            {
+                <tr class="gradeX">
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + user.EmployeeID.ToString())" type="checkbox" @(user.Active != null && user.Active == 1 ? "checked" : "")
+                               EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID" />
+                        <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + user.EmployeeID.ToString())"></label>
+                    </td>
+
+                    <td>@user.CellPhoneNumber</td>
+                    <td>@user.PrimaryEmail</td>
+                    <td>@user.WorkPhoneNumber</td>
+                    <td>@user.Address1</td>
+                    <td>@user.Address2</td>
+                    <td>@user.City</td>
+                    <td>@user.State</td>
+                    <td>@user.zip</td>
+                    <td>
+                        <button class="small btnEdit"
+                                EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID">Edit</button>
+                        <button class="small btnDelete"
+                                EmployerId="@user.EmployerID" EmployeeID="@user.EmployeeID" UserAccountID="@user.UserAccountID">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </section>
+
+<script>
+    $(document).ready(function () {
+        $(".cbActive").on("click", function () {
+            var roleID = "4";
+            var userID = parseInt($(this).attr("EmployeeID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+            var isActive = $(this).is(":checked");
+
+            $.ajax({
+                url: '/User/ManageUserActivation',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { roleID: roleID, userID: userID, employerId: employerId, isActive: isActive }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Sucess' });
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+        $(".btnDelete").on("click", function () {
+            var roleID = "2";
+            var userID = parseInt($(this).attr("EmployeeID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+
+            $.confirm('Are your sure to delete this user?', function () {
+
+                $.ajax({
+                    url: '/User/DeleteUser',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { roleID: roleID, userID: userID, employerId: employerId }
+                }).done(function (result) {
+                    if (result.Code == '1') {
+                        $.msg(result.Message, { header: 'Sucess' });
+                        setTimeout(function () {
+                            window.location = "/EmployerAdmin/ManageAdmin";
+                        }, 2000);
+                    }
+                    else {
+                        $.msg(result.Message, { header: 'Fail' });
+                    }
+                    });
+
+            });
+        });
+
+        $(".btnEdit").on("click", function () {
+            var employeeID = parseInt($(this).attr("EmployeeID"));
+            window.location = "/EmployerAdmin/EditEmployee?employeeID=" + employeeID;
+        });
+    });
+</script>
 

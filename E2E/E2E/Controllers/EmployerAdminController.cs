@@ -90,13 +90,20 @@ namespace E2E.Controllers
 
         public ActionResult ManageEmployee()
         {
-            return View();
+            var users = _userRepo.GetEmployeeList();
+            return View(users);
         }
 
         public ActionResult ManageAdmin()
         {
             var employerAdmin = _userRepo.GetEmployerAdminList();
             return View(employerAdmin);
+        }
+
+        public ActionResult ManageReviewer()
+        {
+            var users = _userRepo.GetReviewerList();
+            return View(users);
         }
 
         public ActionResult Reports()
@@ -227,6 +234,26 @@ namespace E2E.Controllers
                 employerAdmin.Password = EncryptionHelper.Decrypt(employerAdmin.Password);
             }
             return View(employerAdmin);
+        }
+
+        public ActionResult EditReviewer(int reviewerID)
+        {
+            var user = _userRepo.GetReviewerList(reviewerID).FirstOrDefault();
+            if (user.ReviewerID > 0)
+            {
+                user.Password = EncryptionHelper.Decrypt(user.Password);
+            }
+            return View(user);
+        }
+
+        public ActionResult EditEmployee(int employeeID)
+        {
+            var user = _userRepo.GetEmployeeList(employeeID).FirstOrDefault();
+            if (user.EmployeeID > 0)
+            {
+                user.Password = EncryptionHelper.Decrypt(user.Password);
+            }
+            return View(user);
         }
 
     }

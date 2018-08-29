@@ -712,6 +712,33 @@
       <Parameter Name="CurrentVisaStatus" Mode="In" Type="String" />
       <Parameter Name="CurrentVisaValidity" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_Delete_EA_Rew_Emp">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetEmployeeList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployeeList_Result)">
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetEmployerAdminList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployerAdminList_Result)">
+      <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetList_EA_Rew_Emp" ReturnType="Collection(E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetWebAppOwnerList" ReturnType="Collection(E2EWebPortalModel.sp_GetWebAppOwnerList_Result)">
+      <Parameter Name="AppOwnerAdminId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ManageActivation_EA_Rew_Emp">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="IsActive" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -904,5 +931,146 @@
     <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
     <Property Type="Int32" Name="RoleID" Nullable="true" />
     <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_GetEmployeeList_Result">
+    <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CurrentVisaStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="CurrentVisaValidity" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="DateTime" Name="InceptionDate" Nullable="true" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetEmployerAdminList_Result">
+    <Property Type="Int32" Name="AdminUserID" Nullable="false" />
+    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetList_EA_Rew_Emp_Result">
+    <Property Type="Int32" Name="AdminUserID" Nullable="false" />
+    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_GetReviewerList_Result">
+    <Property Type="Int32" Name="ReviewerID" Nullable="false" />
+    <Property Type="String" Name="ReviewerFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerMiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerNickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerTitle" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetWebAppOwnerList_Result">
+    <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="MiddleInitial" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
   </ComplexType>
 </Schema>

@@ -277,8 +277,26 @@ namespace E2ERepositories
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var businessList = db.sp_GetEmployerAdminList(AdminUserID).ToList();
-                return Mapper.Map<List<sp_GetEmployerAdminList_Result>, List<EmployerAdminViewModal>>(businessList);
+                var users = db.sp_GetEmployerAdminList(AdminUserID).ToList();
+                return Mapper.Map<List<sp_GetEmployerAdminList_Result>, List<EmployerAdminViewModal>>(users);
+            }
+        }
+
+        public List<ReviewerViewModal> GetReviewerList(int ReviewerID = -1)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var users = db.sp_GetReviewerList(ReviewerID).ToList();
+                return Mapper.Map<List<sp_GetReviewerList_Result>, List<ReviewerViewModal>>(users);
+            }
+        }
+
+        public List<EmployeeViewModal> GetEmployeeList(int EmployeeID = -1)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var users = db.sp_GetEmployeeList(EmployeeID).ToList();
+                return Mapper.Map<List<sp_GetEmployeeList_Result>, List<EmployeeViewModal>>(users);
             }
         }
 

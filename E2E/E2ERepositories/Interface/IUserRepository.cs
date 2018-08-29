@@ -39,6 +39,10 @@ namespace E2ERepositories.Interface
 
         List<EmployerAdminViewModal> GetEmployerAdminList(int AdminUserID = -1);
 
+        List<ReviewerViewModal> GetReviewerList(int ReviewerID = -1);
+
+        List<EmployeeViewModal> GetEmployeeList(int EmployeeID = -1);
+
         int ManageUserActivation(int RoleID, int EmployerID, int UserID, string IsActive);
 
         int DeleteUser(int RoleID, int EmployerID, int UserID);
