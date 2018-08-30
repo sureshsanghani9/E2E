@@ -143,6 +143,9 @@
     <Compile Include="sp_GetReviewerList_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetSubscriptionDetails_AdminUser_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetSubscriptionInfo_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

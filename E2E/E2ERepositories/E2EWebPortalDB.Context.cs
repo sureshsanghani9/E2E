@@ -646,7 +646,7 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEmployerAdminList_Result>("sp_GetEmployerAdminList", adminUserIDParameter);
         }
     
-        public virtual ObjectResult<sp_GetList_EA_Rew_Emp_Result> sp_GetList_EA_Rew_Emp(Nullable<int> roleID, Nullable<int> employerID)
+        public virtual ObjectResult<sp_GetList_EA_Rew_Emp_Result> sp_GetList_EA_Rew_Emp(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID)
         {
             var roleIDParameter = roleID.HasValue ?
                 new ObjectParameter("RoleID", roleID) :
@@ -656,7 +656,11 @@ namespace E2ERepositories
                 new ObjectParameter("EmployerID", employerID) :
                 new ObjectParameter("EmployerID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetList_EA_Rew_Emp_Result>("sp_GetList_EA_Rew_Emp", roleIDParameter, employerIDParameter);
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetList_EA_Rew_Emp_Result>("sp_GetList_EA_Rew_Emp", roleIDParameter, employerIDParameter, userIDParameter);
         }
     
         public virtual ObjectResult<sp_GetReviewerList_Result> sp_GetReviewerList(Nullable<int> reviewerID)
@@ -696,6 +700,15 @@ namespace E2ERepositories
                 new ObjectParameter("IsActive", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ManageActivation_EA_Rew_Emp", roleIDParameter, employerIDParameter, userIDParameter, isActiveParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetSubscriptionDetails_AdminUser_Result> sp_GetSubscriptionDetails_AdminUser(Nullable<int> employerID)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSubscriptionDetails_AdminUser_Result>("sp_GetSubscriptionDetails_AdminUser", employerIDParameter);
         }
     }
 }

@@ -24,7 +24,8 @@ namespace E2E
                             src => string.IsNullOrEmpty(src.Active) ? 0 : Convert.ToInt16(src.Active))); 
             CreateMap<sp_GetEmployeeList_Result, EmployeeViewModal>().ForMember(dest => dest.Active,
                             opts => opts.MapFrom(
-                            src => string.IsNullOrEmpty(src.Active) ? 0 : Convert.ToInt16(src.Active))); 
+                            src => string.IsNullOrEmpty(src.Active) ? 0 : Convert.ToInt16(src.Active)));
+            CreateMap<sp_GetSubscriptionDetails_AdminUser_Result, SubscriptionViewModal>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using E2ERepositories.Interface;
 using E2EViewModals.Business;
+using E2EViewModals.Subscription;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,7 +137,7 @@ namespace E2ERepositories
                 //    , new SqlParameter("@PaymentDueDate", PaymentDueDate)
                 //    );
 
-                var result =  db.sp_InsertNewBusiness(EmployerName
+                var result = db.sp_InsertNewBusiness(EmployerName
                                     , BusinessName
                                     , BusinessAddress1
                                     , BusinessAddress2
@@ -170,5 +171,27 @@ namespace E2ERepositories
 
             }
         }
+
+        public Subscription GetSubscription(int EmployerId)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                
+                return db.Subscriptions.Where(s => s.EmployerId == EmployerId).FirstOrDefault();
+            }
+        }
+
+        public SubscriptionViewModal GetSubscriptionDetails(int EmployerId)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+
+                var subscription = db.sp_GetSubscriptionDetails_AdminUser(EmployerId).FirstOrDefault();
+                return Mapper.Map<sp_GetSubscriptionDetails_AdminUser_Result, SubscriptionViewModal>(subscription);
+            }
+        }
+
+        
+
     }
 }

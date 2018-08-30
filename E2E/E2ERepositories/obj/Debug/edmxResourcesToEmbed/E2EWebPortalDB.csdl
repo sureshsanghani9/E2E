@@ -726,6 +726,7 @@
     <FunctionImport Name="sp_GetList_EA_Rew_Emp" ReturnType="Collection(E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result)">
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
       <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
@@ -738,6 +739,9 @@
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="UserID" Mode="In" Type="Int32" />
       <Parameter Name="IsActive" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetSubscriptionDetails_AdminUser" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionDetails_AdminUser_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -1072,5 +1076,62 @@
     <Property Type="Int32" Name="UserAccountID" Nullable="false" />
     <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetSubscriptionDetails_AdminUser_Result">
+    <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="EmployerAccountNumber" Nullable="true" />
+    <Property Type="Int32" Name="TotalLogin" Nullable="false" />
+    <Property Type="Int32" Name="LoginAvailable" Nullable="false" />
+    <Property Type="String" Name="SubscriptionPlanName" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="EffectiveDate" Nullable="false" />
+    <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
+    <Property Type="String" Name="BusinessActive" Nullable="true" MaxLength="8" />
+    <Property Type="Int32" Name="SubscriptionID" Nullable="false" />
+    <Property Type="String" Name="SubscriptionStatus" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
+    <Property Type="String" Name="ServiceDetails" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SubscriptionType" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SubscriptionPlanCode" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="LoginUsed" Nullable="true" />
+    <Property Type="String" Name="PaypalPaymentConfirmationNum" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="PaypalPaymentDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="AmountCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="TotalAmtPaid" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="RegistrationFeeCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="RegistrationFeePaid" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="RegistrationFeePaidDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="SubscriptionFeeCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="SubscriptionFeePaid" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="SubscriptionFeePaidDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="RecurringAmountCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="RecurringAmountPaid" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="RecurringAmountPaidDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="LateFeeCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="LateFeeAmountPaid" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="LateFeePaidDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="CancellationFeeCharged" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="CancellationFeePaid" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="CancellationDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PaymentDueDate" Nullable="true" />
+    <Property Type="Int32" Name="EmployerId" Nullable="true" />
+    <Property Type="Int32" Name="AdminUserID" Nullable="true" />
+    <Property Type="String" Name="EmployerAdminName" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Fax" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="URL" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="TotalEmployees" Nullable="true" />
+    <Property Type="String" Name="BusinessTaxID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
   </ComplexType>
 </Schema>

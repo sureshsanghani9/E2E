@@ -46,6 +46,7 @@
     <Compile Include="Invitations\InvitationsViewModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subscription\SubscriptionInfoViewModal.cs" />
+    <Compile Include="Subscription\SubscriptionViewModal.cs" />
     <Compile Include="User\EmployeeViewModal.cs" />
     <Compile Include="User\EmployerAdminViewModal.cs" />
     <Compile Include="User\ReviewerViewModal.cs" />

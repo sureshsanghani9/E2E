@@ -1,4 +1,5 @@
 ﻿using E2EViewModals.Business;
+using E2EViewModals.Subscription;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,10 @@ namespace E2ERepositories.Interface
                                     , decimal RegistrationFeeCharged
                                     , decimal SubscriptionFeeCharged
                                     , DateTime PaymentDueDate);
+
+        Subscription GetSubscription(int EmployerId);
+
+        SubscriptionViewModal GetSubscriptionDetails(int EmployerId);
+
     }
 }

@@ -15,15 +15,23 @@ namespace E2E.Controllers
     public class EmployerAdminController : Controller
     {
         private readonly IUserRepository _userRepo;
-        public EmployerAdminController(IUserRepository userRepo)
+        private readonly IBusinessRepository _businessRepo;
+        public EmployerAdminController(IUserRepository userRepo, IBusinessRepository businessRepo)
         {
             _userRepo = userRepo;
+            _businessRepo = businessRepo;
+            
         }
 
         // GET: EmployerAdmin
         public ActionResult Index()
         {
-            return View();
+            var user = (UserViewModal)Session["User"];
+            var subcription = _businessRepo.GetSubscriptionDetails(user.EmployerID);
+            ViewBag.LoginAvailable = subcription != null? subcription.LoginAvailable.ToString() : "0";
+            ViewBag.TotalLogin = subcription != null? subcription.TotalLogin.ToString() : "0";
+            ViewBag.LoginUsed = subcription != null? subcription.LoginUsed.ToString() : "0";
+            return View(subcription);
         }
 
         [AllowAnonymous]
