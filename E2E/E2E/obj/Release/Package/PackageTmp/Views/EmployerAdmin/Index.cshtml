@@ -1,4 +1,5 @@
-﻿
+﻿@using E2EViewModals.Subscription
+@model SubscriptionViewModal
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -20,64 +21,107 @@
     td.error {
         background-color: #fdd4d4;
     }
+
+    .widget.number-widget ul li a span {
+        width: 400px;
+        padding: 2px 0px 15px 25px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    .widget.number-widget ul li a label {
+        width: 170px;
+        display: inline-block;
+    }
 </style>
 
 <section id="content">
 
-    <div class="g12 nodrop">
-        <h1>Employer Admin Dashboard</h1>
-        <p>Send Invitations!</p>
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Employer Admin Dashboard</h1>
+        <p style="margin-bottom: 5px;">Send Invitations!</p>
+
+    </div>
+    <input type="hidden" value="@ViewBag.LoginAvailable" id="LoginAvailable" />
+    <input type="hidden" value="@ViewBag.TotalLogin" id="TotalLogin" />
+    <input type="hidden" value="@ViewBag.LoginUsed" id="LoginUsed" />
+
+
+    <div class="g12" style="padding: 0px; margin: 0px 0px 20px 0px; width: 100%;">
+        @*<div class="alert info" style="display:none;">
+            You have added <span id="spanLoginUsed"></span> @ViewBag.LoginUsed users out of <span id="spanTotalLogin"></span> @ViewBag.TotalLogin.
+            You can now only add <span id="spanLoginAvailable"></span> @ViewBag.LoginAvailable user.
+        </div>*@
+        <table id="tblEmailInvitations">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Additional Notes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="FirstName" class="g12" />
+                        <span class="error mHide"></span>
+                    </td>
+                    <td>
+                        <input type="text" name="LastName" class="g12" />
+                        <span class="error mHide"></span>
+                    </td>
+                    <td>
+                        <input type="text" name="Email" class="g12" />
+                        <span class="error mHide"></span>
+                    </td>
+                    <td>
+                        <select name="Role" class="g12 noselect">
+                            <optgroup label="Roles">
+                                <option value="2">EmployerAdmin</option>
+                                <option value="3">Reviewer</option>
+                                <option value="4" selected="selected">Employee</option>
+                            </optgroup>
+                        </select>
+                        <span class="error mHide"></span>
+                    </td>
+                    <td>
+                        <input type="text" name="AdditionalNotes" class="g12" />
+                    </td>
+                    <td class="delRow"><a class="btn i_trashcan " title="Delete"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="i_plus icon" id="btnAddMore">Add More</button>
+        <button class="i_play icon" id="btnSend">Send</button>
     </div>
 
+    <div class="g12 widgets" style="padding: 0px; margin: 40px 0px 20px 0px; width: 100%;">
+        <div class="widget number-widget" id="number_widget">
+            <h3 class="handle">Subscription Data</h3>
+            <div>
+                <ul>
+                    <li><a href=""><label>Employer Name </label><span>@Model.EmployerName</span></a></li>
+                    <li><a href=""><label>Employer Account Number </label><span>@Model.EmployerAccountNumber</span></a></li>
+                    <li><a href=""><label>Total Login </label><span>@Model.TotalLogin</span></a></li>
+                    <li><a href=""><label>Login Available </label><span>@Model.LoginAvailable</span></a></li>
+                    <li><a href=""><label>Plan Name </label><span>@Model.SubscriptionPlanName</span></a></li>
+                    <li><a href=""><label>Effective Date </label><span>@Model.EffectiveDate.ToShortDateString()</span></a></li>
+                    <li><a href=""><label>Expiration Date </label><span>@Model.ExpirationDate.ToShortDateString()</span></a></li>
+                    <li><a href=""><label>Status </label><span>@Model.BusinessActive</span></a></li>
+                    <li><a href=""><button class="i_plus icon">Make Payment</button></li>
+                </ul>
 
-    <table id="tblEmailInvitations">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Additional Notes</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input type="text" name="FirstName" class="g12" />
-                    <span class="error mHide"></span>
-                </td>
-                <td>
-                    <input type="text" name="LastName" class="g12" />
-                    <span class="error mHide"></span>
-                </td>
-                <td>
-                    <input type="text" name="Email" class="g12" />
-                    <span class="error mHide"></span>
-                </td>
-                <td>
-                    <select name="Role" class="g12 noselect">
-                        <optgroup label="Roles">
-                            <option value="2" selected="selected">EmployerAdmin</option>
-                            <option value="3">Reviewer</option>
-                            <option value="4">Employee</option>
-                        </optgroup>
-                    </select>
-                    <span class="error mHide"></span>
-                </td>
-                <td>
-                    <input type="text" name="AdditionalNotes" class="g12" />
-                </td>
-                <td class="delRow"><a class="btn i_trashcan " title="Delete"></a></td>
-            </tr>
-        </tbody>
-    </table>
-    <button class="i_plus icon" id="btnAddMore">Add More</button>
-    <button class="i_play icon" id="btnSend">Send</button>
+            </div>
+        </div>
+    </div>
+
 </section>
 <script>
     $(document).ready(function () {
-
+        var usercount = 1;
         var tr = '<tr>';
         tr += '<td>';
         tr += '    <input type="text" name="FirstName" class="g12" />';
@@ -94,9 +138,9 @@
         tr += '<td>';
         tr += '    <select name="Role" class="g12 noselect">';
         tr += '        <optgroup label="Roles">';
-        tr += '             <option value="2" selected="selected">EmployerAdmin</option>';
+        tr += '             <option value="2">EmployerAdmin</option>';
         tr += '             <option value="3">Reviewer</option>';
-        tr += '             <option value="4">Employee</option>';
+        tr += '             <option value="4" selected="selected">Employee</option>';
         tr += '        </optgroup>';
         tr += '    </select>';
         tr += '    <span class="error mHide"></span>';
@@ -108,10 +152,19 @@
         tr += '</tr>';
 
         $("#btnAddMore").on("click", function () {
+            if (usercount >= parseInt($("#LoginAvailable").val())) {
+                $.msg("Total login limit reached, please contact E2EWEBPORTAL Admin to add more login.");
+                return;
+            }
             $("#tblEmailInvitations tbody").append(tr);
+            usercount = usercount + 1;
         });
 
         $("#btnSend").on("click", function () {
+            if (usercount >= parseInt($("#LoginAvailable").val())) {
+                $.msg("You can not add more user now. You already reached limit");
+                return;
+            }
             var isValid = true;
             var Invitations = { Invites: null };
             var invites = new Array();
@@ -180,21 +233,27 @@
                 if (result.Code == '1') {
                     $("#tblEmailInvitations tbody").html(tr);
                     $.msg(result.Message);
+                    setTimeout(function () {
+                        window.location = '/EmployerAdmin/';
+                    }, 2000);
                 }
                 else {
                     $.msg(result.Message);
                 }
             });
         });
+
+        $("#tblEmailInvitations").on("click", '.delRow a', function () {
+            var trs = $("#tblEmailInvitations tbody tr");
+            if (trs.length > 1) {
+                $(this).parents('tr').remove();
+                usercount = usercount - 1;
+            }
+            return false;
+        });
     });
 
-    $("#tblEmailInvitations").on("click", '.delRow a', function () {
-        var trs = $("#tblEmailInvitations tbody tr");
-        if (trs.length > 1) {
-            $(this).parents('tr').remove();
-        }
-        return false;
-    });
+
 
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

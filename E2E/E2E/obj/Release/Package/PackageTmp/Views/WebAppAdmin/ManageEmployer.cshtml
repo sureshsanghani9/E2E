@@ -5,3 +5,100 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    label.tgl-btn {
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+</style>
+
+<section id="content">
+
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Manage Employer</h1>
+        <p style="margin-bottom: 5px;">List of Employer</p>
+    </div>
+
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Business Name</th>
+                <th>Active</th>
+                <th>Admin User First Name</th>
+                <th>Admin User Last Name</th>
+                <th>Is Primary?</th>
+                <th>Phone</th>
+                <th>Primary Email</th>
+                <th>Address 1</th>
+                <th>Address 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Account Number</th>
+                <th>Secondary Email</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (BusinessViewModal bis in Model)
+            {
+                <tr class="gradeX" EmployerId="@bis.EmployerID">
+                    <td>@bis.EmployerName</td>
+                    <td>@bis.BusinessName</td>
+                    <td>
+                        <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + bis.EmployerID.ToString())" type="checkbox" @(bis.Active != null && bis.Active == "1" ? "checked" : "") EmployerId="@bis.EmployerID" />
+                        <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + bis.EmployerID.ToString())"></label>
+                    </td>
+                    <td>@bis.AdminUserFirstName</td>
+                    <td>@bis.AdminUserLastName</td>
+                    <td>@( bis.IsPrimary != null && bis.IsPrimary == true ? "Yes" : "No")</td>
+                    <td>@bis.Phone</td>
+                    <td>@bis.PrimaryEmail</td>
+                    <td>@bis.BusinessAddress1</td>
+                    <td>@bis.BusinessAddress2</td>
+                    <td>@bis.City</td>
+                    <td>@bis.State</td>
+                    <td>@bis.zip</td>
+                    <td>@bis.EmployerAccountNumber</td>
+                    <td>@bis.SecondaryEmail</td>
+                    <td>@bis.URL</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $(".cbActive").on("click", function () {
+            var employerId = parseInt($(this).attr("EmployerId"));
+            var isActive = $(this).is(":checked");
+
+            $.ajax({
+                url: '/WebAppAdmin/ActiveDeactiveEmployer',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { employerId: employerId, isActive: isActive }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Sucess' });
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+    });
+</script>

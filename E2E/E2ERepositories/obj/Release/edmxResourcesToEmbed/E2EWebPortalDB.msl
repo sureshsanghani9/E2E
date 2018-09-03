@@ -617,5 +617,66 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_ManageActivation_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_ManageActivation_EA_Rew_Emp" />
+    <FunctionImportMapping FunctionImportName="sp_GetSubscriptionDetails_AdminUser" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionDetails_AdminUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionDetails_AdminUser_Result">
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+          <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
+          <ScalarProperty Name="LoginAvailable" ColumnName="LoginAvailable" />
+          <ScalarProperty Name="SubscriptionPlanName" ColumnName="SubscriptionPlanName" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="BusinessActive" ColumnName="BusinessActive" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+          <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+          <ScalarProperty Name="ServiceDetails" ColumnName="ServiceDetails" />
+          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
+          <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
+          <ScalarProperty Name="LoginUsed" ColumnName="LoginUsed" />
+          <ScalarProperty Name="PaypalPaymentConfirmationNum" ColumnName="PaypalPaymentConfirmationNum" />
+          <ScalarProperty Name="PaypalPaymentDate" ColumnName="PaypalPaymentDate" />
+          <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
+          <ScalarProperty Name="TotalAmtPaid" ColumnName="TotalAmtPaid" />
+          <ScalarProperty Name="RegistrationFeeCharged" ColumnName="RegistrationFeeCharged" />
+          <ScalarProperty Name="RegistrationFeePaid" ColumnName="RegistrationFeePaid" />
+          <ScalarProperty Name="RegistrationFeePaidDate" ColumnName="RegistrationFeePaidDate" />
+          <ScalarProperty Name="SubscriptionFeeCharged" ColumnName="SubscriptionFeeCharged" />
+          <ScalarProperty Name="SubscriptionFeePaid" ColumnName="SubscriptionFeePaid" />
+          <ScalarProperty Name="SubscriptionFeePaidDate" ColumnName="SubscriptionFeePaidDate" />
+          <ScalarProperty Name="RecurringAmountCharged" ColumnName="RecurringAmountCharged" />
+          <ScalarProperty Name="RecurringAmountPaid" ColumnName="RecurringAmountPaid" />
+          <ScalarProperty Name="RecurringAmountPaidDate" ColumnName="RecurringAmountPaidDate" />
+          <ScalarProperty Name="LateFeeCharged" ColumnName="LateFeeCharged" />
+          <ScalarProperty Name="LateFeeAmountPaid" ColumnName="LateFeeAmountPaid" />
+          <ScalarProperty Name="LateFeePaidDate" ColumnName="LateFeePaidDate" />
+          <ScalarProperty Name="CancellationFeeCharged" ColumnName="CancellationFeeCharged" />
+          <ScalarProperty Name="CancellationFeePaid" ColumnName="CancellationFeePaid" />
+          <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+          <ScalarProperty Name="EmployerAdminName" ColumnName="EmployerAdminName" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+          <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

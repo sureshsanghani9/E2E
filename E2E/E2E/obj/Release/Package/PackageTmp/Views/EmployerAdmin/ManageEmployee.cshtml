@@ -103,7 +103,7 @@
         });
 
         $(".btnDelete").on("click", function () {
-            var roleID = "2";
+            var roleID = "4";
             var userID = parseInt($(this).attr("EmployeeID"));
             var employerId = parseInt($(this).attr("EmployerId"));
 
@@ -119,7 +119,7 @@
                     if (result.Code == '1') {
                         $.msg(result.Message, { header: 'Sucess' });
                         setTimeout(function () {
-                            window.location = "/EmployerAdmin/ManageAdmin";
+                            window.location = "/EmployerAdmin/ManageEmployee";
                         }, 2000);
                     }
                     else {

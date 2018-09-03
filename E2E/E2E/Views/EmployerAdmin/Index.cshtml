@@ -23,10 +23,12 @@
     }
 
     .widget.number-widget ul li a span {
-        width: 200px;
+        width: 400px;
         padding: 2px 0px 15px 25px;
         text-align: left;
+        font-size: 15px;
     }
+
     .widget.number-widget ul li a label {
         width: 170px;
         display: inline-block;
@@ -44,9 +46,12 @@
     <input type="hidden" value="@ViewBag.TotalLogin" id="TotalLogin" />
     <input type="hidden" value="@ViewBag.LoginUsed" id="LoginUsed" />
 
-    
+
     <div class="g12" style="padding: 0px; margin: 0px 0px 20px 0px; width: 100%;">
-        <div class="alert info">You have added <span id="spanLoginUsed"></span> @ViewBag.LoginUsed users out of <span id="spanTotalLogin"></span> @ViewBag.TotalLogin. You can now only add <span id="spanLoginAvailable"></span> @ViewBag.LoginAvailable user .</div>
+        @*<div class="alert info" style="display:none;">
+            You have added <span id="spanLoginUsed"></span> @ViewBag.LoginUsed users out of <span id="spanTotalLogin"></span> @ViewBag.TotalLogin.
+            You can now only add <span id="spanLoginAvailable"></span> @ViewBag.LoginAvailable user.
+        </div>*@
         <table id="tblEmailInvitations">
             <thead>
                 <tr>
@@ -75,9 +80,9 @@
                     <td>
                         <select name="Role" class="g12 noselect">
                             <optgroup label="Roles">
-                                <option value="2" selected="selected">EmployerAdmin</option>
+                                <option value="2">EmployerAdmin</option>
                                 <option value="3">Reviewer</option>
-                                <option value="4">Employee</option>
+                                <option value="4" selected="selected">Employee</option>
                             </optgroup>
                         </select>
                         <span class="error mHide"></span>
@@ -106,7 +111,7 @@
                     <li><a href=""><label>Effective Date </label><span>@Model.EffectiveDate.ToShortDateString()</span></a></li>
                     <li><a href=""><label>Expiration Date </label><span>@Model.ExpirationDate.ToShortDateString()</span></a></li>
                     <li><a href=""><label>Status </label><span>@Model.BusinessActive</span></a></li>
-                    <li><a href=""><button class="i_plus icon" >Make Payment</button></li>
+                    <li><a href=""><button class="i_plus icon">Make Payment</button></li>
                 </ul>
 
             </div>
@@ -133,9 +138,9 @@
         tr += '<td>';
         tr += '    <select name="Role" class="g12 noselect">';
         tr += '        <optgroup label="Roles">';
-        tr += '             <option value="2" selected="selected">EmployerAdmin</option>';
+        tr += '             <option value="2">EmployerAdmin</option>';
         tr += '             <option value="3">Reviewer</option>';
-        tr += '             <option value="4">Employee</option>';
+        tr += '             <option value="4" selected="selected">Employee</option>';
         tr += '        </optgroup>';
         tr += '    </select>';
         tr += '    <span class="error mHide"></span>';
@@ -148,7 +153,7 @@
 
         $("#btnAddMore").on("click", function () {
             if (usercount >= parseInt($("#LoginAvailable").val())) {
-                $.msg("You can not add more user now. You already reached limit");
+                $.msg("Total login limit reached, please contact E2EWEBPORTAL Admin to add more login.");
                 return;
             }
             $("#tblEmailInvitations tbody").append(tr);
