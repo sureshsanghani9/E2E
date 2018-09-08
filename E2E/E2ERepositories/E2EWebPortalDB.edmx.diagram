@@ -36,6 +36,10 @@
         <AssociationConnector Association="E2EWebPortalModel.FK_EmployerAdmin_Employer" />
         <AssociationConnector Association="E2EWebPortalModel.FK_EmployerAdmin_E2E_UserRole" />
         <AssociationConnector Association="E2EWebPortalModel.FK_UserAccount_EmployerAdmin" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.TaskReviewComment" Width="1.5" PointX="14.25" PointY="12" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.NewTaskInsertLog" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_TaskReviewComment_Business" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_TaskReviewComment_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

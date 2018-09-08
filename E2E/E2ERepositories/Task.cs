@@ -37,6 +37,9 @@ namespace E2ERepositories
         public System.DateTime CreationDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
+        public string WeekPeriod { get; set; }
+        public string AnyIssues { get; set; }
+        public string ModifiedBy { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual Employee Employee { get; set; }

@@ -111,20 +111,11 @@
     <Property Name="EndClientPhoneNumber" Type="varchar" MaxLength="20" />
     <Property Name="EndClientExtn" Type="varchar" MaxLength="10" />
     <Property Name="EmployeeEmailAtEndClient" Type="varchar" MaxLength="50" />
-    <Property Name="SupervisorNameAtEndClient" Type="varchar" MaxLength="50" />
-    <Property Name="SupervisorTitleAtEndClient" Type="varchar" MaxLength="50" />
-    <Property Name="SupervisorAddress1" Type="varchar" MaxLength="100" />
-    <Property Name="SupervisorAddress2" Type="varchar" MaxLength="100" />
-    <Property Name="SupervisorCity" Type="varchar" MaxLength="70" />
-    <Property Name="SupervisorState" Type="varchar" MaxLength="20" />
-    <Property Name="Supervisorzip" Type="varchar" MaxLength="20" />
-    <Property Name="SupervisorPhoneNumber" Type="varchar" MaxLength="20" />
-    <Property Name="SupervisorExtn" Type="varchar" MaxLength="10" />
-    <Property Name="SupervisorEmail" Type="varchar" MaxLength="50" />
     <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
   </EntityType>
@@ -139,6 +130,20 @@
     <Property Name="UserId" Type="int" />
     <Property Name="UserName" Type="varchar" MaxLength="50" />
     <Property Name="ErrorDateTime" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'E2EWebPortal.dbo.NewTaskInsertLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewTaskInsertLog">
+    <Key>
+      <PropertyRef Name="TaskInsertLogID" />
+    </Key>
+    <Property Name="TaskInsertLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TotalRowInserted" Type="int" />
+    <Property Name="TotalEmployeeCount" Type="int" />
+    <Property Name="LoadStatus" Type="varchar" MaxLength="10" />
+    <Property Name="ErrorMessage" Type="varchar" MaxLength="100" />
+    <Property Name="TaskCreatedOn" Type="datetime" />
+    <Property Name="TaskCreatedBy" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Reviewer">
     <Key>
@@ -216,17 +221,20 @@
   <EntityType Name="Task">
     <Key>
       <PropertyRef Name="TaskID" />
+      <PropertyRef Name="WeekStartDate" />
+      <PropertyRef Name="WeekEndDate" />
     </Key>
     <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="WeekStartDate" Type="datetime" Nullable="false" />
-    <Property Name="WeekEndDate" Type="datetime" Nullable="false" />
+    <Property Name="WeekStartDate" Type="date" Nullable="false" />
+    <Property Name="WeekEndDate" Type="date" Nullable="false" />
+    <Property Name="WeekPeriod" Type="varchar" MaxLength="25" Nullable="false" />
     <Property Name="TaskCreationDate" Type="datetime" Nullable="false" />
     <Property Name="HoursBilled" Type="decimal" Precision="6" Scale="2" />
     <Property Name="TaskDetails" Type="varchar" MaxLength="2000" />
-    <Property Name="Issues" Type="varchar" MaxLength="2000" />
+    <Property Name="AnyIssues" Type="varchar" MaxLength="2000" />
     <Property Name="Solution" Type="varchar" MaxLength="2000" />
     <Property Name="PercentCompleted" Type="varchar" MaxLength="10" />
-    <Property Name="SubmissionDate" Type="datetime" />
+    <Property Name="SubmissionDate" Type="date" />
     <Property Name="TaskContinueFromLastWeekPeriod" Type="varchar" MaxLength="3" />
     <Property Name="TaskContinueToNextWeekPeriod" Type="varchar" MaxLength="3" />
     <Property Name="TaskSubmissionStatus" Type="varchar" MaxLength="15" />
@@ -236,10 +244,23 @@
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="EmployerID" Type="int" Nullable="false" />
     <Property Name="EndClientID" Type="int" Nullable="false" />
-    <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TaskReviewComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommendDescription" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="ReviewerID" Type="int" Nullable="false" />
+    <Property Name="EmployerID" Type="int" Nullable="false" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="UserAccount">
     <Key>
@@ -460,6 +481,30 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TaskReviewComment_Business">
+    <End Role="Business" Type="Self.Business" Multiplicity="1" />
+    <End Role="TaskReviewComment" Type="Self.TaskReviewComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="TaskReviewComment">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskReviewComment_Employee">
+    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="1" />
+    <End Role="TaskReviewComment" Type="Self.TaskReviewComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewer">
+        <PropertyRef Name="ReviewerID" />
+      </Principal>
+      <Dependent Role="TaskReviewComment">
+        <PropertyRef Name="ReviewerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserAccount_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
@@ -536,11 +581,32 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ipDate" Type="datetime" Mode="In" />
     <Parameter Name="DayOfWeek" Type="int" Mode="In" />
   </Function>
+  <Function Name="fn_GetUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="ErrorMessage" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_AddUpdateTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+    <Parameter Name="HoursBilled" Type="decimal" Mode="In" />
+    <Parameter Name="TaskDetails" Type="varchar" Mode="In" />
+    <Parameter Name="AnyIssues" Type="varchar" Mode="In" />
+    <Parameter Name="Solution" Type="varchar" Mode="In" />
+    <Parameter Name="PercentCompleted" Type="varchar" Mode="In" />
+    <Parameter Name="SubmissionDate" Type="datetime" Mode="In" />
+    <Parameter Name="TaskContinueFromLastWeekPeriod" Type="varchar" Mode="In" />
+    <Parameter Name="TaskContinueToNextWeekPeriod" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_AddUserSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_CreateNewTaskWeekly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SetipDate" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="sp_Delete_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -553,9 +619,11 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   </Function>
   <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_GetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="EmployeeID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetEmployerAdminList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="AdminUserID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetList_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -563,14 +631,25 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_GetListWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_GetReviewerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetSubscriptionDetails_AdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetSubscriptionInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetTaskDetailsByWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="AppOwnerAdminId" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_InsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -641,6 +720,12 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="EmployerID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_UpdateLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_UpsertComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CommentID" Type="int" Mode="In" />
+    <Parameter Name="ReviewerID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="CommendDescription" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_UpsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="AdminUserID" Type="int" Mode="In" />
     <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -691,6 +776,21 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="CurrentVisaStatus" Type="varchar" Mode="In" />
     <Parameter Name="CurrentVisaValidity" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_UpsertEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EndClientID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EndClientBusinessName" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeTitleAtEndClientSite" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientAddress1" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientAddress2" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientCity" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientState" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientzip" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="EndClientExtn" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeEmailAtEndClient" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_UpsertReviewer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
     <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -725,9 +825,21 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaskReviewComment" EntityType="Self.TaskReviewComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserMIS" EntityType="Self.UserMIS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WebAppOwner" EntityType="Self.WebAppOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewTaskInsertLog" EntityType="Self.NewTaskInsertLog" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewTaskInsertLog].[TaskInsertLogID] AS [TaskInsertLogID], 
+    [NewTaskInsertLog].[TotalRowInserted] AS [TotalRowInserted], 
+    [NewTaskInsertLog].[TotalEmployeeCount] AS [TotalEmployeeCount], 
+    [NewTaskInsertLog].[LoadStatus] AS [LoadStatus], 
+    [NewTaskInsertLog].[ErrorMessage] AS [ErrorMessage], 
+    [NewTaskInsertLog].[TaskCreatedOn] AS [TaskCreatedOn], 
+    [NewTaskInsertLog].[TaskCreatedBy] AS [TaskCreatedBy]
+    FROM [dbo].[NewTaskInsertLog] AS [NewTaskInsertLog]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
       <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -785,6 +897,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
       <End Role="EndClient" EntitySet="EndClient" />
       <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskReviewComment_Business" Association="Self.FK_TaskReviewComment_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="TaskReviewComment" EntitySet="TaskReviewComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskReviewComment_Employee" Association="Self.FK_TaskReviewComment_Employee">
+      <End Role="Reviewer" EntitySet="Reviewer" />
+      <End Role="TaskReviewComment" EntitySet="TaskReviewComment" />
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
       <End Role="Employee" EntitySet="Employee" />

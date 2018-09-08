@@ -36,7 +36,7 @@ namespace E2ERepositories
         public int RoleID { get; set; }
         public int EmployerID { get; set; }
         public string Extn { get; set; }
-        public int UserAccountID { get; set; }
+        public Nullable<int> UserAccountID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
     }

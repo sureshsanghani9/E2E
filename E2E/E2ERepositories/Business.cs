@@ -25,6 +25,7 @@ namespace E2ERepositories
             this.WebAppOwners = new HashSet<WebAppOwner>();
             this.Subscriptions = new HashSet<Subscription>();
             this.EmployerAdmins = new HashSet<EmployerAdmin>();
+            this.TaskReviewComments = new HashSet<TaskReviewComment>();
         }
     
         public int EmployerID { get; set; }
@@ -64,5 +65,7 @@ namespace E2ERepositories
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskReviewComment> TaskReviewComments { get; set; }
     }
 }

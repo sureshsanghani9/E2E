@@ -47,6 +47,7 @@ namespace E2ERepositories
         public string CreatedBy { get; set; }
         public int EmployerID { get; set; }
         public int EmployeeID { get; set; }
+        public string ModifiedBy { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual Employee Employee { get; set; }

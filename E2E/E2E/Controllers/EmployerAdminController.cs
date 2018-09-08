@@ -98,19 +98,22 @@ namespace E2E.Controllers
 
         public ActionResult ManageEmployee()
         {
-            var users = _userRepo.GetEmployeeList();
+            var user = (UserViewModal)Session["User"];
+            var users = _userRepo.GetEmployeeList(user.EmployerID);
             return View(users);
         }
 
         public ActionResult ManageAdmin()
         {
-            var employerAdmin = _userRepo.GetEmployerAdminList();
+            var user = (UserViewModal)Session["User"];
+            var employerAdmin = _userRepo.GetEmployerAdminList(user.EmployerID);
             return View(employerAdmin);
         }
 
         public ActionResult ManageReviewer()
         {
-            var users = _userRepo.GetReviewerList();
+            var user = (UserViewModal)Session["User"];
+            var users = _userRepo.GetReviewerList(user.EmployerID);
             return View(users);
         }
 
@@ -236,8 +239,9 @@ namespace E2E.Controllers
 
         public ActionResult EditAdmin(int adminUserID)
         {
-            var employerAdmin = _userRepo.GetEmployerAdminList(adminUserID).FirstOrDefault();
-            if (employerAdmin.AdminUserID > 0)
+            var loggedInuser = (UserViewModal)Session["User"];
+            var employerAdmin = _userRepo.GetEmployerAdminList(loggedInuser.EmployerID, adminUserID).FirstOrDefault();
+            if (employerAdmin.AdminUserID > 0 && !string.IsNullOrEmpty(employerAdmin.Password))
             {
                 employerAdmin.Password = EncryptionHelper.Decrypt(employerAdmin.Password);
             }
@@ -246,8 +250,9 @@ namespace E2E.Controllers
 
         public ActionResult EditReviewer(int reviewerID)
         {
-            var user = _userRepo.GetReviewerList(reviewerID).FirstOrDefault();
-            if (user.ReviewerID > 0)
+            var loggedInuser = (UserViewModal)Session["User"];
+            var user = _userRepo.GetReviewerList(loggedInuser.EmployerID, reviewerID).FirstOrDefault();
+            if (user.ReviewerID > 0 && !string.IsNullOrEmpty(user.Password))
             {
                 user.Password = EncryptionHelper.Decrypt(user.Password);
             }
@@ -256,8 +261,9 @@ namespace E2E.Controllers
 
         public ActionResult EditEmployee(int employeeID)
         {
-            var user = _userRepo.GetEmployeeList(employeeID).FirstOrDefault();
-            if (user.EmployeeID > 0)
+            var loggedInuser = (UserViewModal)Session["User"];
+            var user = _userRepo.GetEmployeeList(loggedInuser.EmployerID, employeeID).FirstOrDefault();
+            if (user.EmployeeID > 0 && !string.IsNullOrEmpty(user.Password))
             {
                 user.Password = EncryptionHelper.Decrypt(user.Password);
             }

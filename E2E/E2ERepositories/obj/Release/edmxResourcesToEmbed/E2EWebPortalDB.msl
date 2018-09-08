@@ -75,6 +75,7 @@
     <EntitySetMapping Name="EndClients">
       <EntityTypeMapping TypeName="E2EWebPortalModel.EndClient">
         <MappingFragment StoreEntitySet="EndClient">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
           <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
           <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
@@ -86,16 +87,6 @@
           <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
           <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
           <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
-          <ScalarProperty Name="SupervisorNameAtEndClient" ColumnName="SupervisorNameAtEndClient" />
-          <ScalarProperty Name="SupervisorTitleAtEndClient" ColumnName="SupervisorTitleAtEndClient" />
-          <ScalarProperty Name="SupervisorAddress1" ColumnName="SupervisorAddress1" />
-          <ScalarProperty Name="SupervisorAddress2" ColumnName="SupervisorAddress2" />
-          <ScalarProperty Name="SupervisorCity" ColumnName="SupervisorCity" />
-          <ScalarProperty Name="SupervisorState" ColumnName="SupervisorState" />
-          <ScalarProperty Name="Supervisorzip" ColumnName="Supervisorzip" />
-          <ScalarProperty Name="SupervisorPhoneNumber" ColumnName="SupervisorPhoneNumber" />
-          <ScalarProperty Name="SupervisorExtn" ColumnName="SupervisorExtn" />
-          <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
           <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -196,13 +187,15 @@
     <EntitySetMapping Name="Tasks">
       <EntityTypeMapping TypeName="E2EWebPortalModel.Task">
         <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
           <ScalarProperty Name="TaskID" ColumnName="TaskID" />
           <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
           <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
           <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
           <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
           <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
-          <ScalarProperty Name="Issues" ColumnName="Issues" />
           <ScalarProperty Name="Solution" ColumnName="Solution" />
           <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
           <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
@@ -215,7 +208,6 @@
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
           <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -455,6 +447,126 @@
     <FunctionImportMapping FunctionImportName="sp_UpsertReviewer" FunctionName="E2EWebPortalModel.Store.sp_UpsertReviewer" />
     <FunctionImportMapping FunctionImportName="sp_UpsertEmployee" FunctionName="E2EWebPortalModel.Store.sp_UpsertEmployee" />
     <FunctionImportMapping FunctionImportName="sp_Delete_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_Delete_EA_Rew_Emp" />
+    <FunctionImportMapping FunctionImportName="sp_GetList_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_GetList_EA_Rew_Emp">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result">
+          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+          <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
+          <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
+          <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
+          <ScalarProperty Name="AdminUserNickName" ColumnName="AdminUserNickName" />
+          <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+          <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+          <ScalarProperty Name="Extn" ColumnName="Extn" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ManageActivation_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_ManageActivation_EA_Rew_Emp" />
+    <FunctionImportMapping FunctionImportName="sp_GetSubscriptionDetails_AdminUser" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionDetails_AdminUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionDetails_AdminUser_Result">
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
+          <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
+          <ScalarProperty Name="LoginAvailable" ColumnName="LoginAvailable" />
+          <ScalarProperty Name="SubscriptionPlanName" ColumnName="SubscriptionPlanName" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="BusinessActive" ColumnName="BusinessActive" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+          <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+          <ScalarProperty Name="ServiceDetails" ColumnName="ServiceDetails" />
+          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
+          <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
+          <ScalarProperty Name="LoginUsed" ColumnName="LoginUsed" />
+          <ScalarProperty Name="PaypalPaymentConfirmationNum" ColumnName="PaypalPaymentConfirmationNum" />
+          <ScalarProperty Name="PaypalPaymentDate" ColumnName="PaypalPaymentDate" />
+          <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
+          <ScalarProperty Name="TotalAmtPaid" ColumnName="TotalAmtPaid" />
+          <ScalarProperty Name="RegistrationFeeCharged" ColumnName="RegistrationFeeCharged" />
+          <ScalarProperty Name="RegistrationFeePaid" ColumnName="RegistrationFeePaid" />
+          <ScalarProperty Name="RegistrationFeePaidDate" ColumnName="RegistrationFeePaidDate" />
+          <ScalarProperty Name="SubscriptionFeeCharged" ColumnName="SubscriptionFeeCharged" />
+          <ScalarProperty Name="SubscriptionFeePaid" ColumnName="SubscriptionFeePaid" />
+          <ScalarProperty Name="SubscriptionFeePaidDate" ColumnName="SubscriptionFeePaidDate" />
+          <ScalarProperty Name="RecurringAmountCharged" ColumnName="RecurringAmountCharged" />
+          <ScalarProperty Name="RecurringAmountPaid" ColumnName="RecurringAmountPaid" />
+          <ScalarProperty Name="RecurringAmountPaidDate" ColumnName="RecurringAmountPaidDate" />
+          <ScalarProperty Name="LateFeeCharged" ColumnName="LateFeeCharged" />
+          <ScalarProperty Name="LateFeeAmountPaid" ColumnName="LateFeeAmountPaid" />
+          <ScalarProperty Name="LateFeePaidDate" ColumnName="LateFeePaidDate" />
+          <ScalarProperty Name="CancellationFeeCharged" ColumnName="CancellationFeeCharged" />
+          <ScalarProperty Name="CancellationFeePaid" ColumnName="CancellationFeePaid" />
+          <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+          <ScalarProperty Name="EmployerAdminName" ColumnName="EmployerAdminName" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+          <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TaskReviewComments">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.TaskReviewComment">
+        <MappingFragment StoreEntitySet="TaskReviewComment">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+          <ScalarProperty Name="CommendDescription" ColumnName="CommendDescription" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewTaskInsertLogs">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.NewTaskInsertLog">
+        <MappingFragment StoreEntitySet="NewTaskInsertLog">
+          <ScalarProperty Name="TaskCreatedBy" ColumnName="TaskCreatedBy" />
+          <ScalarProperty Name="TaskCreatedOn" ColumnName="TaskCreatedOn" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="LoadStatus" ColumnName="LoadStatus" />
+          <ScalarProperty Name="TotalEmployeeCount" ColumnName="TotalEmployeeCount" />
+          <ScalarProperty Name="TotalRowInserted" ColumnName="TotalRowInserted" />
+          <ScalarProperty Name="TaskInsertLogID" ColumnName="TaskInsertLogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
+    <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
     <FunctionImportMapping FunctionImportName="sp_GetEmployeeList" FunctionName="E2EWebPortalModel.Store.sp_GetEmployeeList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEmployeeList_Result">
@@ -522,35 +634,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_GetList_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_GetList_EA_Rew_Emp">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result">
-          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
-          <ScalarProperty Name="AdminUserFirstName" ColumnName="AdminUserFirstName" />
-          <ScalarProperty Name="AdminuserMiddleName" ColumnName="AdminuserMiddleName" />
-          <ScalarProperty Name="AdminUserLastName" ColumnName="AdminUserLastName" />
-          <ScalarProperty Name="AdminUserNickName" ColumnName="AdminUserNickName" />
-          <ScalarProperty Name="AdminTitle" ColumnName="AdminTitle" />
-          <ScalarProperty Name="Address1" ColumnName="Address1" />
-          <ScalarProperty Name="Address2" ColumnName="Address2" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="zip" ColumnName="zip" />
-          <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
-          <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
-          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
-          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
-          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
-          <ScalarProperty Name="Extn" ColumnName="Extn" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetListWeekPeriod" />
     <FunctionImportMapping FunctionImportName="sp_GetReviewerList" FunctionName="E2EWebPortalModel.Store.sp_GetReviewerList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetReviewerList_Result">
@@ -580,6 +664,25 @@
           <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
+          <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -616,67 +719,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_ManageActivation_EA_Rew_Emp" FunctionName="E2EWebPortalModel.Store.sp_ManageActivation_EA_Rew_Emp" />
-    <FunctionImportMapping FunctionImportName="sp_GetSubscriptionDetails_AdminUser" FunctionName="E2EWebPortalModel.Store.sp_GetSubscriptionDetails_AdminUser">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetSubscriptionDetails_AdminUser_Result">
-          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-          <ScalarProperty Name="EmployerAccountNumber" ColumnName="EmployerAccountNumber" />
-          <ScalarProperty Name="TotalLogin" ColumnName="TotalLogin" />
-          <ScalarProperty Name="LoginAvailable" ColumnName="LoginAvailable" />
-          <ScalarProperty Name="SubscriptionPlanName" ColumnName="SubscriptionPlanName" />
-          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
-          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-          <ScalarProperty Name="BusinessActive" ColumnName="BusinessActive" />
-          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-          <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
-          <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
-          <ScalarProperty Name="ServiceDetails" ColumnName="ServiceDetails" />
-          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
-          <ScalarProperty Name="SubscriptionPlanCode" ColumnName="SubscriptionPlanCode" />
-          <ScalarProperty Name="LoginUsed" ColumnName="LoginUsed" />
-          <ScalarProperty Name="PaypalPaymentConfirmationNum" ColumnName="PaypalPaymentConfirmationNum" />
-          <ScalarProperty Name="PaypalPaymentDate" ColumnName="PaypalPaymentDate" />
-          <ScalarProperty Name="AmountCharged" ColumnName="AmountCharged" />
-          <ScalarProperty Name="TotalAmtPaid" ColumnName="TotalAmtPaid" />
-          <ScalarProperty Name="RegistrationFeeCharged" ColumnName="RegistrationFeeCharged" />
-          <ScalarProperty Name="RegistrationFeePaid" ColumnName="RegistrationFeePaid" />
-          <ScalarProperty Name="RegistrationFeePaidDate" ColumnName="RegistrationFeePaidDate" />
-          <ScalarProperty Name="SubscriptionFeeCharged" ColumnName="SubscriptionFeeCharged" />
-          <ScalarProperty Name="SubscriptionFeePaid" ColumnName="SubscriptionFeePaid" />
-          <ScalarProperty Name="SubscriptionFeePaidDate" ColumnName="SubscriptionFeePaidDate" />
-          <ScalarProperty Name="RecurringAmountCharged" ColumnName="RecurringAmountCharged" />
-          <ScalarProperty Name="RecurringAmountPaid" ColumnName="RecurringAmountPaid" />
-          <ScalarProperty Name="RecurringAmountPaidDate" ColumnName="RecurringAmountPaidDate" />
-          <ScalarProperty Name="LateFeeCharged" ColumnName="LateFeeCharged" />
-          <ScalarProperty Name="LateFeeAmountPaid" ColumnName="LateFeeAmountPaid" />
-          <ScalarProperty Name="LateFeePaidDate" ColumnName="LateFeePaidDate" />
-          <ScalarProperty Name="CancellationFeeCharged" ColumnName="CancellationFeeCharged" />
-          <ScalarProperty Name="CancellationFeePaid" ColumnName="CancellationFeePaid" />
-          <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
-          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
-          <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
-          <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
-          <ScalarProperty Name="EmployerAdminName" ColumnName="EmployerAdminName" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
-          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="zip" ColumnName="zip" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Fax" ColumnName="Fax" />
-          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
-          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
-          <ScalarProperty Name="URL" ColumnName="URL" />
-          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
-          <ScalarProperty Name="BusinessTaxID" ColumnName="BusinessTaxID" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_UpsertComments" FunctionName="E2EWebPortalModel.Store.sp_UpsertComments" />
+    <FunctionImportMapping FunctionImportName="sp_UpsertEndClient" FunctionName="E2EWebPortalModel.Store.sp_UpsertEndClient" />
   </EntityContainerMapping>
 </Mapping>

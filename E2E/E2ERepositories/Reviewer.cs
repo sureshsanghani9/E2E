@@ -18,6 +18,7 @@ namespace E2ERepositories
         public Reviewer()
         {
             this.UserAccounts = new HashSet<UserAccount>();
+            this.TaskReviewComments = new HashSet<TaskReviewComment>();
         }
     
         public int ReviewerID { get; set; }
@@ -48,5 +49,7 @@ namespace E2ERepositories
         public virtual E2E_UserRole E2E_UserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAccount> UserAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskReviewComment> TaskReviewComments { get; set; }
     }
 }

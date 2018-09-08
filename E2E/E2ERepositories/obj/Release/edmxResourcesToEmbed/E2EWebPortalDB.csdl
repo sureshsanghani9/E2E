@@ -32,6 +32,7 @@
     <Property Name="EmployerAccountNumber" Type="Int32" />
     <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Business" ToRole="Subscription" />
     <NavigationProperty Name="EmployerAdmins" Relationship="E2EWebPortalModel.FK_EmployerAdmin_Employer" FromRole="Business" ToRole="EmployerAdmin" />
+    <NavigationProperty Name="TaskReviewComments" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Business" FromRole="Business" ToRole="TaskReviewComment" />
   </EntityType>
   <EntityType Name="E2E_UserRole">
     <Key>
@@ -119,6 +120,7 @@
     <NavigationProperty Name="Business" Relationship="Self.FK_EndClient_Business" FromRole="EndClient" ToRole="Business" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_EndClient_Employee" FromRole="EndClient" ToRole="Employee" />
     <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_EndClient" FromRole="EndClient" ToRole="Task" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="ErrorLog">
     <Key>
@@ -162,6 +164,7 @@
     <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_Reviewer_E2E_UserRole" FromRole="Reviewer" ToRole="E2E_UserRole" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Reviewer" FromRole="Reviewer" ToRole="UserAccount" />
     <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TaskReviewComments" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Employee" FromRole="Reviewer" ToRole="TaskReviewComment" />
   </EntityType>
   <EntityType Name="Subscription">
     <Key>
@@ -214,15 +217,15 @@
       <PropertyRef Name="TaskID" />
     </Key>
     <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="TaskCreationDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="HoursBilled" Type="Decimal" Precision="6" Scale="2" />
     <Property Name="TaskDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
     <Property Name="Issues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
     <Property Name="Solution" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
     <Property Name="PercentCompleted" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="SubmissionDate" Type="DateTime" Precision="3" />
+    <Property Name="SubmissionDate" Type="DateTime" Precision="0" />
     <Property Name="TaskContinueFromLastWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="TaskContinueToNextWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="TaskSubmissionStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
@@ -239,6 +242,9 @@
     <NavigationProperty Name="Business" Relationship="Self.FK_Task_Business" FromRole="Task" ToRole="Business" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Task_Employee" FromRole="Task" ToRole="Employee" />
     <NavigationProperty Name="EndClient" Relationship="Self.FK_Task_EndClient" FromRole="Task" ToRole="EndClient" />
+    <Property Name="WeekPeriod" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="AnyIssues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="UserAccount">
     <Key>
@@ -717,22 +723,10 @@
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="UserID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_GetEmployeeList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployeeList_Result)">
-      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_GetEmployerAdminList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployerAdminList_Result)">
-      <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_GetList_EA_Rew_Emp" ReturnType="Collection(E2EWebPortalModel.sp_GetList_EA_Rew_Emp_Result)">
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="UserID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
-      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_GetWebAppOwnerList" ReturnType="Collection(E2EWebPortalModel.sp_GetWebAppOwnerList_Result)">
-      <Parameter Name="AppOwnerAdminId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_ManageActivation_EA_Rew_Emp">
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
@@ -742,6 +736,78 @@
     </FunctionImport>
     <FunctionImport Name="sp_GetSubscriptionDetails_AdminUser" ReturnType="Collection(E2EWebPortalModel.sp_GetSubscriptionDetails_AdminUser_Result)">
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TaskReviewComments" EntityType="E2EWebPortalModel.TaskReviewComment" />
+    <EntitySet Name="NewTaskInsertLogs" EntityType="E2EWebPortalModel.NewTaskInsertLog" />
+    <AssociationSet Name="FK_TaskReviewComment_Business" Association="E2EWebPortalModel.FK_TaskReviewComment_Business">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="TaskReviewComment" EntitySet="TaskReviewComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskReviewComment_Employee" Association="E2EWebPortalModel.FK_TaskReviewComment_Employee">
+      <End Role="Reviewer" EntitySet="Reviewers" />
+      <End Role="TaskReviewComment" EntitySet="TaskReviewComments" />
+    </AssociationSet>
+    <FunctionImport Name="sp_AddUpdateTaskDetails">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+      <Parameter Name="HoursBilled" Mode="In" Type="Decimal" />
+      <Parameter Name="TaskDetails" Mode="In" Type="String" />
+      <Parameter Name="AnyIssues" Mode="In" Type="String" />
+      <Parameter Name="Solution" Mode="In" Type="String" />
+      <Parameter Name="PercentCompleted" Mode="In" Type="String" />
+      <Parameter Name="SubmissionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TaskContinueFromLastWeekPeriod" Mode="In" Type="String" />
+      <Parameter Name="TaskContinueToNextWeekPeriod" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CreateNewTaskWeekly">
+      <Parameter Name="SetipDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetEmployeeList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployeeList_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetEmployerAdminList" ReturnType="Collection(E2EWebPortalModel.sp_GetEmployerAdminList_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetListWeekPeriod" ReturnType="Collection(String)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetWebAppOwnerList" ReturnType="Collection(E2EWebPortalModel.sp_GetWebAppOwnerList_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="AppOwnerAdminId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpsertComments">
+      <Parameter Name="CommentID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="CommendDescription" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpsertEndClient">
+      <Parameter Name="EndClientID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EndClientBusinessName" Mode="In" Type="String" />
+      <Parameter Name="EmployeeTitleAtEndClientSite" Mode="In" Type="String" />
+      <Parameter Name="EndClientAddress1" Mode="In" Type="String" />
+      <Parameter Name="EndClientAddress2" Mode="In" Type="String" />
+      <Parameter Name="EndClientCity" Mode="In" Type="String" />
+      <Parameter Name="EndClientState" Mode="In" Type="String" />
+      <Parameter Name="EndClientzip" Mode="In" Type="String" />
+      <Parameter Name="EndClientPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="EndClientExtn" Mode="In" Type="String" />
+      <Parameter Name="EmployeeEmailAtEndClient" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -936,65 +1002,6 @@
     <Property Type="Int32" Name="RoleID" Nullable="true" />
     <Property Type="Int32" Name="UserAccountID" Nullable="true" />
   </ComplexType>
-  <ComplexType Name="sp_GetEmployeeList_Result">
-    <Property Type="Int32" Name="EmployeeID" Nullable="false" />
-    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
-    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
-    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
-    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="CurrentVisaStatus" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="CurrentVisaValidity" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
-    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="RoleID" Nullable="false" />
-    <Property Type="Int32" Name="EmployerID" Nullable="false" />
-    <Property Type="DateTime" Name="InceptionDate" Nullable="true" />
-    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
-    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
-  </ComplexType>
-  <ComplexType Name="sp_GetEmployerAdminList_Result">
-    <Property Type="Int32" Name="AdminUserID" Nullable="false" />
-    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
-    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
-    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="RoleID" Nullable="false" />
-    <Property Type="Int32" Name="EmployerID" Nullable="false" />
-    <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
-    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
-    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
-  </ComplexType>
   <ComplexType Name="sp_GetList_EA_Rew_Emp_Result">
     <Property Type="Int32" Name="AdminUserID" Nullable="false" />
     <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
@@ -1019,63 +1026,6 @@
     <Property Type="Int32" Name="EmployerID" Nullable="false" />
     <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
     <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
-  </ComplexType>
-  <ComplexType Name="sp_GetReviewerList_Result">
-    <Property Type="Int32" Name="ReviewerID" Nullable="false" />
-    <Property Type="String" Name="ReviewerFirstName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="ReviewerMiddleName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="ReviewerLastName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="ReviewerNickName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="ReviewerTitle" Nullable="true" MaxLength="50" />
-    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
-    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
-    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
-    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="RoleID" Nullable="false" />
-    <Property Type="Int32" Name="EmployerID" Nullable="false" />
-    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
-    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
-  </ComplexType>
-  <ComplexType Name="sp_GetWebAppOwnerList_Result">
-    <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
-    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
-    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
-    <Property Type="String" Name="MiddleInitial" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
-    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="PrimaryPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
-    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="RoleID" Nullable="false" />
-    <Property Type="Int32" Name="EmployerID" Nullable="false" />
-    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
   </ComplexType>
   <ComplexType Name="sp_GetSubscriptionDetails_AdminUser_Result">
     <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="200" />
@@ -1133,5 +1083,187 @@
     <Property Type="Int32" Name="TotalEmployees" Nullable="true" />
     <Property Type="String" Name="BusinessTaxID" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+  </ComplexType>
+  <EntityType Name="TaskReviewComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommendDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ReviewerID" Type="Int32" Nullable="false" />
+    <Property Name="EmployerID" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Business" FromRole="TaskReviewComment" ToRole="Business" />
+    <NavigationProperty Name="Reviewer" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Employee" FromRole="TaskReviewComment" ToRole="Reviewer" />
+  </EntityType>
+  <EntityType Name="NewTaskInsertLog">
+    <Key>
+      <PropertyRef Name="TaskInsertLogID" />
+    </Key>
+    <Property Name="TaskInsertLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TotalRowInserted" Type="Int32" />
+    <Property Name="TotalEmployeeCount" Type="Int32" />
+    <Property Name="LoadStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TaskCreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="TaskCreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_TaskReviewComment_Business">
+    <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.TaskReviewComment" Role="TaskReviewComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="TaskReviewComment">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskReviewComment_Employee">
+    <End Type="E2EWebPortalModel.Reviewer" Role="Reviewer" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.TaskReviewComment" Role="TaskReviewComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewer">
+        <PropertyRef Name="ReviewerID" />
+      </Principal>
+      <Dependent Role="TaskReviewComment">
+        <PropertyRef Name="ReviewerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_GetEmployeeList_Result">
+    <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CurrentVisaStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="CurrentVisaValidity" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="DateTime" Name="InceptionDate" Nullable="true" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetEmployerAdminList_Result">
+    <Property Type="Int32" Name="AdminUserID" Nullable="false" />
+    <Property Type="String" Name="AdminUserFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminuserMiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminUserNickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AdminTitle" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="Boolean" Name="IsPrimary" Nullable="true" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetReviewerList_Result">
+    <Property Type="Int32" Name="ReviewerID" Nullable="false" />
+    <Property Type="String" Name="ReviewerFirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerMiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerLastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerNickName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ReviewerTitle" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SecondaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="String" Name="Extn" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetTaskDetailsByWeekPeriod_Result">
+    <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientWorkLocation" Nullable="true" MaxLength="317" />
+    <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="HoursBilled" Nullable="true" Precision="6" Scale="2" />
+    <Property Type="String" Name="TaskDetails" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="AnyIssues" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="Solution" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="PercentCompleted" Nullable="true" MaxLength="10" />
+    <Property Type="DateTime" Name="SubmissionDate" Nullable="true" />
+    <Property Type="String" Name="TaskContinueFromLastWeekPeriod" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TaskContinueToNextWeekPeriod" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="15" />
+  </ComplexType>
+  <ComplexType Name="sp_GetWebAppOwnerList_Result">
+    <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="MiddleInitial" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="BusinessPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessEmail1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessEmail2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RoleID" Nullable="false" />
+    <Property Type="Int32" Name="EmployerID" Nullable="false" />
+    <Property Type="Int32" Name="UserAccountID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
   </ComplexType>
 </Schema>

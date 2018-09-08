@@ -273,29 +273,29 @@ namespace E2ERepositories
 
         }
 
-        public List<EmployerAdminViewModal> GetEmployerAdminList(int AdminUserID = -1)
+        public List<EmployerAdminViewModal> GetEmployerAdminList(int EmployerID, int AdminUserID = -1)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var users = db.sp_GetEmployerAdminList(AdminUserID).ToList();
+                var users = db.sp_GetEmployerAdminList(EmployerID, AdminUserID).ToList();
                 return Mapper.Map<List<sp_GetEmployerAdminList_Result>, List<EmployerAdminViewModal>>(users);
             }
         }
 
-        public List<ReviewerViewModal> GetReviewerList(int ReviewerID = -1)
+        public List<ReviewerViewModal> GetReviewerList(int EmployerID, int ReviewerID = -1)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var users = db.sp_GetReviewerList(ReviewerID).ToList();
+                var users = db.sp_GetReviewerList(EmployerID, ReviewerID).ToList();
                 return Mapper.Map<List<sp_GetReviewerList_Result>, List<ReviewerViewModal>>(users);
             }
         }
 
-        public List<EmployeeViewModal> GetEmployeeList(int EmployeeID = -1)
+        public List<EmployeeViewModal> GetEmployeeList(int EmployerID, int EmployeeID = -1)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var users = db.sp_GetEmployeeList(EmployeeID).ToList();
+                var users = db.sp_GetEmployeeList(EmployerID, EmployeeID).ToList();
                 return Mapper.Map<List<sp_GetEmployeeList_Result>, List<EmployeeViewModal>>(users);
             }
         }
