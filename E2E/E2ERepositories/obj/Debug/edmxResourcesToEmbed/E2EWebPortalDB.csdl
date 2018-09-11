@@ -24,15 +24,15 @@
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Employer" FromRole="Business" ToRole="Employee" />
-    <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Business" FromRole="Business" ToRole="EndClient" />
     <NavigationProperty Name="Reviewers" Relationship="Self.FK_Reviewer_Employer" FromRole="Business" ToRole="Reviewer" />
-    <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Business" FromRole="Business" ToRole="Task" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employer" FromRole="Business" ToRole="UserAccount" />
     <NavigationProperty Name="WebAppOwners" Relationship="Self.FK_WebAppOwner_Business" FromRole="Business" ToRole="WebAppOwner" />
     <Property Name="EmployerAccountNumber" Type="Int32" />
     <NavigationProperty Name="Subscriptions" Relationship="E2EWebPortalModel.FK_Subscription_Business" FromRole="Business" ToRole="Subscription" />
     <NavigationProperty Name="EmployerAdmins" Relationship="E2EWebPortalModel.FK_EmployerAdmin_Employer" FromRole="Business" ToRole="EmployerAdmin" />
     <NavigationProperty Name="TaskReviewComments" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Business" FromRole="Business" ToRole="TaskReviewComment" />
+    <NavigationProperty Name="Tasks" Relationship="E2EWebPortalModel.FK_Task_Business" FromRole="Business" ToRole="Task" />
+    <NavigationProperty Name="EndClients" Relationship="E2EWebPortalModel.FK_EndClient_Business" FromRole="Business" ToRole="EndClient" />
   </EntityType>
   <EntityType Name="E2E_UserRole">
     <Key>
@@ -81,46 +81,10 @@
     <Property Name="InceptionDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Business" Relationship="Self.FK_Employee_Employer" FromRole="Employee" ToRole="Business" />
     <NavigationProperty Name="E2E_UserRole" Relationship="Self.FK_Employee_E2E_UserRole" FromRole="Employee" ToRole="E2E_UserRole" />
-    <NavigationProperty Name="EndClients" Relationship="Self.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
-    <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Employee" FromRole="Employee" ToRole="Task" />
     <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Employee" FromRole="Employee" ToRole="UserAccount" />
     <Property Name="Extn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="EndClient">
-    <Key>
-      <PropertyRef Name="EndClientID" />
-    </Key>
-    <Property Name="EndClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EndClientBusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EmployeeTitleAtEndClientSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientzip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EndClientExtn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="EmployeeEmailAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorNameAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorTitleAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Supervisorzip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorExtn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="SupervisorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="EmployerID" Type="Int32" Nullable="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Business" Relationship="Self.FK_EndClient_Business" FromRole="EndClient" ToRole="Business" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_EndClient_Employee" FromRole="EndClient" ToRole="Employee" />
-    <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_EndClient" FromRole="EndClient" ToRole="Task" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tasks" Relationship="E2EWebPortalModel.FK_Task_Employee" FromRole="Employee" ToRole="Task" />
+    <NavigationProperty Name="EndClients" Relationship="E2EWebPortalModel.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
   </EntityType>
   <EntityType Name="ErrorLog">
     <Key>
@@ -212,40 +176,6 @@
     <Property Name="RecurringAmountCharged" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CancellationFeePaid" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
-  <EntityType Name="Task">
-    <Key>
-      <PropertyRef Name="TaskID" />
-    </Key>
-    <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="TaskCreationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="HoursBilled" Type="Decimal" Precision="6" Scale="2" />
-    <Property Name="TaskDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-    <Property Name="Issues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-    <Property Name="Solution" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-    <Property Name="PercentCompleted" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="SubmissionDate" Type="DateTime" Precision="0" />
-    <Property Name="TaskContinueFromLastWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="TaskContinueToNextWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="TaskSubmissionStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="ReviewerID" Type="Int32" />
-    <Property Name="ReviewDate" Type="DateTime" Precision="3" />
-    <Property Name="ReviewerComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="EmployerID" Type="Int32" Nullable="false" />
-    <Property Name="EndClientID" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Business" Relationship="Self.FK_Task_Business" FromRole="Task" ToRole="Business" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_Task_Employee" FromRole="Task" ToRole="Employee" />
-    <NavigationProperty Name="EndClient" Relationship="Self.FK_Task_EndClient" FromRole="Task" ToRole="EndClient" />
-    <Property Name="WeekPeriod" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-    <Property Name="AnyIssues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="UserAccount">
     <Key>
       <PropertyRef Name="UserAccountID" />
@@ -327,18 +257,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EndClient_Business">
-    <End Role="Business" Type="Self.Business" Multiplicity="1" />
-    <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Business">
-        <PropertyRef Name="EmployerID" />
-      </Principal>
-      <Dependent Role="EndClient">
-        <PropertyRef Name="EmployerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Reviewer_Employer">
     <End Role="Business" Type="Self.Business" Multiplicity="1" />
     <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="*" />
@@ -347,18 +265,6 @@
         <PropertyRef Name="EmployerID" />
       </Principal>
       <Dependent Role="Reviewer">
-        <PropertyRef Name="EmployerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Task_Business">
-    <End Role="Business" Type="Self.Business" Multiplicity="1" />
-    <End Role="Task" Type="Self.Task" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Business">
-        <PropertyRef Name="EmployerID" />
-      </Principal>
-      <Dependent Role="Task">
         <PropertyRef Name="EmployerID" />
       </Dependent>
     </ReferentialConstraint>
@@ -423,30 +329,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EndClient_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-    <End Role="EndClient" Type="Self.EndClient" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="EmployeeID" />
-      </Principal>
-      <Dependent Role="EndClient">
-        <PropertyRef Name="EmployeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Task_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-    <End Role="Task" Type="Self.Task" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="EmployeeID" />
-      </Principal>
-      <Dependent Role="Task">
-        <PropertyRef Name="EmployeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserAccount_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
@@ -456,18 +338,6 @@
       </Principal>
       <Dependent Role="UserAccount">
         <PropertyRef Name="EmployeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Task_EndClient">
-    <End Role="EndClient" Type="Self.EndClient" Multiplicity="1" />
-    <End Role="Task" Type="Self.Task" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EndClient">
-        <PropertyRef Name="EndClientID" />
-      </Principal>
-      <Dependent Role="Task">
-        <PropertyRef Name="EndClientID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -487,11 +357,9 @@
     <EntitySet Name="Businesses" EntityType="Self.Business" />
     <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" />
     <EntitySet Name="Employees" EntityType="Self.Employee" />
-    <EntitySet Name="EndClients" EntityType="Self.EndClient" />
     <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
     <EntitySet Name="Reviewers" EntityType="Self.Reviewer" />
     <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
-    <EntitySet Name="Tasks" EntityType="Self.Task" />
     <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
     <EntitySet Name="WebAppOwners" EntityType="Self.WebAppOwner" />
     <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
@@ -499,17 +367,9 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Employee" EntitySet="Employees" />
     </AssociationSet>
-    <AssociationSet Name="FK_EndClient_Business" Association="Self.FK_EndClient_Business">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="EndClient" EntitySet="EndClients" />
-    </AssociationSet>
     <AssociationSet Name="FK_Reviewer_Employer" Association="Self.FK_Reviewer_Employer">
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Reviewer" EntitySet="Reviewers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Task_Business" Association="Self.FK_Task_Business">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="Task" EntitySet="Tasks" />
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Employer" Association="Self.FK_UserAccount_Employer">
       <End Role="Business" EntitySet="Businesses" />
@@ -531,21 +391,9 @@
       <End Role="E2E_UserRole" EntitySet="E2E_UserRole" />
       <End Role="WebAppOwner" EntitySet="WebAppOwners" />
     </AssociationSet>
-    <AssociationSet Name="FK_EndClient_Employee" Association="Self.FK_EndClient_Employee">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="EndClient" EntitySet="EndClients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Task_Employee" Association="Self.FK_Task_Employee">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="Task" EntitySet="Tasks" />
-    </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="UserAccount" EntitySet="UserAccounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Task_EndClient" Association="Self.FK_Task_EndClient">
-      <End Role="EndClient" EntitySet="EndClients" />
-      <End Role="Task" EntitySet="Tasks" />
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Reviewer" Association="Self.FK_UserAccount_Reviewer">
       <End Role="Reviewer" EntitySet="Reviewers" />
@@ -773,14 +621,18 @@
     </FunctionImport>
     <FunctionImport Name="sp_GetListWeekPeriod" ReturnType="Collection(String)">
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="Weekperiod" Mode="InOut" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
       <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
       <Parameter Name="WeekPeriod" Mode="In" Type="String" />
     </FunctionImport>
@@ -809,6 +661,38 @@
       <Parameter Name="EndClientExtn" Mode="In" Type="String" />
       <Parameter Name="EmployeeEmailAtEndClient" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_UpdateTaskReview">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+      <Parameter Name="TaskSubmissionStatus" Mode="In" Type="String" />
+      <Parameter Name="ReviewDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ReviewComments" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Tasks" EntityType="E2EWebPortalModel.Task" />
+    <AssociationSet Name="FK_Task_Business" Association="E2EWebPortalModel.FK_Task_Business">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Employee" Association="E2EWebPortalModel.FK_Task_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <EntitySet Name="EndClients" EntityType="E2EWebPortalModel.EndClient" />
+    <AssociationSet Name="FK_EndClient_Business" Association="E2EWebPortalModel.FK_EndClient_Business">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="EndClient" EntitySet="EndClients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EndClient_Employee" Association="E2EWebPortalModel.FK_EndClient_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EndClient" EntitySet="EndClients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_EndClient" Association="E2EWebPortalModel.FK_Task_EndClient">
+      <End Role="EndClient" EntitySet="EndClients" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1266,4 +1150,125 @@
     <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
   </ComplexType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="TaskID" />
+      <PropertyRef Name="WeekStartDate" />
+      <PropertyRef Name="WeekEndDate" />
+    </Key>
+    <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="WeekPeriod" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TaskCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoursBilled" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="TaskDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="AnyIssues" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Solution" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="PercentCompleted" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SubmissionDate" Type="DateTime" Precision="0" />
+    <Property Name="TaskContinueFromLastWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="TaskContinueToNextWeekPeriod" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="TaskSubmissionStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ReviewerID" Type="Int32" />
+    <Property Name="ReviewDate" Type="DateTime" Precision="0" />
+    <Property Name="ReviewerComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="EmployerID" Type="Int32" Nullable="false" />
+    <Property Name="EndClientID" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ReviewerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_Task_Business" FromRole="Task" ToRole="Business" />
+    <NavigationProperty Name="Employee" Relationship="E2EWebPortalModel.FK_Task_Employee" FromRole="Task" ToRole="Employee" />
+    <NavigationProperty Name="EndClient" Relationship="E2EWebPortalModel.FK_Task_EndClient" FromRole="Task" ToRole="EndClient" />
+  </EntityType>
+  <Association Name="FK_Task_Business">
+    <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.Task" Role="Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Employee">
+    <End Type="E2EWebPortalModel.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.Task" Role="Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EndClient">
+    <Key>
+      <PropertyRef Name="EndClientID" />
+    </Key>
+    <Property Name="EndClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EndClientBusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeTitleAtEndClientSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientzip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EndClientExtn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeEmailAtEndClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EmployerID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_EndClient_Business" FromRole="EndClient" ToRole="Business" />
+    <NavigationProperty Name="Employee" Relationship="E2EWebPortalModel.FK_EndClient_Employee" FromRole="EndClient" ToRole="Employee" />
+    <NavigationProperty Name="Tasks" Relationship="E2EWebPortalModel.FK_Task_EndClient" FromRole="EndClient" ToRole="Task" />
+  </EntityType>
+  <Association Name="FK_EndClient_Business">
+    <End Type="E2EWebPortalModel.Business" Role="Business" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.EndClient" Role="EndClient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="EmployerID" />
+      </Principal>
+      <Dependent Role="EndClient">
+        <PropertyRef Name="EmployerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EndClient_Employee">
+    <End Type="E2EWebPortalModel.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.EndClient" Role="EndClient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EndClient">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_EndClient">
+    <End Type="E2EWebPortalModel.EndClient" Role="EndClient" Multiplicity="1" />
+    <End Type="E2EWebPortalModel.Task" Role="Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EndClient">
+        <PropertyRef Name="EndClientID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="EndClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

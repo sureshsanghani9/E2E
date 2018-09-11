@@ -1,5 +1,6 @@
 ﻿using E2EInfrastructure.Helpers;
 using E2ERepositories.Interface;
+using E2EViewModals.EndClient;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
@@ -90,5 +91,49 @@ namespace E2E.Controllers
 
 
         }
+
+        public ActionResult AddEndClient()
+        {
+            return View();
+        }
+
+        public ActionResult ManageEndClients()
+        {
+            return View();
+        }
+
+        public JsonResult SaveEndClientData(FormCollection form)
+        {
+            var user = (UserViewModal)Session["User"];
+            EndClientViewModal client = new EndClientViewModal();
+            client.EndClientID = Convert.ToInt16(form["EndClientID"] != null ? form["EndClientID"].ToString() : "0");
+            client.EmployeeID = Convert.ToInt16(user.Id);
+            client.EmployerID  = user.EmployerID;
+            client.EndClientBusinessName = Convert.ToString(form["EndClientBusinessName"].ToString());
+            client.EmployeeTitleAtEndClientSite= Convert.ToString(form["EmployeeTitleAtEndClientSite"].ToString());
+            client.EndClientAddress1 = Convert.ToString(form["EndClientAddress1"].ToString());
+            client.EndClientAddress2 = Convert.ToString(form["EndClientAddress2"].ToString());
+            client.EndClientCity = Convert.ToString(form["EndClientCity"].ToString());
+            client.EndClientState = Convert.ToString(form["EndClientState"].ToString());
+            client.EndClientzip = Convert.ToString(form["EndClientzip"].ToString());
+            client.EndClientPhoneNumber = Convert.ToString(form["EndClientPhoneNumber"].ToString());
+            client.EndClientExtn = Convert.ToString(form["EndClientExtn"].ToString());
+            client.EmployeeEmailAtEndClient = Convert.ToString(form["EmployeeEmailAtEndClient"].ToString());
+
+
+            var result = _userRepo.UpsertEndClient(client);
+
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "End Client data has been saved successfully!" });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+
+        }
+
     }
 }

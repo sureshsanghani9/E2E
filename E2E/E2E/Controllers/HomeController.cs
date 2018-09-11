@@ -196,6 +196,7 @@ namespace E2E.Controllers
 
         private void SendResetPasswordLink(string userName, string resetCode)
         {
+            userName = "suresh.sanghani88@gmail.com";
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Complete your E2EWebPortal password reset request";
             string emailBody = "hey, <br/><br/> Please use following link/button to reset password. <br/><br/> Reset Link : <a href='" + baseURL + "/Home/ResetPassword?resetCode=" + resetCode + "'>Click here</a>"

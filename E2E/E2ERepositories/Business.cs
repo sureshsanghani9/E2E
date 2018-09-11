@@ -18,14 +18,14 @@ namespace E2ERepositories
         public Business()
         {
             this.Employees = new HashSet<Employee>();
-            this.EndClients = new HashSet<EndClient>();
             this.Reviewers = new HashSet<Reviewer>();
-            this.Tasks = new HashSet<Task>();
             this.UserAccounts = new HashSet<UserAccount>();
             this.WebAppOwners = new HashSet<WebAppOwner>();
             this.Subscriptions = new HashSet<Subscription>();
             this.EmployerAdmins = new HashSet<EmployerAdmin>();
             this.TaskReviewComments = new HashSet<TaskReviewComment>();
+            this.Tasks = new HashSet<Task>();
+            this.EndClients = new HashSet<EndClient>();
         }
     
         public int EmployerID { get; set; }
@@ -52,11 +52,7 @@ namespace E2ERepositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EndClient> EndClients { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviewer> Reviewers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Task> Tasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAccount> UserAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -67,5 +63,9 @@ namespace E2ERepositories
         public virtual ICollection<EmployerAdmin> EmployerAdmins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaskReviewComment> TaskReviewComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Task> Tasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EndClient> EndClients { get; set; }
     }
 }

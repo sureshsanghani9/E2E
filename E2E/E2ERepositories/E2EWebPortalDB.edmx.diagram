@@ -8,27 +8,20 @@
         <EntityTypeShape EntityType="E2EWebPortalModel.Business" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.E2E_UserRole" Width="1.5" PointX="3.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Employee" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="E2EWebPortalModel.EndClient" Width="1.5" PointX="11.25" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.ErrorLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Reviewer" Width="1.5" PointX="9" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Subscription" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="E2EWebPortalModel.Task" Width="1.5" PointX="16.5" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.UserAccount" Width="1.5" PointX="14.25" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.WebAppOwner" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.database_firewall_rules" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Employee_Employer" ManuallyRouted="false" />
-        <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Business" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Reviewer_Employer" ManuallyRouted="false" />
-        <AssociationConnector Association="E2EWebPortalModel.FK_Task_Business" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_UserAccount_Employer" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_WebAppOwner_Business" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Employee_E2E_UserRole" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Reviewer_E2E_UserRole" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_WebAppOwner_E2E_UserRole" ManuallyRouted="false" />
-        <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="E2EWebPortalModel.FK_Task_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_UserAccount_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="E2EWebPortalModel.FK_Task_EndClient" ManuallyRouted="false" />
         <AssociationConnector Association="E2EWebPortalModel.FK_UserAccount_Reviewer" ManuallyRouted="false" />
         <EntityTypeShape EntityType="E2EWebPortalModel.UserMI" Width="1.5" PointX="5.375" PointY="3.75" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Subscription_Business" />
@@ -40,6 +33,13 @@
         <EntityTypeShape EntityType="E2EWebPortalModel.NewTaskInsertLog" Width="1.5" PointX="7.375" PointY="0.75" />
         <AssociationConnector Association="E2EWebPortalModel.FK_TaskReviewComment_Business" />
         <AssociationConnector Association="E2EWebPortalModel.FK_TaskReviewComment_Employee" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.Task" Width="1.5" PointX="16.5" PointY="15" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_Task_Business" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_Task_Employee" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.EndClient" Width="1.5" PointX="11.25" PointY="15.75" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Business" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Employee" />
+        <AssociationConnector Association="E2EWebPortalModel.FK_Task_EndClient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

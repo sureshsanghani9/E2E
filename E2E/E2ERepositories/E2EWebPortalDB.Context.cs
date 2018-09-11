@@ -30,11 +30,9 @@ namespace E2ERepositories
         public virtual DbSet<Business> Businesses { get; set; }
         public virtual DbSet<E2E_UserRole> E2E_UserRole { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<EndClient> EndClients { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<Reviewer> Reviewers { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<WebAppOwner> WebAppOwners { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
@@ -42,6 +40,8 @@ namespace E2ERepositories
         public virtual DbSet<EmployerAdmin> EmployerAdmins { get; set; }
         public virtual DbSet<TaskReviewComment> TaskReviewComments { get; set; }
         public virtual DbSet<NewTaskInsertLog> NewTaskInsertLogs { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<EndClient> EndClients { get; set; }
     
         public virtual int sp_AddErrorLog(string userName, string errorMessage)
         {
@@ -761,17 +761,21 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEmployerAdminList_Result>("sp_GetEmployerAdminList", employerIDParameter, adminUserIDParameter);
         }
     
-        public virtual ObjectResult<string> sp_GetListWeekPeriod(Nullable<int> employerID, Nullable<int> employeeID)
+        public virtual ObjectResult<string> sp_GetListWeekPeriod(Nullable<int> employerID, Nullable<int> userID, Nullable<int> roleID, ObjectParameter weekperiod)
         {
             var employerIDParameter = employerID.HasValue ?
                 new ObjectParameter("EmployerID", employerID) :
                 new ObjectParameter("EmployerID", typeof(int));
     
-            var employeeIDParameter = employeeID.HasValue ?
-                new ObjectParameter("EmployeeID", employeeID) :
-                new ObjectParameter("EmployeeID", typeof(int));
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_GetListWeekPeriod", employerIDParameter, employeeIDParameter);
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_GetListWeekPeriod", employerIDParameter, userIDParameter, roleIDParameter, weekperiod);
         }
     
         public virtual ObjectResult<sp_GetReviewerList_Result> sp_GetReviewerList(Nullable<int> employerID, Nullable<int> reviewerID)
@@ -787,11 +791,19 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReviewerList_Result>("sp_GetReviewerList", employerIDParameter, reviewerIDParameter);
         }
     
-        public virtual ObjectResult<sp_GetTaskDetailsByWeekPeriod_Result> sp_GetTaskDetailsByWeekPeriod(Nullable<int> employerID, Nullable<int> employeeID, string weekPeriod)
+        public virtual ObjectResult<sp_GetTaskDetailsByWeekPeriod_Result> sp_GetTaskDetailsByWeekPeriod(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> reviewerID, Nullable<int> employeeID, string weekPeriod)
         {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
             var employerIDParameter = employerID.HasValue ?
                 new ObjectParameter("EmployerID", employerID) :
                 new ObjectParameter("EmployerID", typeof(int));
+    
+            var reviewerIDParameter = reviewerID.HasValue ?
+                new ObjectParameter("ReviewerID", reviewerID) :
+                new ObjectParameter("ReviewerID", typeof(int));
     
             var employeeIDParameter = employeeID.HasValue ?
                 new ObjectParameter("EmployeeID", employeeID) :
@@ -801,7 +813,7 @@ namespace E2ERepositories
                 new ObjectParameter("WeekPeriod", weekPeriod) :
                 new ObjectParameter("WeekPeriod", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTaskDetailsByWeekPeriod_Result>("sp_GetTaskDetailsByWeekPeriod", employerIDParameter, employeeIDParameter, weekPeriodParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTaskDetailsByWeekPeriod_Result>("sp_GetTaskDetailsByWeekPeriod", roleIDParameter, employerIDParameter, reviewerIDParameter, employeeIDParameter, weekPeriodParameter);
         }
     
         public virtual ObjectResult<sp_GetWebAppOwnerList_Result> sp_GetWebAppOwnerList(Nullable<int> employerID, Nullable<int> appOwnerAdminId)
@@ -893,6 +905,43 @@ namespace E2ERepositories
                 new ObjectParameter("EmployeeEmailAtEndClient", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpsertEndClient", endClientIDParameter, employeeIDParameter, employerIDParameter, endClientBusinessNameParameter, employeeTitleAtEndClientSiteParameter, endClientAddress1Parameter, endClientAddress2Parameter, endClientCityParameter, endClientStateParameter, endClientzipParameter, endClientPhoneNumberParameter, endClientExtnParameter, employeeEmailAtEndClientParameter);
+        }
+    
+        public virtual int sp_UpdateTaskReview(Nullable<int> employerID, Nullable<int> reviewerID, Nullable<int> employeeID, Nullable<int> taskID, string weekPeriod, string taskSubmissionStatus, Nullable<System.DateTime> reviewDate, string reviewComments)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var reviewerIDParameter = reviewerID.HasValue ?
+                new ObjectParameter("ReviewerID", reviewerID) :
+                new ObjectParameter("ReviewerID", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var taskIDParameter = taskID.HasValue ?
+                new ObjectParameter("TaskID", taskID) :
+                new ObjectParameter("TaskID", typeof(int));
+    
+            var weekPeriodParameter = weekPeriod != null ?
+                new ObjectParameter("WeekPeriod", weekPeriod) :
+                new ObjectParameter("WeekPeriod", typeof(string));
+    
+            var taskSubmissionStatusParameter = taskSubmissionStatus != null ?
+                new ObjectParameter("TaskSubmissionStatus", taskSubmissionStatus) :
+                new ObjectParameter("TaskSubmissionStatus", typeof(string));
+    
+            var reviewDateParameter = reviewDate.HasValue ?
+                new ObjectParameter("ReviewDate", reviewDate) :
+                new ObjectParameter("ReviewDate", typeof(System.DateTime));
+    
+            var reviewCommentsParameter = reviewComments != null ?
+                new ObjectParameter("ReviewComments", reviewComments) :
+                new ObjectParameter("ReviewComments", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateTaskReview", employerIDParameter, reviewerIDParameter, employeeIDParameter, taskIDParameter, weekPeriodParameter, taskSubmissionStatusParameter, reviewDateParameter, reviewCommentsParameter);
         }
     }
 }

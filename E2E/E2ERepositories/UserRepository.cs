@@ -9,6 +9,7 @@ using E2EViewModals.Invitations;
 using System.Data;
 using System.Data.SqlClient;
 using static E2EViewModals.CommanEnums;
+using E2EViewModals.EndClient;
 
 namespace E2ERepositories
 {
@@ -183,28 +184,28 @@ namespace E2ERepositories
             user.Password = EncryptionHelper.Encrypt(user.Password);
             using (var db = new E2EWebPortalEntities())
             {
-                return db.sp_UpsertEmpAdminUser( user.AdminUserID
-                                                ,user.UserName
-                                                ,user.Password
-                                                ,user.EmployerID
-                                                ,user.RoleID
-                                                ,user.Active
-                                                ,user.AdminUserFirstName
-                                                ,user.AdminuserMiddleName
-                                                ,user.AdminUserLastName
-                                                ,user.AdminUserNickName
-                                                ,user.AdminTitle
-                                                ,user.Address1
-                                                ,user.Address2
-                                                ,user.City
-                                                ,user.State
-                                                ,user.zip
-                                                ,user.WorkPhoneNumber
-                                                ,user.Extn
-                                                ,user.CellPhoneNumber
-                                                ,user.PrimaryEmail
-                                                ,user.SecondaryEmail
-                                                ,user.IsPrimary);
+                return db.sp_UpsertEmpAdminUser(user.AdminUserID
+                                                , user.UserName
+                                                , user.Password
+                                                , user.EmployerID
+                                                , user.RoleID
+                                                , user.Active
+                                                , user.AdminUserFirstName
+                                                , user.AdminuserMiddleName
+                                                , user.AdminUserLastName
+                                                , user.AdminUserNickName
+                                                , user.AdminTitle
+                                                , user.Address1
+                                                , user.Address2
+                                                , user.City
+                                                , user.State
+                                                , user.zip
+                                                , user.WorkPhoneNumber
+                                                , user.Extn
+                                                , user.CellPhoneNumber
+                                                , user.PrimaryEmail
+                                                , user.SecondaryEmail
+                                                , user.IsPrimary);
             }
 
         }
@@ -313,6 +314,26 @@ namespace E2ERepositories
             using (var db = new E2EWebPortalEntities())
             {
                 return db.sp_Delete_EA_Rew_Emp(RoleID, EmployerID, UserID);
+            }
+        }
+
+        public int UpsertEndClient(EndClientViewModal client)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpsertEndClient( client.EndClientID
+                                            , client.EmployeeID
+                                            , client.EmployerID
+                                            , client.EndClientBusinessName
+                                            , client.EmployeeTitleAtEndClientSite
+                                            , client.EndClientAddress1
+                                            , client.EndClientAddress2
+                                            , client.EndClientCity
+                                            , client.EndClientState
+                                            , client.EndClientzip
+                                            , client.EndClientPhoneNumber
+                                            , client.EndClientExtn
+                                            , client.EmployeeEmailAtEndClient);
             }
         }
 

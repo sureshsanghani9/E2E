@@ -1,5 +1,7 @@
 ﻿using E2EInfrastructure.Helpers;
+using E2ERepositories;
 using E2ERepositories.Interface;
+using E2EViewModals.Task;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ namespace E2E.Controllers
     public class ReviewerController : Controller
     {
         private readonly IUserRepository _userRepo;
-        public ReviewerController(IUserRepository userRepo)
+        private readonly TaskRepository _taskRepo;
+        public ReviewerController(IUserRepository userRepo, TaskRepository taskRepo)
         {
             _userRepo = userRepo;
+            _taskRepo = taskRepo;
         }
 
         // GET: Reviewer
@@ -79,6 +83,40 @@ namespace E2E.Controllers
             {
                 TempData["ConfirmationType"] = "SignUpSuccessful";
                 return Json(new { Code = 1, Message = "You are registered successfully with E2EWebPortal." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+
+        }
+
+        public ActionResult ManageComments()
+        {
+            return View();
+        }
+
+        public ActionResult AddComment()
+        {
+            return View();
+        }
+
+        public JsonResult SaveCommentData(FormCollection form)
+        {
+            var user = (UserViewModal)Session["User"];
+            TaskReviewCommentViewModal comment = new TaskReviewCommentViewModal();
+            comment.CommentID = Convert.ToInt16(form["CommentID"] != null ? form["CommentID"].ToString() : "0");
+            comment.ReviewerID = Convert.ToInt16(user.Id);
+            comment.EmployerID = user.EmployerID;
+            comment.CommendDescription = Convert.ToString(form["CommendDescription"].ToString());
+
+
+            var result = _taskRepo.UpsertComment(comment);
+
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "Comment data has been saved successfully!" });
             }
             else
             {

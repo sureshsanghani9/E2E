@@ -17,9 +17,9 @@ namespace E2ERepositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.EndClients = new HashSet<EndClient>();
-            this.Tasks = new HashSet<Task>();
             this.UserAccounts = new HashSet<UserAccount>();
+            this.Tasks = new HashSet<Task>();
+            this.EndClients = new HashSet<EndClient>();
         }
     
         public int EmployeeID { get; set; }
@@ -52,10 +52,10 @@ namespace E2ERepositories
         public virtual Business Business { get; set; }
         public virtual E2E_UserRole E2E_UserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EndClient> EndClients { get; set; }
+        public virtual ICollection<UserAccount> UserAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> Tasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAccount> UserAccounts { get; set; }
+        public virtual ICollection<EndClient> EndClients { get; set; }
     }
 }

@@ -17,10 +17,11 @@ namespace E2ERepositories
         public int TaskID { get; set; }
         public System.DateTime WeekStartDate { get; set; }
         public System.DateTime WeekEndDate { get; set; }
+        public string WeekPeriod { get; set; }
         public System.DateTime TaskCreationDate { get; set; }
         public Nullable<decimal> HoursBilled { get; set; }
         public string TaskDetails { get; set; }
-        public string Issues { get; set; }
+        public string AnyIssues { get; set; }
         public string Solution { get; set; }
         public string PercentCompleted { get; set; }
         public Nullable<System.DateTime> SubmissionDate { get; set; }
@@ -33,13 +34,11 @@ namespace E2ERepositories
         public int EmployeeID { get; set; }
         public int EmployerID { get; set; }
         public int EndClientID { get; set; }
-        public string Active { get; set; }
         public System.DateTime CreationDate { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
-        public string WeekPeriod { get; set; }
-        public string AnyIssues { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public string ReviewerName { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual Employee Employee { get; set; }

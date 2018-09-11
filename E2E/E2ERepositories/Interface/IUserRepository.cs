@@ -1,4 +1,5 @@
-﻿using E2EViewModals.Invitations;
+﻿using E2EViewModals.EndClient;
+using E2EViewModals.Invitations;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
@@ -46,5 +47,7 @@ namespace E2ERepositories.Interface
         int ManageUserActivation(int RoleID, int EmployerID, int UserID, string IsActive);
 
         int DeleteUser(int RoleID, int EmployerID, int UserID);
+
+        int UpsertEndClient(EndClientViewModal client);
     }
 }

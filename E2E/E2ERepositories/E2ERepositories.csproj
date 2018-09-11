@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Interface\IBusinessRepository.cs" />
     <Compile Include="Interface\ISubscriptionRepository.cs" />
+    <Compile Include="Interface\ITaskRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="NewTaskInsertLog.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
@@ -171,6 +172,7 @@
     <Compile Include="Task.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="TaskRepository.cs" />
     <Compile Include="TaskReviewComment.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

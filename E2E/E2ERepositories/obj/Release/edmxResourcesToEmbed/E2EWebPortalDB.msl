@@ -72,30 +72,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EndClients">
-      <EntityTypeMapping TypeName="E2EWebPortalModel.EndClient">
-        <MappingFragment StoreEntitySet="EndClient">
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
-          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
-          <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
-          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
-          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
-          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
-          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
-          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
-          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
-          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
-          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ErrorLogs">
       <EntityTypeMapping TypeName="E2EWebPortalModel.ErrorLog">
         <MappingFragment StoreEntitySet="ErrorLog">
@@ -181,36 +157,6 @@
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tasks">
-      <EntityTypeMapping TypeName="E2EWebPortalModel.Task">
-        <MappingFragment StoreEntitySet="Task">
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
-          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
-          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
-          <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
-          <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
-          <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
-          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
-          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
-          <ScalarProperty Name="Solution" ColumnName="Solution" />
-          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
-          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
-          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
-          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
-          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
-          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
-          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
-          <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
-          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -721,5 +667,61 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_UpsertComments" FunctionName="E2EWebPortalModel.Store.sp_UpsertComments" />
     <FunctionImportMapping FunctionImportName="sp_UpsertEndClient" FunctionName="E2EWebPortalModel.Store.sp_UpsertEndClient" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateTaskReview" FunctionName="E2EWebPortalModel.Store.sp_UpdateTaskReview" />
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.Task">
+        <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="ReviewerName" ColumnName="ReviewerName" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+          <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+          <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EndClients">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.EndClient">
+        <MappingFragment StoreEntitySet="EndClient">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+          <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

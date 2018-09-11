@@ -9,4 +9,3 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.cs
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.pdb
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojAssemblyReference.cache
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojResolveAssemblyReference.cache
