@@ -1024,6 +1024,8 @@
     <Content Include="Views\Employee\ManageEndClients.cshtml" />
     <Content Include="Views\Reviewer\ManageComments.cshtml" />
     <Content Include="Views\Reviewer\AddComment.cshtml" />
+    <Content Include="Views\Reviewer\MyProfile.cshtml" />
+    <Content Include="Views\Employee\MyProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -32,6 +32,7 @@ namespace E2E.App_Start
             this._kernel.Bind<IUserRepository>().To<UserRepository>();   
             this._kernel.Bind<ISubscriptionRepository>().To<SubscriptionRepository>();     
             this._kernel.Bind<IBusinessRepository>().To<BusinessRepository>();  
+            this._kernel.Bind<ITaskRepository>().To<TaskRepository>();  
         }
     }
 }

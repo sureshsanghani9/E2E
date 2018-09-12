@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E2ERepositories.Interface
 {
-    interface ITaskRepository
+    public interface ITaskRepository
     {
         int UpsertComment(TaskReviewCommentViewModal comment);
     }

@@ -127,5 +127,16 @@ namespace E2E.Controllers
         }
 
 
+        public ActionResult MyProfile()
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var user = _userRepo.GetReviewerList(loggedInuser.EmployerID, loggedInuser.Id).FirstOrDefault();
+            if (user.ReviewerID > 0 && !string.IsNullOrEmpty(user.Password))
+            {
+                user.Password = EncryptionHelper.Decrypt(user.Password);
+            }
+            return View(user);
+        }
+
     }
 }
