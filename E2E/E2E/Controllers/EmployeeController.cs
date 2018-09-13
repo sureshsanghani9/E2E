@@ -92,11 +92,6 @@ namespace E2E.Controllers
 
         }
 
-        public ActionResult AddEndClient()
-        {
-            return View();
-        }
-
         public ActionResult ManageEndClients()
         {
             return View();

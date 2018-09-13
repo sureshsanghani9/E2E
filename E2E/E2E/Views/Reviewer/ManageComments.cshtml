@@ -11,7 +11,11 @@
         <p style="margin-bottom: 5px;">Add/Edit Comments</p>
     </div>
 
-    <button class="btn" value="btnGoToAddComment" onclick="window.location='/Reviewer/AddComment'; return false;">Add New Comment</button>
+    <button class="btn" value="btnGoToAddComment" onclick="$('#divAddComment').show(); return false;">Add New Comment</button>
+
+    <div class="g12" style="margin: auto 0px; display: none;" id="divAddComment">
+        @{ Html.RenderPartial("_AddCommentPartial"); }
+    </div>
 
 </section>
 

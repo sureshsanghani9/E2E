@@ -1020,12 +1020,12 @@
     <Content Include="Views\EmployerAdmin\ManageReviewer.cshtml" />
     <Content Include="Views\EmployerAdmin\EditReviewer.cshtml" />
     <Content Include="Views\EmployerAdmin\EditEmployee.cshtml" />
-    <Content Include="Views\Employee\AddEndClient.cshtml" />
     <Content Include="Views\Employee\ManageEndClients.cshtml" />
     <Content Include="Views\Reviewer\ManageComments.cshtml" />
-    <Content Include="Views\Reviewer\AddComment.cshtml" />
     <Content Include="Views\Reviewer\MyProfile.cshtml" />
     <Content Include="Views\Employee\MyProfile.cshtml" />
+    <Content Include="Views\Employee\_AddEndClientPartial.cshtml" />
+    <Content Include="Views\Reviewer\_AddCommentPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

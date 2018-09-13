@@ -97,11 +97,6 @@ namespace E2E.Controllers
             return View();
         }
 
-        public ActionResult AddComment()
-        {
-            return View();
-        }
-
         public JsonResult SaveCommentData(FormCollection form)
         {
             var user = (UserViewModal)Session["User"];

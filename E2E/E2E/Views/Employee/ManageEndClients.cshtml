@@ -11,7 +11,11 @@
         <p style="margin-bottom: 5px;">Manage End Client Data!</p>
     </div>
 
-    <button class="btn" value="btnGoToAddEndClient" onclick="window.location='/Employee/AddEndClient'; return false;">Add New End Client</button>
+    <button class="btn" value="btnGoToAddEndClient" onclick="$('#divAddEndClient').show(); return false;">Add New End Client</button>
     
+
+    <div class="g12" style="margin: auto 0px; display: none;" id="divAddEndClient">
+        @{ Html.RenderPartial("_AddEndClientPartial"); }
+    </div>
 </section>
 
