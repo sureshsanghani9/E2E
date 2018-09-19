@@ -1,4 +1,5 @@
-﻿
+﻿@using E2EViewModals.EndClient
+@model List<EndClientInfoViewModal>
 @{
     ViewBag.Title = "ManageEndClients";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -11,11 +12,16 @@
         <p style="margin-bottom: 5px;">Manage End Client Data!</p>
     </div>
 
-    <button class="btn" value="btnGoToAddEndClient" onclick="$('#divAddEndClient').show(); return false;">Add New End Client</button>
+    <button class="btn" value="btnGoToAddEndClient" onclick="ResetForm(); $('#divAddEndClient').show(); return false;"
+            style="margin: 20px 0px;" >Add New End Client</button>
     
 
     <div class="g12" style="margin: auto 0px; display: none;" id="divAddEndClient">
         @{ Html.RenderPartial("_AddEndClientPartial"); }
     </div>
+
+    @{ Html.RenderPartial("_ListEndClientPartial"); }
+    
+
 </section>
 

@@ -1026,6 +1026,10 @@
     <Content Include="Views\Employee\MyProfile.cshtml" />
     <Content Include="Views\Employee\_AddEndClientPartial.cshtml" />
     <Content Include="Views\Reviewer\_AddCommentPartial.cshtml" />
+    <Content Include="Views\Employee\_ListEndClientPartial.cshtml" />
+    <Content Include="Views\Reviewer\_ListCommentsPartial.cshtml" />
+    <Content Include="Views\Employee\_AddTaskDetailsByWeekPeriodPartial.cshtml" />
+    <Content Include="Views\Employee\_ListTaskDetailsByWeekPeriodPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

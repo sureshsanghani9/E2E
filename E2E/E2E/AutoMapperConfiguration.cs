@@ -4,6 +4,8 @@ using E2ERepositories;
 using E2EViewModals.Business;
 using E2EViewModals.Subscription;
 using E2EViewModals.User;
+using E2EViewModals.Task;
+using E2EViewModals.EndClient;
 
 namespace E2E
 {
@@ -26,6 +28,10 @@ namespace E2E
                             opts => opts.MapFrom(
                             src => string.IsNullOrEmpty(src.Active) ? 0 : Convert.ToInt16(src.Active)));
             CreateMap<sp_GetSubscriptionDetails_AdminUser_Result, SubscriptionViewModal>();
+            CreateMap<sp_GetListWeekPeriod_Result, WeekPeriodViewModal>();
+            CreateMap<sp_GetTaskDetailsByWeekPeriod_Result, TaskDetailsByWeekPeriodViewModal>();
+            CreateMap<sp_GetEndClientInfo_Result, EndClientInfoViewModal>();
+            CreateMap<sp_GetAllReviewComments_Result, TaskReviewCommentViewModal>();
         }
     }
 }

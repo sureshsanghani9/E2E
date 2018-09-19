@@ -618,6 +618,10 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="Password" Type="varchar" Mode="In" />
     <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="sp_GetAllReviewComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="CommentID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_GetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -626,6 +630,11 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   <Function Name="sp_GetEmployerAdminList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="AdminUserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetEndClientInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="EndClientID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetList_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
@@ -652,6 +661,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
     <Parameter Name="EmployeeID" Type="int" Mode="In" />
     <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />

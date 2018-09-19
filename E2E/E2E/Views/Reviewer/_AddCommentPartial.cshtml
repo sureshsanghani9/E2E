@@ -6,7 +6,7 @@
     <fieldset>
 
         <section>
-            <label for="CommendDescription">Commend Description</label>
+            <label for="CommendDescription">Comment Description</label>
             <div><textarea id="CommendDescription" name="CommendDescription" required class="g12" rows="4"></textarea></div>
         </section>
 
@@ -30,9 +30,9 @@
                 $.msg(res.Message);
                 $content.find('form').wl_Form('reset');
                 $('#divAddComment').hide();
-                //setTimeout(function () {
-                //    window.location = '/Home/Confirmation';
-                //}, 2000);
+                setTimeout(function () {
+                    window.location = "/Reviewer/ManageComments";
+                }, 2000);
             }
             else {
                 $.msg(res.Message);
@@ -43,5 +43,9 @@
             $.msg(res.Message);
         }
     });
+
+    function ResetForm() {
+        $content.find('form').wl_Form('reset');
+    }
 
 </script>

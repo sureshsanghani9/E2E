@@ -132,6 +132,9 @@
     <Compile Include="sp_E2EWebPortalLogin_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetAllReviewComments_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetBusinessList_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -139,6 +142,12 @@
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetEmployerAdminList_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetEndClientInfo_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetListWeekPeriod_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetList_EA_Rew_Emp_Result.cs">

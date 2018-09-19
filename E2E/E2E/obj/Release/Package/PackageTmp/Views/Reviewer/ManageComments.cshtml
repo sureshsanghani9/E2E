@@ -1,4 +1,6 @@
-﻿
+﻿@using E2EViewModals.Task
+@model List<TaskReviewCommentViewModal>
+
 @{
     ViewBag.Title = "ManageComments";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -11,11 +13,13 @@
         <p style="margin-bottom: 5px;">Add/Edit Comments</p>
     </div>
 
-    <button class="btn" value="btnGoToAddComment" onclick="$('#divAddComment').show(); return false;">Add New Comment</button>
+    <button class="btn" value="btnGoToAddComment" onclick="ResetForm(); $('#divAddComment').show(); return false;" 
+            style="margin: 20px 0px;" >Add New Comment</button>
 
     <div class="g12" style="margin: auto 0px; display: none;" id="divAddComment">
         @{ Html.RenderPartial("_AddCommentPartial"); }
     </div>
 
+    @{ Html.RenderPartial("_ListCommentsPartial"); }
 </section>
 

@@ -511,8 +511,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
-    <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
     <FunctionImportMapping FunctionImportName="sp_GetEmployeeList" FunctionName="E2EWebPortalModel.Store.sp_GetEmployeeList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEmployeeList_Result">
@@ -580,7 +578,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetListWeekPeriod" />
     <FunctionImportMapping FunctionImportName="sp_GetReviewerList" FunctionName="E2EWebPortalModel.Store.sp_GetReviewerList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetReviewerList_Result">
@@ -610,25 +607,6 @@
           <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
-          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
-          <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
-          <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
-          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
-          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
-          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
-          <ScalarProperty Name="Solution" ColumnName="Solution" />
-          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
-          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
-          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
-          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
-          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -723,5 +701,89 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetAllReviewComments" FunctionName="E2EWebPortalModel.Store.sp_GetAllReviewComments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetAllReviewComments_Result">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="CommendDescription" ColumnName="CommendDescription" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetEndClientInfo" FunctionName="E2EWebPortalModel.Store.sp_GetEndClientInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEndClientInfo_Result">
+          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
+          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetListWeekPeriod">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetListWeekPeriod_Result">
+          <ScalarProperty Name="WeekPeriodCounts" ColumnName="WeekPeriodCounts" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+          <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
+          <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+          <ScalarProperty Name="ReviewerName" ColumnName="ReviewerName" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+          <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
+    <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly1" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
   </EntityContainerMapping>
 </Mapping>

@@ -74,9 +74,9 @@
                 $.msg(res.Message);
                 $content.find('form').wl_Form('reset');
                 $('#divAddEndClient').hide();
-                //setTimeout(function () {
-                //    window.location = '/Home/Confirmation';
-                //}, 2000);
+                setTimeout(function () {
+                    window.location = "/Employee/ManageEndClients";
+                }, 2000);
             }
             else {
                 $.msg(res.Message);
@@ -87,6 +87,11 @@
             $.msg(res.Message);
         }
     });
+
+    function ResetForm()
+    {
+        $content.find('form').wl_Form('reset');
+    }
 
 </script>
 

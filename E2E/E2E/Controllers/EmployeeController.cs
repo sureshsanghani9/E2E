@@ -1,6 +1,7 @@
 ﻿using E2EInfrastructure.Helpers;
 using E2ERepositories.Interface;
 using E2EViewModals.EndClient;
+using E2EViewModals.Task;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,21 @@ namespace E2E.Controllers
     public class EmployeeController : Controller
     {
         private readonly IUserRepository _userRepo;
-        public EmployeeController(IUserRepository userRepo)
+        private readonly ITaskRepository _taskRepo;
+        public EmployeeController(IUserRepository userRepo, ITaskRepository taskRepo)
         {
             _userRepo = userRepo;
+            _taskRepo = taskRepo;
         }
         // GET: Employee
         public ActionResult Index()
         {
-            return View();
+            var loggedInuser = (UserViewModal)Session["User"];
+            string weekPeriod = string.Empty;
+            var weekPeriods = _taskRepo.GetListWeekPeriod(loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.RoleID, out weekPeriod);
+            var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod);
+            ViewBag.WeekPeriods = weekPeriods;
+            return View(tasks);
         }
 
         [AllowAnonymous]
@@ -94,7 +102,9 @@ namespace E2E.Controllers
 
         public ActionResult ManageEndClients()
         {
-            return View();
+            var loggedInuser = (UserViewModal)Session["User"];
+            var clients = _taskRepo.GetEndClientInfo(loggedInuser.EmployerID, loggedInuser.Id);
+            return View(clients);
         }
 
         public JsonResult SaveEndClientData(FormCollection form)
@@ -139,6 +149,76 @@ namespace E2E.Controllers
                 user.Password = EncryptionHelper.Decrypt(user.Password);
             }
             return View(user);
+        }
+
+        [HttpPost]
+        public JsonResult EditEndClient(int endClientID)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var clients = _taskRepo.GetEndClientInfo(loggedInuser.EmployerID, loggedInuser.Id, endClientID);
+
+            if (clients.Any())
+            {
+                return Json(new { Code = 1, Message = "Data retrived successfully!", Data = clients.FirstOrDefault() });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!", Data = new EndClientInfoViewModal() });
+            }
+
+
+        }
+
+        [HttpPost]
+        public JsonResult SaveTaskDetails(FormCollection form)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            TaskDetailsByWeekPeriodViewModal taskDetail = new TaskDetailsByWeekPeriodViewModal();
+
+            taskDetail.EmployerID = loggedInuser.EmployerID;
+            taskDetail.EmployeeID = loggedInuser.Id;
+            taskDetail.WeekPeriod = Convert.ToString(form["WeekPeriod"].ToString());
+            taskDetail.HoursBilled = Convert.ToDecimal(form["HoursBilled"] != null ? form["HoursBilled"].ToString() : "0");
+            taskDetail.TaskDetails = Convert.ToString(form["TaskDetails"].ToString());
+            taskDetail.AnyIssues = Convert.ToString(form["AnyIssues"].ToString());
+            taskDetail.Solution = Convert.ToString(form["Solution"].ToString());
+            taskDetail.PercentCompleted = Convert.ToString(form["PercentCompleted"].ToString());
+            taskDetail.SubmissionDate = Convert.ToDateTime(form["SubmissionDate"] != "null" ? form["SubmissionDate"].ToString() : "1970/1/1");
+            taskDetail.TaskContinueFromLastWeekPeriod = Convert.ToString(form["TaskContinueFromLastWeekPeriod"].ToString());
+            taskDetail.TaskContinueToNextWeekPeriod = Convert.ToString(form["TaskContinueToNextWeekPeriod"].ToString());
+
+
+
+            var result = _taskRepo.AddUpdateTaskDetails(taskDetail);
+
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "Task Details are saved successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+
+        }
+
+        [HttpPost]
+        public JsonResult GetTaskDetails(string weekPeriod, int taskID)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod, taskID);
+
+            if (tasks.Any())
+            {
+                return Json(new { Code = 1, Message = "Data retrived successfully!", Data = tasks.FirstOrDefault() });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!", Data = new TaskDetailsByWeekPeriodViewModal() });
+            }
+
+
         }
 
     }

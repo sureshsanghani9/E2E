@@ -623,6 +623,10 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="sp_GetAllReviewComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="CommentID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetBusinessList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -631,6 +635,11 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         <Function Name="sp_GetEmployerAdminList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerID" Type="int" Mode="In" />
           <Parameter Name="AdminUserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetEndClientInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="EndClientID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetList_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleID" Type="int" Mode="In" />
@@ -657,6 +666,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="ReviewerID" Type="int" Mode="In" />
           <Parameter Name="EmployeeID" Type="int" Mode="In" />
           <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+          <Parameter Name="TaskID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -1550,19 +1560,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <End Role="Reviewer" EntitySet="Reviewers" />
             <End Role="TaskReviewComment" EntitySet="TaskReviewComments" />
           </AssociationSet>
-          <FunctionImport Name="sp_AddUpdateTaskDetails">
-            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-            <Parameter Name="WeekPeriod" Mode="In" Type="String" />
-            <Parameter Name="HoursBilled" Mode="In" Type="Decimal" />
-            <Parameter Name="TaskDetails" Mode="In" Type="String" />
-            <Parameter Name="AnyIssues" Mode="In" Type="String" />
-            <Parameter Name="Solution" Mode="In" Type="String" />
-            <Parameter Name="PercentCompleted" Mode="In" Type="String" />
-            <Parameter Name="SubmissionDate" Mode="In" Type="DateTime" />
-            <Parameter Name="TaskContinueFromLastWeekPeriod" Mode="In" Type="String" />
-            <Parameter Name="TaskContinueToNextWeekPeriod" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_CreateNewTaskWeekly">
           <Parameter Name="SetipDate" Mode="In" Type="DateTime" />
           </FunctionImport>
@@ -1574,22 +1571,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
             <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetListWeekPeriod" ReturnType="Collection(String)">
-            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
-            <Parameter Name="Weekperiod" Mode="InOut" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_GetReviewerList" ReturnType="Collection(E2EWebPortalModel.sp_GetReviewerList_Result)">
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
             <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
-            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-            <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-            <Parameter Name="WeekPeriod" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetWebAppOwnerList" ReturnType="Collection(E2EWebPortalModel.sp_GetWebAppOwnerList_Result)">
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
@@ -1648,6 +1632,45 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <End Role="EndClient" EntitySet="EndClients" />
             <End Role="Task" EntitySet="Tasks" />
           </AssociationSet>
+          <FunctionImport Name="sp_GetAllReviewComments" ReturnType="Collection(E2EWebPortalModel.sp_GetAllReviewComments_Result)">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="CommentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetEndClientInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetEndClientInfo_Result)">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="EndClientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetListWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetListWeekPeriod_Result)">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="Weekperiod" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+            <Parameter Name="TaskID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddUpdateTaskDetails">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+            <Parameter Name="HoursBilled" Mode="In" Type="Decimal" />
+            <Parameter Name="TaskDetails" Mode="In" Type="String" />
+            <Parameter Name="AnyIssues" Mode="In" Type="String" />
+            <Parameter Name="Solution" Mode="In" Type="String" />
+            <Parameter Name="PercentCompleted" Mode="In" Type="String" />
+            <Parameter Name="SubmissionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TaskContinueFromLastWeekPeriod" Mode="In" Type="String" />
+            <Parameter Name="TaskContinueToNextWeekPeriod" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CreateNewTaskWeekly1">
+            <Parameter Name="SetipDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -2061,21 +2084,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
         </ComplexType>
-        <ComplexType Name="sp_GetTaskDetailsByWeekPeriod_Result">
-          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EndClientWorkLocation" Nullable="true" MaxLength="317" />
-          <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" Precision="23" />
-          <Property Type="Decimal" Name="HoursBilled" Nullable="true" Precision="6" Scale="2" />
-          <Property Type="String" Name="TaskDetails" Nullable="true" MaxLength="2000" />
-          <Property Type="String" Name="AnyIssues" Nullable="true" MaxLength="2000" />
-          <Property Type="String" Name="Solution" Nullable="true" MaxLength="2000" />
-          <Property Type="String" Name="PercentCompleted" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="SubmissionDate" Nullable="true" />
-          <Property Type="String" Name="TaskContinueFromLastWeekPeriod" Nullable="true" MaxLength="3" />
-          <Property Type="String" Name="TaskContinueToNextWeekPeriod" Nullable="true" MaxLength="3" />
-          <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="15" />
-        </ComplexType>
         <ComplexType Name="sp_GetWebAppOwnerList_Result">
           <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
           <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
@@ -2226,6 +2234,72 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_GetAllReviewComments_Result">
+          <Property Type="Int32" Name="CommentID" Nullable="false" />
+          <Property Type="String" Name="CommendDescription" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ReviewerID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetEndClientInfo_Result">
+          <Property Type="Int32" Name="EndClientID" Nullable="false" />
+          <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeTitleAtEndClientSite" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EndClientAddress1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EndClientAddress2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientzip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientExtn" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EmployeeEmailAtEndClient" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetListWeekPeriod_Result">
+          <Property Type="String" Name="WeekPeriodCounts" Nullable="true" MaxLength="68" />
+          <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="sp_GetTaskDetailsByWeekPeriod_Result">
+          <Property Type="Int32" Name="TaskID" Nullable="false" />
+          <Property Type="DateTime" Name="WeekStartDate" Nullable="false" />
+          <Property Type="DateTime" Name="WeekEndDate" Nullable="false" />
+          <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="104" />
+          <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EndClientWorkLocation" Nullable="true" MaxLength="317" />
+          <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="HoursBilled" Nullable="true" Precision="6" Scale="2" />
+          <Property Type="String" Name="TaskDetails" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="AnyIssues" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="Solution" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="PercentCompleted" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="SubmissionDate" Nullable="true" />
+          <Property Type="String" Name="TaskContinueFromLastWeekPeriod" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="TaskContinueToNextWeekPeriod" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="ReviewDate" Nullable="true" />
+          <Property Type="String" Name="ReviewerComments" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="ReviewerName" Nullable="true" MaxLength="104" />
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="Int32" Name="ReviewerID" Nullable="true" />
+          <Property Type="Int32" Name="EmployerID" Nullable="false" />
+          <Property Type="Int32" Name="EndClientID" Nullable="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2742,8 +2816,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
-          <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
           <FunctionImportMapping FunctionImportName="sp_GetEmployeeList" FunctionName="E2EWebPortalModel.Store.sp_GetEmployeeList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEmployeeList_Result">
@@ -2811,7 +2883,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetListWeekPeriod" />
           <FunctionImportMapping FunctionImportName="sp_GetReviewerList" FunctionName="E2EWebPortalModel.Store.sp_GetReviewerList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetReviewerList_Result">
@@ -2841,25 +2912,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
                 <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
-                <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
-                <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
-                <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
-                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
-                <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
-                <ScalarProperty Name="Solution" ColumnName="Solution" />
-                <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
-                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
-                <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
-                <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
-                <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2954,6 +3006,90 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllReviewComments" FunctionName="E2EWebPortalModel.Store.sp_GetAllReviewComments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetAllReviewComments_Result">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="CommendDescription" ColumnName="CommendDescription" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetEndClientInfo" FunctionName="E2EWebPortalModel.Store.sp_GetEndClientInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEndClientInfo_Result">
+                <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+                <ScalarProperty Name="EmployeeTitleAtEndClientSite" ColumnName="EmployeeTitleAtEndClientSite" />
+                <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+                <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+                <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+                <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+                <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+                <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+                <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+                <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetListWeekPeriod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetListWeekPeriod_Result">
+                <ScalarProperty Name="WeekPeriodCounts" ColumnName="WeekPeriodCounts" />
+                <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+                <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+                <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+                <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
+                <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+                <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+                <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+                <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+                <ScalarProperty Name="ReviewerName" ColumnName="ReviewerName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+                <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
+                <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
+          <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly1" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

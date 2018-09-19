@@ -94,7 +94,9 @@ namespace E2E.Controllers
 
         public ActionResult ManageComments()
         {
-            return View();
+            var loggedInuser = (UserViewModal)Session["User"];
+            var comments = _taskRepo.GetAllReviewComments(loggedInuser.EmployerID);
+            return View(comments);
         }
 
         public JsonResult SaveCommentData(FormCollection form)
@@ -131,6 +133,24 @@ namespace E2E.Controllers
                 user.Password = EncryptionHelper.Decrypt(user.Password);
             }
             return View(user);
+        }
+
+        [HttpPost]
+        public JsonResult EditComment(int commentID)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var comments = _taskRepo.GetAllReviewComments(loggedInuser.EmployerID, commentID);
+
+            if (comments.Any())
+            {
+                return Json(new { Code = 1, Message = "Data retrived successfully!", Data = comments.FirstOrDefault() });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!", Data = new TaskReviewCommentViewModal() });
+            }
+
+
         }
 
     }
