@@ -129,6 +129,18 @@
     <Compile Include="Reviewer.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="rpt_ClientSiteActivity_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rpt_GetBeneficiaryDetails_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rpt_GetBeneficiaryList_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rpt_GetListWeekPeriod_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_E2EWebPortalLogin_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

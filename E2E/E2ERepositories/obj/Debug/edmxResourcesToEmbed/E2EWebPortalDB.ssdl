@@ -262,6 +262,7 @@ warning 6002: The table/view 'E2EWebPortal.dbo.NewTaskInsertLog' does not have a
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
     <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+    <Property Name="IsDefault" Type="varchar" MaxLength="3" />
   </EntityType>
   <EntityType Name="UserAccount">
     <Key>
@@ -582,10 +583,45 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ipDate" Type="datetime" Mode="In" />
     <Parameter Name="DayOfWeek" Type="int" Mode="In" />
   </Function>
+  <Function Name="fn_GetUserFullName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+  </Function>
   <Function Name="fn_GetUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
     <Parameter Name="RoleID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="rpt_ClientSiteActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="StartDate" Type="date" Mode="In" />
+    <Parameter Name="EndDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="rpt_GetBeneficiaryDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="StartDate" Type="date" Mode="In" />
+    <Parameter Name="EndDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="rpt_GetBeneficiaryList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="rpt_GetListWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="StartDate" Type="date" Mode="In" />
+    <Parameter Name="EndDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="sp_ActiveDeactiveEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EndClientID" Type="int" Mode="In" />
+    <Parameter Name="Active" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_AddErrorLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -612,6 +648,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EndClientID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteReviewComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="CommentID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_E2EWebPortalLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -661,7 +705,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
     <Parameter Name="EmployeeID" Type="int" Mode="In" />
     <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
-    <Parameter Name="TaskID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -724,6 +767,11 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_MakeDefaultTaskReviewComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="CommentID" Type="int" Mode="In" />
+    <Parameter Name="IsDefault" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_ManageActivation_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -750,6 +798,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="CommendDescription" Type="varchar" Mode="In" />
+    <Parameter Name="IsDefault" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_UpsertEmpAdminUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="AdminUserID" Type="int" Mode="In" />

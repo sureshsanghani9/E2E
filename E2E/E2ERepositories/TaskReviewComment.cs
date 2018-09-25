@@ -22,6 +22,7 @@ namespace E2ERepositories
         public System.DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        public string IsDefault { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual Reviewer Reviewer { get; set; }

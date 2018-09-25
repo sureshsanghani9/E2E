@@ -17,8 +17,8 @@ namespace E2ERepositories
         public System.DateTime WeekStartDate { get; set; }
         public System.DateTime WeekEndDate { get; set; }
         public string WeekPeriod { get; set; }
-        public string EmployerName { get; set; }
         public string EmployeeName { get; set; }
+        public string EmployerName { get; set; }
         public string EndClientBusinessName { get; set; }
         public string EndClientWorkLocation { get; set; }
         public System.DateTime TaskCreationDate { get; set; }
@@ -35,7 +35,6 @@ namespace E2ERepositories
         public string ReviewerComments { get; set; }
         public string ReviewerName { get; set; }
         public int EmployeeID { get; set; }
-        public Nullable<int> ReviewerID { get; set; }
         public int EmployerID { get; set; }
         public int EndClientID { get; set; }
         public System.DateTime CreationDate { get; set; }

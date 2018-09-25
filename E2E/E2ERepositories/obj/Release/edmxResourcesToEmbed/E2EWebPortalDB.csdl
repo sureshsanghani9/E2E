@@ -619,6 +619,7 @@
       <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="CommendDescription" Mode="In" Type="String" />
+      <Parameter Name="IsDefault" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_UpsertEndClient">
       <Parameter Name="EndClientID" Mode="In" Type="Int32" />
@@ -667,10 +668,6 @@
       <End Role="EndClient" EntitySet="EndClients" />
       <End Role="Task" EntitySet="Tasks" />
     </AssociationSet>
-    <FunctionImport Name="sp_GetAllReviewComments" ReturnType="Collection(E2EWebPortalModel.sp_GetAllReviewComments_Result)">
-      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-      <Parameter Name="CommentID" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_GetEndClientInfo" ReturnType="Collection(E2EWebPortalModel.sp_GetEndClientInfo_Result)">
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
@@ -681,14 +678,6 @@
       <Parameter Name="UserID" Mode="In" Type="Int32" />
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
       <Parameter Name="Weekperiod" Mode="InOut" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
-      <Parameter Name="RoleID" Mode="In" Type="Int32" />
-      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
-      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
-      <Parameter Name="TaskID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_AddUpdateTaskDetails">
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
@@ -705,6 +694,60 @@
     </FunctionImport>
     <FunctionImport Name="sp_CreateNewTaskWeekly1">
       <Parameter Name="SetipDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="rpt_ClientSiteActivity" ReturnType="Collection(E2EWebPortalModel.rpt_ClientSiteActivity_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="rpt_GetBeneficiaryDetails" ReturnType="Collection(E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="rpt_GetBeneficiaryList" ReturnType="Collection(E2EWebPortalModel.rpt_GetBeneficiaryList_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="rpt_GetListWeekPeriod" ReturnType="Collection(E2EWebPortalModel.rpt_GetListWeekPeriod_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteReviewComments">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="CommentID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetAllReviewComments" ReturnType="Collection(E2EWebPortalModel.sp_GetAllReviewComments_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="CommentID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ActiveDeactiveEndClient">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EndClientID" Mode="In" Type="Int32" />
+      <Parameter Name="Active" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteEndClient">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EndClientID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetTaskDetailsByWeekPeriod" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_MakeDefaultTaskReviewComment">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="CommentID" Mode="In" Type="Int32" />
+      <Parameter Name="IsDefault" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -995,6 +1038,7 @@
     <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Business" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Business" FromRole="TaskReviewComment" ToRole="Business" />
     <NavigationProperty Name="Reviewer" Relationship="E2EWebPortalModel.FK_TaskReviewComment_Employee" FromRole="TaskReviewComment" ToRole="Reviewer" />
+    <Property Name="IsDefault" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="NewTaskInsertLog">
     <Key>
@@ -1269,16 +1313,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="sp_GetAllReviewComments_Result">
-    <Property Type="Int32" Name="CommentID" Nullable="false" />
-    <Property Type="String" Name="CommendDescription" Nullable="false" MaxLength="500" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
-    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
-    <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="100" />
-    <Property Type="Int32" Name="ReviewerID" Nullable="false" />
-    <Property Type="Int32" Name="EmployerID" Nullable="false" />
-  </ComplexType>
   <ComplexType Name="sp_GetEndClientInfo_Result">
     <Property Type="Int32" Name="EndClientID" Nullable="false" />
     <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
@@ -1304,13 +1338,87 @@
     <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
     <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
   </ComplexType>
+  <ComplexType Name="rpt_ClientSiteActivity_Result">
+    <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
+    <Property Type="String" Name="ReportCreatedBy" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="EndClientAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientzip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientExtn" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="EmployeeEmailAtEndClient" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+    <Property Type="Decimal" Name="HoursBilled" Nullable="true" Precision="6" Scale="2" />
+    <Property Type="String" Name="TaskDetails" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="AnyIssues" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="Solution" Nullable="true" MaxLength="2000" />
+    <Property Type="DateTime" Name="SubmissionDate" Nullable="true" />
+    <Property Type="String" Name="ReviewerName" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="ReviewDate" Nullable="true" />
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="TaskContinueFromLastWeekPeriod" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="PercentCompleted" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="TaskContinueToNextWeekPeriod" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="ReviewerComments" Nullable="true" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="rpt_GetBeneficiaryDetails_Result">
+    <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
+    <Property Type="String" Name="ReportCreatedBy" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="EndClientAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientzip" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EndClientExtn" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="EmployeeEmailAtEndClient" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="rpt_GetBeneficiaryList_Result">
+    <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+    <Property Type="String" Name="BeneficiaryAtEndClient" Nullable="true" MaxLength="506" />
+  </ComplexType>
+  <ComplexType Name="rpt_GetListWeekPeriod_Result">
+    <Property Type="DateTime" Name="WeekStartDate" Nullable="false" />
+    <Property Type="DateTime" Name="WeekEndDate" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_GetAllReviewComments_Result">
+    <Property Type="Int32" Name="CommentID" Nullable="false" />
+    <Property Type="Int32" Name="ReviewerId" Nullable="false" />
+    <Property Type="Int32" Name="EmployerId" Nullable="false" />
+    <Property Type="String" Name="CommendDescription" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="IsDefault" Nullable="true" MaxLength="3" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="100" />
+  </ComplexType>
   <ComplexType Name="sp_GetTaskDetailsByWeekPeriod_Result">
     <Property Type="Int32" Name="TaskID" Nullable="false" />
     <Property Type="DateTime" Name="WeekStartDate" Nullable="false" />
     <Property Type="DateTime" Name="WeekEndDate" Nullable="false" />
     <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
-    <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="200" />
     <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="104" />
+    <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="200" />
     <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="EndClientWorkLocation" Nullable="true" MaxLength="317" />
     <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" Precision="23" />
@@ -1327,7 +1435,6 @@
     <Property Type="String" Name="ReviewerComments" Nullable="true" MaxLength="1000" />
     <Property Type="String" Name="ReviewerName" Nullable="true" MaxLength="104" />
     <Property Type="Int32" Name="EmployeeID" Nullable="false" />
-    <Property Type="Int32" Name="ReviewerID" Nullable="true" />
     <Property Type="Int32" Name="EmployerID" Nullable="false" />
     <Property Type="Int32" Name="EndClientID" Nullable="false" />
     <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />

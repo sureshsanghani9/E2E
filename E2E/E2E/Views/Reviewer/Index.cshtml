@@ -1,4 +1,6 @@
-﻿
+﻿@using E2EViewModals.Task
+
+@model List<WeekPeriodViewModal>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -11,5 +13,131 @@
         <p>This is a quick overview of some features</p>
     </div>
 
+    <form id="formAddEndClient" action="/Reviewer/SaveTaskDetails" method="post" autocomplete="on">
+
+        <input type="hidden" id="NumberOfTask" name="NumberOfTask" value="@ViewBag.NumberOfTask" />
+        <input type="hidden" id="TaskIds" name="TaskIds" value="@ViewBag.TaskIds" />
+        <input type="hidden" id="CurrentWeekPeriod" name="CurrentWeekPeriod" value="@ViewBag.CurrentWeekPeriod" />
+
+        <fieldset>
+            <section>
+                <label for="WeekPeriod">Week Period</label>
+                <div>
+                    <select id="WeekPeriod" name="WeekPeriod" class="g6" style="width: 100%;">
+                        <optgroup label="Week Period">
+                            @foreach (WeekPeriodViewModal week in Model)
+                            {
+                                if (week.WeekPeriod.Substring(0, 24) == (string)ViewBag.CurrentWeekPeriod)
+                                {
+                                    <option value="@week.WeekPeriod" selected="selected">@week.WeekPeriod</option>
+                                }
+                                else
+                                {
+                                    <option value="@week.WeekPeriod">@week.WeekPeriod</option>
+                                }
+                            }
+                        </optgroup>
+                    </select>
+                </div>
+            </section>
+        </fieldset>
+
+        <fieldset>
+            <section>
+                <label for="SelectAllTasks">Select All Tasks</label>
+                <div><input type="checkbox" id="SelectAllTasks" name="SelectAllTasks" ></div>
+            </section>
+        </fieldset>
+
+        @foreach (TaskDetailsByWeekPeriodViewModal task in (List<TaskDetailsByWeekPeriodViewModal>)ViewBag.Tasks)
+        {
+            @Html.Partial("_ReviewerTaskDetailsByWeekPeriod", task)
+        }
+
+        <fieldset>
+            <section>
+                <div>
+                    <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                    <button class="reset">Reset</button>
+                    @*<button class="btn" name="btncancel" value="btncancel" onclick="$('#divAddEndClient').hide(); return false;">Cancel</button>*@
+                </div>
+            </section>
+        </fieldset>
+    </form>
+
 </section>
+
+<script>
+
+    var $content = $('#content');
+    $content.find('form').wl_Form({
+        onBeforeSubmit: function (data) {
+            
+            $.each($(".cbSelect"), function (i, obj) {
+                var cb = $(obj);
+                var id = $(cb).attr('id').split('_')[1];
+                if (!$(cb).is(":checked")) {
+                    $("#ReviewDate|" + id).removeAttr("required");
+                }
+                else
+                {
+                    $("#ReviewDate|" + id).attr("required", true);
+                }
+            });
+
+            return true;
+        },
+        onSuccess: function (data, status) {
+            var res = JSON.parse(data);
+            if (res.Code == "1") {
+                $.msg(res.Message);
+                setTimeout(function () {
+                    window.location = '/Reviewer/';
+                }, 1000);
+            }
+            else {
+                $.msg(res.Message);
+            }
+
+        },
+        onError: function (status, error, jqXHR) {
+            $.msg(res.Message);
+        }
+    });
+
+    function ResetForm() {
+        $content.find('form').wl_Form('reset');
+    }
+
+    $("#WeekPeriod").on("change", function () {
+        var weekPeriod = $("#WeekPeriod").val();
+        $.ajax({
+            url: '/Reviewer/SetCurrentWeekPeriod',
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            data: { weekPeriod: weekPeriod }
+        }).done(function (result) {
+            if (result.Code == '1') {
+                window.location = '/Reviewer/';
+            }
+            else {
+                $.msg(result.Message, { header: 'Fail' });
+            }
+        });
+    });
+
+    $("#SelectAllTasks").on("change", function () {
+
+        if ($(this).is(":checked")) {
+            $(".cbSelect").attr("checked", true);
+        }
+        else
+        {
+            $(".cbSelect").attr("checked", false);
+        }
+
+    });
+
+</script>
 

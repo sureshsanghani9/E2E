@@ -487,6 +487,7 @@
     <EntitySetMapping Name="TaskReviewComments">
       <EntityTypeMapping TypeName="E2EWebPortalModel.TaskReviewComment">
         <MappingFragment StoreEntitySet="TaskReviewComment">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -701,20 +702,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_GetAllReviewComments" FunctionName="E2EWebPortalModel.Store.sp_GetAllReviewComments">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetAllReviewComments_Result">
-          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-          <ScalarProperty Name="CommendDescription" ColumnName="CommendDescription" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
-          <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_GetEndClientInfo" FunctionName="E2EWebPortalModel.Store.sp_GetEndClientInfo">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetEndClientInfo_Result">
@@ -748,6 +735,105 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
+    <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly1" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
+    <FunctionImportMapping FunctionImportName="rpt_ClientSiteActivity" FunctionName="E2EWebPortalModel.Store.rpt_ClientSiteActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_ClientSiteActivity_Result">
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="HoursBilled" ColumnName="HoursBilled" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="AnyIssues" ColumnName="AnyIssues" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="ReviewerName" ColumnName="ReviewerName" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="TaskContinueFromLastWeekPeriod" ColumnName="TaskContinueFromLastWeekPeriod" />
+          <ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+          <ScalarProperty Name="TaskContinueToNextWeekPeriod" ColumnName="TaskContinueToNextWeekPeriod" />
+          <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryDetails" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result">
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryList" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryList_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="BeneficiaryAtEndClient" ColumnName="BeneficiaryAtEndClient" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="rpt_GetListWeekPeriod" FunctionName="E2EWebPortalModel.Store.rpt_GetListWeekPeriod">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetListWeekPeriod_Result">
+          <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+          <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DeleteReviewComments" FunctionName="E2EWebPortalModel.Store.sp_DeleteReviewComments" />
+    <FunctionImportMapping FunctionImportName="sp_GetAllReviewComments" FunctionName="E2EWebPortalModel.Store.sp_GetAllReviewComments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetAllReviewComments_Result">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="ReviewerId" ColumnName="ReviewerId" />
+          <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+          <ScalarProperty Name="CommendDescription" ColumnName="CommendDescription" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ActiveDeactiveEndClient" FunctionName="E2EWebPortalModel.Store.sp_ActiveDeactiveEndClient" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteEndClient" FunctionName="E2EWebPortalModel.Store.sp_DeleteEndClient" />
     <FunctionImportMapping FunctionImportName="sp_GetTaskDetailsByWeekPeriod" FunctionName="E2EWebPortalModel.Store.sp_GetTaskDetailsByWeekPeriod">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskDetailsByWeekPeriod_Result">
@@ -755,8 +841,8 @@
           <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
           <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
           <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
-          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
           <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
           <ScalarProperty Name="EndClientWorkLocation" ColumnName="EndClientWorkLocation" />
           <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
@@ -773,7 +859,6 @@
           <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
           <ScalarProperty Name="ReviewerName" ColumnName="ReviewerName" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
           <ScalarProperty Name="EmployerID" ColumnName="EmployerID" />
           <ScalarProperty Name="EndClientID" ColumnName="EndClientID" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
@@ -783,7 +868,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_AddUpdateTaskDetails" FunctionName="E2EWebPortalModel.Store.sp_AddUpdateTaskDetails" />
-    <FunctionImportMapping FunctionImportName="sp_CreateNewTaskWeekly1" FunctionName="E2EWebPortalModel.Store.sp_CreateNewTaskWeekly" />
+    <FunctionImportMapping FunctionImportName="sp_MakeDefaultTaskReviewComment" FunctionName="E2EWebPortalModel.Store.sp_MakeDefaultTaskReviewComment" />
   </EntityContainerMapping>
 </Mapping>

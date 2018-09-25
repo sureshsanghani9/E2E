@@ -1030,6 +1030,7 @@
     <Content Include="Views\Reviewer\_ListCommentsPartial.cshtml" />
     <Content Include="Views\Employee\_AddTaskDetailsByWeekPeriodPartial.cshtml" />
     <Content Include="Views\Employee\_ListTaskDetailsByWeekPeriodPartial.cshtml" />
+    <Content Include="Views\Reviewer\_ReviewerTaskDetailsByWeekPeriod.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

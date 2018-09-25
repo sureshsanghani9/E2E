@@ -25,7 +25,22 @@ namespace E2E.Controllers
         // GET: Reviewer
         public ActionResult Index()
         {
-            return View();
+            var loggedInuser = (UserViewModal)Session["User"];
+            string weekPeriod = string.Empty;
+            var weekPeriods = _taskRepo.GetListWeekPeriod(loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.RoleID, out weekPeriod);
+            var comments = _taskRepo.GetAllReviewComments(loggedInuser.EmployerID).OrderByDescending(c => c.IsDefault).ToList();
+
+            weekPeriod = TempData["CurrentWeekPeriod"] != null ? TempData["CurrentWeekPeriod"].ToString() : weekPeriod;
+            var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod);
+
+            ViewBag.Comments = comments;
+            ViewBag.CurrentWeekPeriod = weekPeriod;
+            ViewBag.Tasks = tasks;
+            ViewBag.TaskIds = string.Join<string>(",", tasks.Select(t => t.TaskID.ToString()));
+            ViewBag.NumberOfTask = tasks.Count.ToString();
+            ViewBag.ReviewerName = loggedInuser.FirstName;
+
+            return View(weekPeriods);
         }
 
         [AllowAnonymous]
@@ -107,6 +122,7 @@ namespace E2E.Controllers
             comment.ReviewerID = Convert.ToInt16(user.Id);
             comment.EmployerID = user.EmployerID;
             comment.CommendDescription = Convert.ToString(form["CommendDescription"].ToString());
+            comment.IsDefault = Convert.ToString(form["IsDefault"].ToString());
 
 
             var result = _taskRepo.UpsertComment(comment);
@@ -149,8 +165,76 @@ namespace E2E.Controllers
             {
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!", Data = new TaskReviewCommentViewModal() });
             }
+        }
+
+        [HttpPost]
+        public JsonResult MakeDefaultTaskReviewComment(int commentID, int employerId, bool isDefault)
+        {
+            int result = _taskRepo.MakeDefaultTaskReviewComment(commentID, employerId, isDefault ? "Yes" : "No");
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "Comment has been marked " + (isDefault ? "default" : "not a default") + " successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteReviewComments(int commentID, int employerId)
+        {
+            int result = _taskRepo.DeleteReviewComments(commentID, employerId);
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "Comment has been deleted successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult SetCurrentWeekPeriod(string weekPeriod)
+        {
+            TempData["CurrentWeekPeriod"] = weekPeriod;
+            return Json(new { Code = 1, Message = "Current Week Period has been set successfully." });
+        }
+
+        [HttpPost]
+        public JsonResult SaveTaskDetails(FormCollection form)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var NumberOfTask = Convert.ToString(form["NumberOfTask"].ToString());
+            var TaskIds = Convert.ToString(form["TaskIds"].ToString()).Split(',');
+            var CurrentWeekPeriod = Convert.ToString(form["CurrentWeekPeriod"].ToString());
+
+            TaskDetailsByWeekPeriodViewModal taskDetail = new TaskDetailsByWeekPeriodViewModal();
+            taskDetail.EmployerID = loggedInuser.EmployerID;
+            taskDetail.ReviewerID = loggedInuser.Id;
+            taskDetail.WeekPeriod = CurrentWeekPeriod;
 
 
+            foreach (string taskId in TaskIds)
+            {
+                var IsChecked = Convert.ToString(form["SelectTask_" + taskId].ToString());
+                if (IsChecked != "1")
+                {
+                    continue;
+                }
+                taskDetail.EmployeeID = Convert.ToInt16(form["EmployeeID_" + taskId] != null ? form["EmployeeID_" + taskId].ToString() : "0");
+                taskDetail.TaskID = Convert.ToInt16(form["TaskID_" + taskId] != null ? form["TaskID_" + taskId].ToString() : "0");
+                taskDetail.TaskSubmissionStatus = Convert.ToString(form["TaskSubmissionStatus_" + taskId].ToString());
+                taskDetail.ReviewDate = Convert.ToDateTime(form["ReviewDate_" + taskId] != "null" ? form["ReviewDate_" + taskId].ToString() : "1970/1/1");
+                taskDetail.ReviewerComments = Convert.ToString(form["ReviewerComments_" + taskId].ToString());
+
+                var result = _taskRepo.UpdateTaskReview(taskDetail);
+            }
+
+            return Json(new { Code = 1, Message = "Task Details are saved successfully." });
         }
 
     }

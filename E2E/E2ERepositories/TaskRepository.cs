@@ -17,7 +17,8 @@ namespace E2ERepositories
                 return db.sp_UpsertComments(  comment.CommentID
                                             , comment.ReviewerID
                                             , comment.EmployerID
-                                            , comment.CommendDescription);
+                                            , comment.CommendDescription
+                                            , comment.IsDefault);
             }
         }
 
@@ -32,11 +33,11 @@ namespace E2ERepositories
             }
         }
 
-        public List<TaskDetailsByWeekPeriodViewModal> GetTaskDetailsByWeekPeriod(int roleID, int employerID, int reviewerID, int employeeID, string weekPeriod, int taskID = -1)
+        public List<TaskDetailsByWeekPeriodViewModal> GetTaskDetailsByWeekPeriod(int roleID, int employerID, int reviewerID, int employeeID, string weekPeriod)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var tasks = db.sp_GetTaskDetailsByWeekPeriod(roleID, employerID, reviewerID, employeeID, weekPeriod, taskID).ToList();
+                var tasks = db.sp_GetTaskDetailsByWeekPeriod(roleID, employerID, reviewerID, employeeID, weekPeriod).ToList();
                 return Mapper.Map<List<sp_GetTaskDetailsByWeekPeriod_Result>, List<TaskDetailsByWeekPeriodViewModal>>(tasks);
             }
         }
@@ -74,6 +75,46 @@ namespace E2ERepositories
             {
                 var endClients = db.sp_GetAllReviewComments(employerID, commentID).ToList();
                 return Mapper.Map<List<sp_GetAllReviewComments_Result>, List<TaskReviewCommentViewModal>>(endClients);
+            }
+        }
+
+        public int ActiveDeactiveEndClient(int EndClientID, int EmployerID, string Active)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_ActiveDeactiveEndClient(EmployerID, EndClientID, Active);
+            }
+        }
+
+        public int DeleteEndClient(int EndClientID, int EmployerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_DeleteEndClient(EmployerID, EndClientID);
+            }
+        }
+
+        public int MakeDefaultTaskReviewComment(int CommentID, int EmployerID, string isDefault)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_MakeDefaultTaskReviewComment(EmployerID, CommentID, isDefault);
+            }
+        }
+
+        public int DeleteReviewComments(int CommentID, int EmployerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_DeleteReviewComments(EmployerID, CommentID);
+            }
+        }
+
+        public int UpdateTaskReview(TaskDetailsByWeekPeriodViewModal taskDetails)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpdateTaskReview(taskDetails.EmployerID, taskDetails.ReviewerID, taskDetails.EmployeeID, taskDetails.TaskID, taskDetails.WeekPeriod, taskDetails.TaskSubmissionStatus, taskDetails.ReviewDate, taskDetails.ReviewerComments);
             }
         }
 

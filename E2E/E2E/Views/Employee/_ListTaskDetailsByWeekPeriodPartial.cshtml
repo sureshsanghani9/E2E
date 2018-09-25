@@ -1,0 +1,66 @@
+﻿
+@using E2EViewModals.Task
+@model List<TaskDetailsByWeekPeriodViewModal>
+
+<table class="datatable">
+    <thead>
+        <tr>
+            <th>Week Period</th>
+            <th>Status</th>
+            <th>Total Work Hours</th>
+            <th>Task Details</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TaskDetailsByWeekPeriodViewModal task in Model)
+            {
+            <tr class="gradeX">
+                <td>@task.WeekPeriod</td>
+                <td>@task.TaskSubmissionStatus</td>
+                <td>@task.HoursBilled</td>
+                <td>@task.TaskDetails</td>
+                <td>
+                    <button class="small btnEdit"
+                            TaskID="@task.TaskID" WeekPeriod="@task.WeekPeriod" EmployerName="@task.EmployerName">Edit
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        $(".btnEdit").on("click", function () {
+            var taskID = parseInt($(this).attr("TaskID"));
+            var weekPeriod = $(this).attr("WeekPeriod");
+            $.ajax({
+                url: '/Employee/GetTaskDetails',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { taskID: taskID, weekPeriod: weekPeriod }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    //$.msg(result.Message, { header: 'Sucess' });
+                    $("#WeekPeriod").val(result.Data.WeekPeriod + ' - (' + result.Data.TaskSubmissionStatus + ')');
+                    $("#TaskID").val(result.Data.TaskID);
+                    $("#EmployerName").val(result.Data.EmployerName);
+                    $("#HoursBilled").val(result.Data.HoursBilled);
+                    $("#TaskDetails").text(result.Data.TaskDetails);
+                    $("#AnyIssues").text(result.Data.AnyIssues);
+                    $("#Solution").text(result.Data.Solution);
+                    $("#PercentCompleted").val(result.Data.PercentCompleted);
+                    $("#SubmissionDate").val(new Date(Date(result.Data.SubmissionDate)).toLocaleDateString());
+                    $("#TaskContinueFromLastWeekPeriod").val(result.Data.TaskContinueFromLastWeekPeriod);
+                    $("#TaskContinueToNextWeekPeriod").val(result.Data.TaskContinueToNextWeekPeriod);
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+    });
+</script>

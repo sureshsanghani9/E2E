@@ -1,0 +1,86 @@
+﻿@using E2EViewModals.Task
+@model TaskDetailsByWeekPeriodViewModal
+
+
+<fieldset>
+
+    <input type="hidden" id="TaskID_@Model.TaskID" name="TaskID_@Model.TaskID" value="@Model.TaskID" />
+    <input type="hidden" id="EmployeeID_@Model.TaskID" name="EmployeeID_@Model.TaskID" value="@Model.EmployeeID" />
+
+    <section>
+        <label for="SelectTask_@Model.TaskID">Select</label>
+        <div><input type="checkbox" id="SelectTask_@Model.TaskID" name="SelectTask_@Model.TaskID" class="cbSelect"></div>
+    </section>
+
+    <section>
+        <label for="EmployeeName_@Model.TaskID">Employee Name</label>
+        <div><input type="text" id="EmployeeName_@Model.TaskID" name="EmployeeName_@Model.TaskID" class="g4" value="@Model.EmployeeName" readonly></div>
+    </section>
+
+    <section>
+        <label for="EndClientBusinessName_@Model.TaskID">End Client</label>
+        <div><input type="text" id="EndClientBusinessName_@Model.TaskID" name="EndClientBusinessName_@Model.TaskID" class="g4" value="@Model.EndClientBusinessName" readonly></div>
+    </section>
+
+    <section>
+        <label for="SubmissionDate_@Model.TaskID">Submission Date</label>
+        <div><input type="text" id="SubmissionDate_@Model.TaskID" name="SubmissionDate_@Model.TaskID" class="g2 date" value="@Model.SubmissionDate.Value.ToShortDateString()" readonly></div>
+    </section>
+
+    <section>
+        <label for="TaskDetails_@Model.TaskID">Task Details</label>
+        <div><textarea id="TaskDetails_@Model.TaskID" name="TaskDetails_@Model.TaskID"  class="g12" rows="4" readonly>@Model.TaskDetails</textarea></div>
+    </section>
+
+    <section>
+        <label for="AnyIssues_@Model.TaskID">Any Issues</label>
+        <div><textarea id="AnyIssues_@Model.TaskID" name="AnyIssues_@Model.TaskID" class="g12" rows="4" readonly>@Model.AnyIssues</textarea></div>
+    </section>
+
+    <section>
+        <label for="Solution_@Model.TaskID">Solution</label>
+        <div><textarea id="Solution_@Model.TaskID" name="Solution_@Model.TaskID" class="g12" rows="4" readonly>@Model.Solution</textarea></div>
+    </section>
+
+    <section>
+        <label for="ReviewerName_@Model.TaskID">Reviewer Name</label>
+        <div><input type="text" id="ReviewerName_@Model.TaskID" name="ReviewerName_@Model.TaskID" class="g4" value="@(Model.ReviewerName != null ? Model.ReviewerName : ViewBag.ReviewerName)" readonly></div>
+    </section>
+
+    <section>
+        <label for="ReviewDate_@Model.TaskID">Review Date</label>
+        <div><input type="text" id="ReviewDate_@Model.TaskID" name="ReviewDate_@Model.TaskID" required class="g2 date" value="@Model.ReviewDate.Value.ToShortDateString()" readonly></div>
+    </section>
+
+    <section>
+        <label for="TaskSubmissionStatus_@Model.TaskID">Task Continue To Next Week Period</label>
+        <div>
+            <select id="TaskSubmissionStatus_@Model.TaskID" name="TaskSubmissionStatus_@Model.TaskID" class="g3 " style="width: 100%;">
+                <option value="Task Completed" @( Model.TaskSubmissionStatus == "Task Completed" ? "selected='selected'" : "" )>Task Completed</option>
+                <option value="Task Re-Assigned" @( Model.TaskSubmissionStatus == "Task Re-Assigned" ? "selected='selected'" : "" )>Task Re-Assigned</option>
+            </select>
+        </div>
+    </section>
+
+    <section>
+        <label for="ReviewerComments_@Model.TaskID">Reviewer Comments</label>
+        <div>
+            <select id="ReviewerComments_@Model.TaskID" name="ReviewerComments_@Model.TaskID" class="g6" style="width: 100%;">
+                <optgroup label="Week Period">
+                    @foreach (TaskReviewCommentViewModal comment in (List<TaskReviewCommentViewModal>)ViewBag.Comments)
+                    {
+                        if (comment.CommendDescription == Model.ReviewerComments)
+                        {
+                            <option value="@comment.CommendDescription" selected="selected">@comment.CommendDescription</option>
+                        }
+                        else
+                        {
+                            <option value="@comment.CommendDescription">@comment.CommendDescription</option>
+                        }
+                    }
+                </optgroup>
+            </select>
+        </div>
+    </section>
+
+</fieldset>

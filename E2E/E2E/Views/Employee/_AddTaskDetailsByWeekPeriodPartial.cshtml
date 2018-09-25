@@ -1,0 +1,162 @@
+﻿@using E2EViewModals.Task
+@model TaskDetailsByWeekPeriodViewModal
+
+<form id="formAddEndClient" action="/Employee/SaveTaskDetails" method="post" autocomplete="on">
+
+    <input type="hidden" id="TaskID" name="TaskID" value="@Model.TaskID" />
+
+    <fieldset>
+
+        <section>
+            <label for="WeekPeriod">Week Period</label>
+            <div>
+                <select id="WeekPeriod" name="WeekPeriod" class="g6" style="width: 100%;">
+                    <optgroup label="Week Period">
+                        @foreach (WeekPeriodViewModal week in (List<WeekPeriodViewModal>)ViewBag.WeekPeriods)
+                        {
+                            if (week.WeekPeriod == Model.WeekPeriod + " - (" + Model.TaskSubmissionStatus + ")")
+                            {
+                                <option value="@week.WeekPeriod" selected="selected">@week.WeekPeriod</option>
+                            }
+                            else
+                            {
+                                <option value="@week.WeekPeriod">@week.WeekPeriod</option>
+                            }
+                        }
+                    </optgroup>
+                </select>
+            </div>
+        </section>
+
+        <section>
+            <label for="EmployerName">Employer Name</label>
+            <div><input type="text" id="EmployerName" name="EmployerName" class="g4" readonly value="@Model.EmployerName"></div>
+        </section>
+
+        <section>
+            <label for="HoursBilled">Hours Billed</label>
+            <div><input type="number" id="HoursBilled" name="HoursBilled" required class="g1 integer" value="@Model.HoursBilled"></div>
+        </section>
+
+        <section>
+            <label for="TaskDetails">Task Details</label>
+            <div><textarea id="TaskDetails" name="TaskDetails" required class="g12" rows="4">@Model.TaskDetails</textarea></div>
+        </section>
+
+        <section>
+            <label for="AnyIssues">Any Issues</label>
+            <div><textarea id="AnyIssues" name="AnyIssues" required class="g12" rows="4">@Model.AnyIssues</textarea></div>
+        </section>
+
+        <section>
+            <label for="Solution">Solution</label>
+            <div><textarea id="Solution" name="Solution" required class="g12" rows="4">@Model.Solution</textarea></div>
+        </section>
+
+        <section>
+            <label for="PercentCompleted">Percent Completed</label>
+            <div><input type="text" id="PercentCompleted" name="PercentCompleted" required class="g1" value="@Model.PercentCompleted"></div>
+        </section>
+
+        <section>
+            <label for="SubmissionDate">Submission Date</label>
+            <div><input type="text" id="SubmissionDate" name="SubmissionDate" required class="g2 date" value="@Model.SubmissionDate.Value.ToShortDateString()"></div>
+        </section>
+
+        <section>
+            <label for="TaskContinueFromLastWeekPeriod">Task Continue From Last Week Period</label>
+            <div>
+                <select id="TaskContinueFromLastWeekPeriod" name="TaskContinueFromLastWeekPeriod" class="g1 " style="width: 100%;">
+                    <option value="Yes" @( Model.TaskContinueFromLastWeekPeriod == "Yes" ? "selected='selected'" : "" )>Yes</option>
+                    <option value="No" @( Model.TaskContinueFromLastWeekPeriod == "No" ? "selected='selected'" : "" )>No</option>
+                </select>
+            </div>
+        </section>
+
+        <section>
+            <label for="TaskContinueToNextWeekPeriod">Task Continue To Next Week Period</label>
+            <div>
+                <select id="TaskContinueToNextWeekPeriod" name="TaskContinueToNextWeekPeriod" class="g1 " style="width: 100%;">
+                    <option value="Yes" @( Model.TaskContinueToNextWeekPeriod == "Yes" ? "selected='selected'" : "" )>Yes</option>
+                    <option value="No" @( Model.TaskContinueToNextWeekPeriod == "No" ? "selected='selected'" : "" )>No</option>
+                </select>
+            </div>
+        </section>
+
+        <section>
+            <div>
+                <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                <button class="reset">Reset</button>
+                @*<button class="btn" name="btncancel" value="btncancel" onclick="$('#divAddEndClient').hide(); return false;">Cancel</button>*@
+            </div>
+        </section>
+    </fieldset>
+</form>
+
+<script>
+
+    var $content = $('#content');
+    $content.find('form').wl_Form({
+        onSuccess: function (data, status) {
+            var res = JSON.parse(data);
+            if (res.Code == "1") {
+                $.msg(res.Message);
+                //$content.find('form').wl_Form('reset');
+                $('#divAddEndClient').hide();
+                //setTimeout(function () {
+                //    window.location = "/Employee/Index";
+                //}, 2000);
+            }
+            else {
+                $.msg(res.Message);
+            }
+
+        },
+        onError: function (status, error, jqXHR) {
+            $.msg(res.Message);
+        }
+    });
+
+    function ResetForm() {
+        $content.find('form').wl_Form('reset');
+    }
+
+    $("#WeekPeriod").on("change", function () {
+        var weekPeriod = $(this).val().substring(0, 24);
+        $.ajax({
+            url: '/Employee/GetTaskDetails',
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            data: { weekPeriod: weekPeriod }
+        }).done(function (result) {
+            if (result.Code == '1') {
+                //$.msg(result.Message, { header: 'Sucess' });
+                $("#WeekPeriod").val(result.Data.WeekPeriod + ' - (' + result.Data.TaskSubmissionStatus + ')');
+                $("#TaskID").val(result.Data.TaskID);
+                $("#EmployerName").val(result.Data.EmployerName);
+                $("#HoursBilled").val(result.Data.HoursBilled);
+                $("#TaskDetails").text(result.Data.TaskDetails);
+                $("#AnyIssues").text(result.Data.AnyIssues);
+                $("#Solution").text(result.Data.Solution);
+                $("#PercentCompleted").val(result.Data.PercentCompleted);
+                $("#SubmissionDate").val(new Date(Date(result.Data.SubmissionDate)).toLocaleDateString());
+                $("#TaskContinueFromLastWeekPeriod").val(result.Data.TaskContinueFromLastWeekPeriod);
+                $("#TaskContinueFromLastWeekPeriod").parent().find('span').text(result.Data.TaskContinueFromLastWeekPeriod)
+                $("#TaskContinueToNextWeekPeriod").val(result.Data.TaskContinueToNextWeekPeriod);
+                $("#TaskContinueToNextWeekPeriod").parent().find('span').text(result.Data.TaskContinueToNextWeekPeriod)
+                if (result.Data.TaskContinueToNextWeekPeriod == "Task Completed") {
+                    $("input,select,textarea").not("#WeekPeriod").attr("disabled", "disabled");
+                }
+                else
+                {
+                    $("input,select,textarea").not("#WeekPeriod").attr("disabled", false)
+                }
+            }
+            else {
+                $.msg(result.Message, { header: 'Fail' });
+            }
+        });
+    });
+
+</script>

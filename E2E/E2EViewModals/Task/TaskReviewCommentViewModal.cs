@@ -12,6 +12,7 @@ namespace E2EViewModals.Task
         public string CommendDescription { get; set; }
         public int ReviewerID { get; set; }
         public int EmployerID { get; set; }
+        public string IsDefault { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }

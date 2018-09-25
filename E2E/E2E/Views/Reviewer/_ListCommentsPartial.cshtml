@@ -1,0 +1,134 @@
+﻿@using E2EViewModals.Task
+@model List<TaskReviewCommentViewModal>
+
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+
+    label.tgl-btn {
+        margin: auto;
+    }
+</style>
+
+<table class="datatable">
+    <thead>
+        <tr>
+            <th>Comment Description</th>
+            <th>Is Default?</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TaskReviewCommentViewModal task in Model)
+            {
+            <tr class="gradeX">
+                <td>@task.CommendDescription</td>
+                <td>
+                    <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + task.CommentID.ToString())" type="checkbox" @(task.IsDefault != null && task.IsDefault == "Yes" ? "checked" : "")
+                           EmployerId="@task.EmployerID" CommentID="@task.CommentID" />
+                    <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + task.CommentID.ToString())"></label>
+                </td>
+                <td>
+                    <button class="small btnEdit"
+                            CommentID="@task.CommentID">Edit
+                    </button>
+                    <button class="small btnDelete" 
+                            CommentID="@task.CommentID" EmployerId="@task.EmployerID" >Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        $(".btnDelete").on("click", function () {
+            var commentID = parseInt($(this).attr("CommentID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+
+            $.confirm('Are your sure to delete this Comment?', function () {
+
+                $.ajax({
+                    url: '/Reviewer/DeleteReviewComments',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { commentID: commentID, employerId: employerId }
+                }).done(function (result) {
+                    if (result.Code == '1') {
+                        $.msg(result.Message, { header: 'Success' });
+                        setTimeout(function () {
+                            window.location = "/Reviewer/ManageComments";
+                        }, 2000);
+                    }
+                    else {
+                        $.msg(result.Message, { header: 'Fail' });
+                    }
+                });
+
+            });
+        });
+
+        $(".btnEdit").on("click", function () {
+            var commentID = parseInt($(this).attr("CommentID"));
+            $('#divAddComment').show();
+            $.ajax({
+                url: '/Reviewer/EditComment',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { commentID: commentID }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    //$.msg(result.Message, { header: 'Success' });
+                    $("#CommentID").val(result.Data.CommentID);
+                    $("#CommendDescription").val(result.Data.CommendDescription);
+                    if (result.Data.IsDefault == "Yes")
+                    {
+                        $("#IsDefaultYes").prop("checked", true);
+                        $("#IsDefaultNo").prop("checked", false);
+                    }
+                    else
+                    {
+                        $("#IsDefaultYes").prop("checked", false);
+                        $("#IsDefaultNo").prop("checked", true);
+                    }
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+        $(".cbActive").on("click", function () {
+            var commentID = parseInt($(this).attr("CommentID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+            var isDefault = $(this).is(":checked");
+
+            $.ajax({
+                url: '/Reviewer/MakeDefaultTaskReviewComment',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { commentID: commentID, employerId: employerId, isDefault: isDefault }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Sucess' });
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+    });
+</script>

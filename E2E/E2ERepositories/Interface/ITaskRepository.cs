@@ -12,11 +12,20 @@ namespace E2ERepositories.Interface
     {
         int UpsertComment(TaskReviewCommentViewModal comment);
         List<WeekPeriodViewModal> GetListWeekPeriod(int employerID, int userID, int roleID, out string weekperiod);
-        List<TaskDetailsByWeekPeriodViewModal> GetTaskDetailsByWeekPeriod(int roleID, int employerID, int reviewerID, int employeeID, string weekPeriod, int taskID = -1);
+        List<TaskDetailsByWeekPeriodViewModal> GetTaskDetailsByWeekPeriod(int roleID, int employerID, int reviewerID, int employeeID, string weekPeriod);
         int AddUpdateTaskDetails(TaskDetailsByWeekPeriodViewModal taskDetail);
 
         List<EndClientInfoViewModal> GetEndClientInfo(int employerID, int employeeID, int endClientID = -1);
         List<TaskReviewCommentViewModal> GetAllReviewComments(int employerID, int commentID = -1);
 
+        int ActiveDeactiveEndClient(int EndClientID, int EmployerID, string Active);
+
+        int DeleteEndClient(int EndClientID, int EmployerID);
+
+        int MakeDefaultTaskReviewComment(int CommentID, int EmployerID, string isDefault);
+
+        int DeleteReviewComments(int CommentID, int EmployerID);
+
+        int UpdateTaskReview(TaskDetailsByWeekPeriodViewModal taskDetails);
     }
 }

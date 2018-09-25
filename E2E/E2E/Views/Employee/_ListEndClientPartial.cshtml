@@ -1,0 +1,148 @@
+﻿@using E2EViewModals.EndClient
+@model List<EndClientInfoViewModal>
+
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+
+    label.tgl-btn {
+        margin: auto;
+    }
+</style>
+
+<table class="datatable">
+    <thead>
+        <tr>
+            <th>Business Name</th>
+            <th>Title At End Client Site</th>
+            <th>Active</th>
+            <th>Address 1</th>
+            <th>Address 2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Phone Number</th>
+            <th>Email At End Client</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EndClientInfoViewModal client in Model)
+            {
+            <tr class="gradeX">
+                <td>@client.EndClientBusinessName</td>
+                <td>@client.EmployeeTitleAtEndClientSite</td>
+                <td>
+                    <input class="tgl tgl-flip cbActive nocheckbox" id="@("cb" + client.EndClientID.ToString())" type="checkbox" @(client.Active != null && client.Active == "1" ? "checked" : "")
+                           EmployerId="@client.EmployerID" EndClientID="@client.EndClientID" />
+                    <label class="tgl-btn" data-tg-off="No" data-tg-on="Yes" for="@("cb" + client.EndClientID.ToString())"></label>
+                </td>
+                <td>@client.EndClientAddress1</td>
+                <td>@client.EndClientAddress2</td>
+                <td>@client.EndClientCity</td>
+                <td>@client.EndClientState</td>
+                <td>@client.EndClientzip</td>
+                <td>@client.EndClientPhoneNumber</td>
+                <td>@client.EmployeeEmailAtEndClient</td>
+                <td>
+                    <button class="small btnEdit"
+                            EndClientID="@client.EndClientID">Edit
+                    </button>
+                    <button class="small btnDelete" style="display:initial" 
+                            EndClientID="@client.EndClientID" EmployerId="@client.EmployerID">Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        $(".btnDelete").on("click", function () {
+            var endClientID = parseInt($(this).attr("EndClientID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+
+            $.confirm('Are your sure to delete this End Client?', function () {
+
+                $.ajax({
+                    url: '/Employee/DeleteEndClient',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { endClientID: endClientID, employerId: employerId }
+                }).done(function (result) {
+                    if (result.Code == '1') {
+                        $.msg(result.Message, { header: 'Success' });
+                        setTimeout(function () {
+                            window.location = "/Employee/ManageEndClients";
+                        }, 2000);
+                    }
+                    else {
+                        $.msg(result.Message, { header: 'Fail' });
+                    }
+                });
+
+            });
+        });
+
+        $(".btnEdit").on("click", function () {
+            var endClientID = parseInt($(this).attr("EndClientID"));
+            $('#divAddEndClient').show();
+            $.ajax({
+                url: '/Employee/EditEndClient',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { endClientID: endClientID }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    //$.msg(result.Message, { header: 'Sucess' });
+                    $("#EndClientID").val(result.Data.EndClientID);
+                    $("#EndClientBusinessName").val(result.Data.EndClientBusinessName);
+                    $("#EmployeeTitleAtEndClientSite").val(result.Data.EmployeeTitleAtEndClientSite);
+                    $("#EndClientAddress1").text(result.Data.EndClientAddress1);
+                    $("#EndClientAddress2").text(result.Data.EndClientAddress2);
+                    $("#EndClientCity").val(result.Data.EndClientCity);
+                    $("#EndClientState").val(result.Data.EndClientState);
+                    $("#EndClientzip").val(result.Data.EndClientzip);
+                    $("#EndClientPhoneNumber").val(result.Data.EndClientPhoneNumber);
+                    $("#EndClientExtn").val(result.Data.EndClientExtn);
+                    $("#EmployeeEmailAtEndClient").val(result.Data.EmployeeEmailAtEndClient);
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+        $(".cbActive").on("click", function () {
+            var endClientID = parseInt($(this).attr("EndClientID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+            var isActive = $(this).is(":checked");
+
+            $.ajax({
+                url: '/Employee/ActiveDeactiveEndClient',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { endClientID: endClientID, employerId: employerId, isActive: isActive }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Sucess' });
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+    });
+</script>

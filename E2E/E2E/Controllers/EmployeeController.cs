@@ -29,7 +29,7 @@ namespace E2E.Controllers
             var weekPeriods = _taskRepo.GetListWeekPeriod(loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.RoleID, out weekPeriod);
             var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod);
             ViewBag.WeekPeriods = weekPeriods;
-            return View(tasks);
+            return View(tasks.Any() ? tasks.FirstOrDefault() : new TaskDetailsByWeekPeriodViewModal());
         }
 
         [AllowAnonymous]
@@ -204,10 +204,10 @@ namespace E2E.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetTaskDetails(string weekPeriod, int taskID)
+        public JsonResult GetTaskDetails(string weekPeriod)
         {
             var loggedInuser = (UserViewModal)Session["User"];
-            var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod, taskID);
+            var tasks = _taskRepo.GetTaskDetailsByWeekPeriod(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, weekPeriod);
 
             if (tasks.Any())
             {
@@ -218,6 +218,36 @@ namespace E2E.Controllers
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!", Data = new TaskDetailsByWeekPeriodViewModal() });
             }
 
+
+        }
+
+        [HttpPost]
+        public JsonResult ActiveDeactiveEndClient(int endClientID, int employerId, bool isActive)
+        {
+            int result = _taskRepo.ActiveDeactiveEndClient(endClientID, employerId, isActive ? "1" : "0");
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "End Client has been " + (isActive ? "activated" : "deactivated") + " successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteEndClient(int endClientID, int employerId)
+        {
+            int result = _taskRepo.DeleteEndClient(endClientID, employerId);
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "End Client has been deleted successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
 
         }
 
