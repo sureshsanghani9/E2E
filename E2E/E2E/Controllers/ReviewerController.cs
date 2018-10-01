@@ -15,8 +15,8 @@ namespace E2E.Controllers
     public class ReviewerController : Controller
     {
         private readonly IUserRepository _userRepo;
-        private readonly TaskRepository _taskRepo;
-        public ReviewerController(IUserRepository userRepo, TaskRepository taskRepo)
+        private readonly ITaskRepository _taskRepo;
+        public ReviewerController(IUserRepository userRepo, ITaskRepository taskRepo)
         {
             _userRepo = userRepo;
             _taskRepo = taskRepo;

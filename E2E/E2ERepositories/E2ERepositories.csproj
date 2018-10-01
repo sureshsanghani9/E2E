@@ -119,6 +119,7 @@
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IBusinessRepository.cs" />
+    <Compile Include="Interface\IReportRepository.cs" />
     <Compile Include="Interface\ISubscriptionRepository.cs" />
     <Compile Include="Interface\ITaskRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
@@ -126,6 +127,7 @@
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportRepository.cs" />
     <Compile Include="Reviewer.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

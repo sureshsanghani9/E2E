@@ -596,6 +596,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   <Function Name="rpt_ClientSiteActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="AdminUserID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
     <Parameter Name="StartDate" Type="date" Mode="In" />
     <Parameter Name="EndDate" Type="date" Mode="In" />
@@ -649,6 +650,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_Delete_Employer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_DeleteEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="EndClientID" Type="int" Mode="In" />
@@ -661,6 +665,38 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
     <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_EditNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="EmployerName" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessName" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessAddress1" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessAddress2" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="Phone" Type="varchar" Mode="In" />
+    <Parameter Name="Fax" Type="varchar" Mode="In" />
+    <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+    <Parameter Name="URL" Type="varchar" Mode="In" />
+    <Parameter Name="TotalEmployees" Type="int" Mode="In" />
+    <Parameter Name="BusinessTaxID" Type="varchar" Mode="In" />
+    <Parameter Name="Active" Type="varchar" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionID" Type="int" Mode="In" />
+    <Parameter Name="SubscriptionDate" Type="date" Mode="In" />
+    <Parameter Name="ServiceDetails" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionType" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionPlanName" Type="varchar" Mode="In" />
+    <Parameter Name="SubscriptionPlanCode" Type="varchar" Mode="In" />
+    <Parameter Name="TotalLogin" Type="int" Mode="In" />
+    <Parameter Name="EffectiveDate" Type="date" Mode="In" />
+    <Parameter Name="ExpirationDate" Type="date" Mode="In" />
+    <Parameter Name="AmountCharged" Type="money" Mode="In" />
+    <Parameter Name="RegistrationFeeCharged" Type="money" Mode="In" />
+    <Parameter Name="SubscriptionFeeCharged" Type="money" Mode="In" />
+    <Parameter Name="PaymentDueDate" Type="date" Mode="In" />
   </Function>
   <Function Name="sp_GetAllReviewComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />

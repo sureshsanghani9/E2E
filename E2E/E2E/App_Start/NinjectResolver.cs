@@ -33,6 +33,7 @@ namespace E2E.App_Start
             _kernel.Bind<ISubscriptionRepository>().To<SubscriptionRepository>();     
             _kernel.Bind<IBusinessRepository>().To<BusinessRepository>();  
             _kernel.Bind<ITaskRepository>().To<TaskRepository>();  
+            _kernel.Bind<IReportRepository>().To<ReportRepository>();  
         }
     }
 }

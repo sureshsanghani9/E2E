@@ -601,6 +601,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
         <Function Name="rpt_ClientSiteActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleID" Type="int" Mode="In" />
           <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="AdminUserID" Type="int" Mode="In" />
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="StartDate" Type="date" Mode="In" />
           <Parameter Name="EndDate" Type="date" Mode="In" />
@@ -654,6 +655,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="EmployerID" Type="int" Mode="In" />
           <Parameter Name="UserID" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Delete_Employer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_DeleteEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerID" Type="int" Mode="In" />
           <Parameter Name="EndClientID" Type="int" Mode="In" />
@@ -666,6 +670,38 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="op_RoleID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EditNewBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployerID" Type="int" Mode="In" />
+          <Parameter Name="EmployerName" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessName" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessAddress1" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessAddress2" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="State" Type="varchar" Mode="In" />
+          <Parameter Name="zip" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="varchar" Mode="In" />
+          <Parameter Name="Fax" Type="varchar" Mode="In" />
+          <Parameter Name="PrimaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="SecondaryEmail" Type="varchar" Mode="In" />
+          <Parameter Name="URL" Type="varchar" Mode="In" />
+          <Parameter Name="TotalEmployees" Type="int" Mode="In" />
+          <Parameter Name="BusinessTaxID" Type="varchar" Mode="In" />
+          <Parameter Name="Active" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="SubscriptionID" Type="int" Mode="In" />
+          <Parameter Name="SubscriptionDate" Type="date" Mode="In" />
+          <Parameter Name="ServiceDetails" Type="varchar" Mode="In" />
+          <Parameter Name="SubscriptionType" Type="varchar" Mode="In" />
+          <Parameter Name="SubscriptionPlanName" Type="varchar" Mode="In" />
+          <Parameter Name="SubscriptionPlanCode" Type="varchar" Mode="In" />
+          <Parameter Name="TotalLogin" Type="int" Mode="In" />
+          <Parameter Name="EffectiveDate" Type="date" Mode="In" />
+          <Parameter Name="ExpirationDate" Type="date" Mode="In" />
+          <Parameter Name="AmountCharged" Type="money" Mode="In" />
+          <Parameter Name="RegistrationFeeCharged" Type="money" Mode="In" />
+          <Parameter Name="SubscriptionFeeCharged" Type="money" Mode="In" />
+          <Parameter Name="PaymentDueDate" Type="date" Mode="In" />
         </Function>
         <Function Name="sp_GetAllReviewComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -1712,6 +1748,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <FunctionImport Name="rpt_ClientSiteActivity" ReturnType="Collection(E2EWebPortalModel.rpt_ClientSiteActivity_Result)">
             <Parameter Name="RoleID" Mode="In" Type="Int32" />
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
             <Parameter Name="UserID" Mode="In" Type="Int32" />
             <Parameter Name="StartDate" Mode="In" Type="DateTime" />
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
@@ -1762,6 +1799,41 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
             <Parameter Name="CommentID" Mode="In" Type="Int32" />
             <Parameter Name="IsDefault" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Delete_Employer">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditNewBusiness">
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerName" Mode="In" Type="String" />
+            <Parameter Name="BusinessName" Mode="In" Type="String" />
+            <Parameter Name="BusinessAddress1" Mode="In" Type="String" />
+            <Parameter Name="BusinessAddress2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Fax" Mode="In" Type="String" />
+            <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+            <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+            <Parameter Name="URL" Mode="In" Type="String" />
+            <Parameter Name="TotalEmployees" Mode="In" Type="Int32" />
+            <Parameter Name="BusinessTaxID" Mode="In" Type="String" />
+            <Parameter Name="Active" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionID" Mode="In" Type="Int32" />
+            <Parameter Name="SubscriptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ServiceDetails" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionType" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionPlanName" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionPlanCode" Mode="In" Type="String" />
+            <Parameter Name="TotalLogin" Mode="In" Type="Int32" />
+            <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ExpirationDate" Mode="In" Type="DateTime" />
+            <Parameter Name="AmountCharged" Mode="In" Type="Decimal" />
+            <Parameter Name="RegistrationFeeCharged" Mode="In" Type="Decimal" />
+            <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
+            <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -3330,6 +3402,8 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_MakeDefaultTaskReviewComment" FunctionName="E2EWebPortalModel.Store.sp_MakeDefaultTaskReviewComment" />
+          <FunctionImportMapping FunctionImportName="sp_Delete_Employer" FunctionName="E2EWebPortalModel.Store.sp_Delete_Employer" />
+          <FunctionImportMapping FunctionImportName="sp_EditNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_EditNewBusiness" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

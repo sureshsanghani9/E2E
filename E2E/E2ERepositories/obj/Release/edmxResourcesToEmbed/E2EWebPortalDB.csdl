@@ -698,6 +698,7 @@
     <FunctionImport Name="rpt_ClientSiteActivity" ReturnType="Collection(E2EWebPortalModel.rpt_ClientSiteActivity_Result)">
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
       <Parameter Name="UserID" Mode="In" Type="Int32" />
       <Parameter Name="StartDate" Mode="In" Type="DateTime" />
       <Parameter Name="EndDate" Mode="In" Type="DateTime" />
@@ -748,6 +749,41 @@
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="CommentID" Mode="In" Type="Int32" />
       <Parameter Name="IsDefault" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Delete_Employer">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EditNewBusiness">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerName" Mode="In" Type="String" />
+      <Parameter Name="BusinessName" Mode="In" Type="String" />
+      <Parameter Name="BusinessAddress1" Mode="In" Type="String" />
+      <Parameter Name="BusinessAddress2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Fax" Mode="In" Type="String" />
+      <Parameter Name="PrimaryEmail" Mode="In" Type="String" />
+      <Parameter Name="SecondaryEmail" Mode="In" Type="String" />
+      <Parameter Name="URL" Mode="In" Type="String" />
+      <Parameter Name="TotalEmployees" Mode="In" Type="Int32" />
+      <Parameter Name="BusinessTaxID" Mode="In" Type="String" />
+      <Parameter Name="Active" Mode="In" Type="String" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionID" Mode="In" Type="Int32" />
+      <Parameter Name="SubscriptionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ServiceDetails" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionType" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionPlanName" Mode="In" Type="String" />
+      <Parameter Name="SubscriptionPlanCode" Mode="In" Type="String" />
+      <Parameter Name="TotalLogin" Mode="In" Type="Int32" />
+      <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ExpirationDate" Mode="In" Type="DateTime" />
+      <Parameter Name="AmountCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="RegistrationFeeCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
+      <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">

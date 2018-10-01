@@ -6,6 +6,7 @@ using E2EViewModals.Subscription;
 using E2EViewModals.User;
 using E2EViewModals.Task;
 using E2EViewModals.EndClient;
+using E2EViewModals.Report;
 
 namespace E2E
 {
@@ -32,6 +33,10 @@ namespace E2E
             CreateMap<sp_GetTaskDetailsByWeekPeriod_Result, TaskDetailsByWeekPeriodViewModal>();
             CreateMap<sp_GetEndClientInfo_Result, EndClientInfoViewModal>();
             CreateMap<sp_GetAllReviewComments_Result, TaskReviewCommentViewModal>();
+            CreateMap<rpt_ClientSiteActivity_Result, ClientSiteActivityReportViewModal>();
+            CreateMap<rpt_GetBeneficiaryDetails_Result, BeneficiaryDetailsReportViewModal>();
+            CreateMap<rpt_GetBeneficiaryList_Result, BeneficiaryListReportViewModal>();
+            CreateMap<rpt_GetListWeekPeriod_Result, WeekPeriodReportViewModal>();
         }
     }
 }

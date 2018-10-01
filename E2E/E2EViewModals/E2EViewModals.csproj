@@ -47,6 +47,10 @@
     <Compile Include="EndClient\EndClientViewModal.cs" />
     <Compile Include="Invitations\InvitationsViewModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\BeneficiaryDetailsReportViewModal.cs" />
+    <Compile Include="Report\BeneficiaryListReportViewModal.cs" />
+    <Compile Include="Report\ClientSiteActivityReportViewModal.cs" />
+    <Compile Include="Report\WeekPeriodReportViewModal.cs" />
     <Compile Include="Subscription\SubscriptionInfoViewModal.cs" />
     <Compile Include="Subscription\SubscriptionViewModal.cs" />
     <Compile Include="Task\TaskDetailsByWeekPeriodViewModal.cs" />

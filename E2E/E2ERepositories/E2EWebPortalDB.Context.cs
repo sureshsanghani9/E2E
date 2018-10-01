@@ -949,7 +949,7 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateNewTaskWeekly1", setipDateParameter);
         }
     
-        public virtual ObjectResult<rpt_ClientSiteActivity_Result> rpt_ClientSiteActivity(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<rpt_ClientSiteActivity_Result> rpt_ClientSiteActivity(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> adminUserID, Nullable<int> userID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
         {
             var roleIDParameter = roleID.HasValue ?
                 new ObjectParameter("RoleID", roleID) :
@@ -958,6 +958,10 @@ namespace E2ERepositories
             var employerIDParameter = employerID.HasValue ?
                 new ObjectParameter("EmployerID", employerID) :
                 new ObjectParameter("EmployerID", typeof(int));
+    
+            var adminUserIDParameter = adminUserID.HasValue ?
+                new ObjectParameter("AdminUserID", adminUserID) :
+                new ObjectParameter("AdminUserID", typeof(int));
     
             var userIDParameter = userID.HasValue ?
                 new ObjectParameter("UserID", userID) :
@@ -971,7 +975,7 @@ namespace E2ERepositories
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_ClientSiteActivity_Result>("rpt_ClientSiteActivity", roleIDParameter, employerIDParameter, userIDParameter, startDateParameter, endDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_ClientSiteActivity_Result>("rpt_ClientSiteActivity", roleIDParameter, employerIDParameter, adminUserIDParameter, userIDParameter, startDateParameter, endDateParameter);
         }
     
         public virtual ObjectResult<rpt_GetBeneficiaryDetails_Result> rpt_GetBeneficiaryDetails(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
@@ -1133,6 +1137,140 @@ namespace E2ERepositories
                 new ObjectParameter("IsDefault", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MakeDefaultTaskReviewComment", employerIDParameter, commentIDParameter, isDefaultParameter);
+        }
+    
+        public virtual int sp_Delete_Employer(Nullable<int> employerID)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Delete_Employer", employerIDParameter);
+        }
+    
+        public virtual int sp_EditNewBusiness(Nullable<int> employerID, string employerName, string businessName, string businessAddress1, string businessAddress2, string city, string state, string zip, string phone, string fax, string primaryEmail, string secondaryEmail, string uRL, Nullable<int> totalEmployees, string businessTaxID, string active, string userName, Nullable<int> subscriptionID, Nullable<System.DateTime> subscriptionDate, string serviceDetails, string subscriptionType, string subscriptionPlanName, string subscriptionPlanCode, Nullable<int> totalLogin, Nullable<System.DateTime> effectiveDate, Nullable<System.DateTime> expirationDate, Nullable<decimal> amountCharged, Nullable<decimal> registrationFeeCharged, Nullable<decimal> subscriptionFeeCharged, Nullable<System.DateTime> paymentDueDate)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var employerNameParameter = employerName != null ?
+                new ObjectParameter("EmployerName", employerName) :
+                new ObjectParameter("EmployerName", typeof(string));
+    
+            var businessNameParameter = businessName != null ?
+                new ObjectParameter("BusinessName", businessName) :
+                new ObjectParameter("BusinessName", typeof(string));
+    
+            var businessAddress1Parameter = businessAddress1 != null ?
+                new ObjectParameter("BusinessAddress1", businessAddress1) :
+                new ObjectParameter("BusinessAddress1", typeof(string));
+    
+            var businessAddress2Parameter = businessAddress2 != null ?
+                new ObjectParameter("BusinessAddress2", businessAddress2) :
+                new ObjectParameter("BusinessAddress2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var faxParameter = fax != null ?
+                new ObjectParameter("Fax", fax) :
+                new ObjectParameter("Fax", typeof(string));
+    
+            var primaryEmailParameter = primaryEmail != null ?
+                new ObjectParameter("PrimaryEmail", primaryEmail) :
+                new ObjectParameter("PrimaryEmail", typeof(string));
+    
+            var secondaryEmailParameter = secondaryEmail != null ?
+                new ObjectParameter("SecondaryEmail", secondaryEmail) :
+                new ObjectParameter("SecondaryEmail", typeof(string));
+    
+            var uRLParameter = uRL != null ?
+                new ObjectParameter("URL", uRL) :
+                new ObjectParameter("URL", typeof(string));
+    
+            var totalEmployeesParameter = totalEmployees.HasValue ?
+                new ObjectParameter("TotalEmployees", totalEmployees) :
+                new ObjectParameter("TotalEmployees", typeof(int));
+    
+            var businessTaxIDParameter = businessTaxID != null ?
+                new ObjectParameter("BusinessTaxID", businessTaxID) :
+                new ObjectParameter("BusinessTaxID", typeof(string));
+    
+            var activeParameter = active != null ?
+                new ObjectParameter("Active", active) :
+                new ObjectParameter("Active", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var subscriptionIDParameter = subscriptionID.HasValue ?
+                new ObjectParameter("SubscriptionID", subscriptionID) :
+                new ObjectParameter("SubscriptionID", typeof(int));
+    
+            var subscriptionDateParameter = subscriptionDate.HasValue ?
+                new ObjectParameter("SubscriptionDate", subscriptionDate) :
+                new ObjectParameter("SubscriptionDate", typeof(System.DateTime));
+    
+            var serviceDetailsParameter = serviceDetails != null ?
+                new ObjectParameter("ServiceDetails", serviceDetails) :
+                new ObjectParameter("ServiceDetails", typeof(string));
+    
+            var subscriptionTypeParameter = subscriptionType != null ?
+                new ObjectParameter("SubscriptionType", subscriptionType) :
+                new ObjectParameter("SubscriptionType", typeof(string));
+    
+            var subscriptionPlanNameParameter = subscriptionPlanName != null ?
+                new ObjectParameter("SubscriptionPlanName", subscriptionPlanName) :
+                new ObjectParameter("SubscriptionPlanName", typeof(string));
+    
+            var subscriptionPlanCodeParameter = subscriptionPlanCode != null ?
+                new ObjectParameter("SubscriptionPlanCode", subscriptionPlanCode) :
+                new ObjectParameter("SubscriptionPlanCode", typeof(string));
+    
+            var totalLoginParameter = totalLogin.HasValue ?
+                new ObjectParameter("TotalLogin", totalLogin) :
+                new ObjectParameter("TotalLogin", typeof(int));
+    
+            var effectiveDateParameter = effectiveDate.HasValue ?
+                new ObjectParameter("EffectiveDate", effectiveDate) :
+                new ObjectParameter("EffectiveDate", typeof(System.DateTime));
+    
+            var expirationDateParameter = expirationDate.HasValue ?
+                new ObjectParameter("ExpirationDate", expirationDate) :
+                new ObjectParameter("ExpirationDate", typeof(System.DateTime));
+    
+            var amountChargedParameter = amountCharged.HasValue ?
+                new ObjectParameter("AmountCharged", amountCharged) :
+                new ObjectParameter("AmountCharged", typeof(decimal));
+    
+            var registrationFeeChargedParameter = registrationFeeCharged.HasValue ?
+                new ObjectParameter("RegistrationFeeCharged", registrationFeeCharged) :
+                new ObjectParameter("RegistrationFeeCharged", typeof(decimal));
+    
+            var subscriptionFeeChargedParameter = subscriptionFeeCharged.HasValue ?
+                new ObjectParameter("SubscriptionFeeCharged", subscriptionFeeCharged) :
+                new ObjectParameter("SubscriptionFeeCharged", typeof(decimal));
+    
+            var paymentDueDateParameter = paymentDueDate.HasValue ?
+                new ObjectParameter("PaymentDueDate", paymentDueDate) :
+                new ObjectParameter("PaymentDueDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EditNewBusiness", employerIDParameter, employerNameParameter, businessNameParameter, businessAddress1Parameter, businessAddress2Parameter, cityParameter, stateParameter, zipParameter, phoneParameter, faxParameter, primaryEmailParameter, secondaryEmailParameter, uRLParameter, totalEmployeesParameter, businessTaxIDParameter, activeParameter, userNameParameter, subscriptionIDParameter, subscriptionDateParameter, serviceDetailsParameter, subscriptionTypeParameter, subscriptionPlanNameParameter, subscriptionPlanCodeParameter, totalLoginParameter, effectiveDateParameter, expirationDateParameter, amountChargedParameter, registrationFeeChargedParameter, subscriptionFeeChargedParameter, paymentDueDateParameter);
         }
     }
 }
