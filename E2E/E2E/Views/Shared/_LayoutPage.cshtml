@@ -134,14 +134,14 @@
                                     <li><a href="~/EmployerAdmin/ManageAdmin">Manage Admin</a></li>
                                     <li><a href="~/EmployerAdmin/ManageReviewer">Manage Reviewer</a></li>
                                     <li><a href="~/EmployerAdmin/ManageEmployee">Manage Employee</a></li>
-                                    <li><a href="~/EmployerAdmin/Reports">Reports</a></li>
+                                    <li><a href="~/Report/EmployerActivityReport">Reports</a></li>
                                     @*<li><a href="~/EmployerAdmin/Subscription">Subscription</a></li>*@
                                 }
                                 else if (user.RoleID == 3)
                                 {
                                     <li><a href="~/Reviewer/Index">Dashboard</a></li>
                                     <li><a href="~/Reviewer/MyProfile">My Profile</a></li>
-                                    <li><a href="~/Reviewer/Employees">Employees</a></li>
+                                    <li><a href="~/Report/ReviewerActivityReport">Report</a></li>
                                     <li><a href="~/Reviewer/ManageComments">Manage Comments</a></li>
                                 }
                                 else if (user.RoleID == 4)

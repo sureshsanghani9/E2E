@@ -978,31 +978,6 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_ClientSiteActivity_Result>("rpt_ClientSiteActivity", roleIDParameter, employerIDParameter, adminUserIDParameter, userIDParameter, startDateParameter, endDateParameter);
         }
     
-        public virtual ObjectResult<rpt_GetBeneficiaryDetails_Result> rpt_GetBeneficiaryDetails(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
-        {
-            var roleIDParameter = roleID.HasValue ?
-                new ObjectParameter("RoleID", roleID) :
-                new ObjectParameter("RoleID", typeof(int));
-    
-            var employerIDParameter = employerID.HasValue ?
-                new ObjectParameter("EmployerID", employerID) :
-                new ObjectParameter("EmployerID", typeof(int));
-    
-            var userIDParameter = userID.HasValue ?
-                new ObjectParameter("UserID", userID) :
-                new ObjectParameter("UserID", typeof(int));
-    
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("StartDate", startDate) :
-                new ObjectParameter("StartDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("EndDate", endDate) :
-                new ObjectParameter("EndDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_GetBeneficiaryDetails_Result>("rpt_GetBeneficiaryDetails", roleIDParameter, employerIDParameter, userIDParameter, startDateParameter, endDateParameter);
-        }
-    
         public virtual ObjectResult<rpt_GetBeneficiaryList_Result> rpt_GetBeneficiaryList(Nullable<int> roleID, Nullable<int> employerID)
         {
             var roleIDParameter = roleID.HasValue ?
@@ -1271,6 +1246,35 @@ namespace E2ERepositories
                 new ObjectParameter("PaymentDueDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EditNewBusiness", employerIDParameter, employerNameParameter, businessNameParameter, businessAddress1Parameter, businessAddress2Parameter, cityParameter, stateParameter, zipParameter, phoneParameter, faxParameter, primaryEmailParameter, secondaryEmailParameter, uRLParameter, totalEmployeesParameter, businessTaxIDParameter, activeParameter, userNameParameter, subscriptionIDParameter, subscriptionDateParameter, serviceDetailsParameter, subscriptionTypeParameter, subscriptionPlanNameParameter, subscriptionPlanCodeParameter, totalLoginParameter, effectiveDateParameter, expirationDateParameter, amountChargedParameter, registrationFeeChargedParameter, subscriptionFeeChargedParameter, paymentDueDateParameter);
+        }
+    
+        public virtual ObjectResult<rpt_GetBeneficiaryDetails_Result> rpt_GetBeneficiaryDetails(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> userID, Nullable<int> adminUserID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var adminUserIDParameter = adminUserID.HasValue ?
+                new ObjectParameter("AdminUserID", adminUserID) :
+                new ObjectParameter("AdminUserID", typeof(int));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_GetBeneficiaryDetails_Result>("rpt_GetBeneficiaryDetails", roleIDParameter, employerIDParameter, userIDParameter, adminUserIDParameter, startDateParameter, endDateParameter);
         }
     }
 }

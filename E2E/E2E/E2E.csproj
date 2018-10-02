@@ -1009,6 +1009,8 @@
     <Content Include="assets\reports\EndClientSiteActivityReport_EE.rdl" />
     <Content Include="assets\reports\EndClientSiteActivityReport_Main.rdl" />
     <Content Include="assets\reports\EndClientSiteActivityReport_EE_2012.rdl" />
+    <Content Include="assets\reports\EndClientSiteActivityReport_2012_Main.rdl" />
+    <Content Include="assets\reports\EndClientSiteActivityReport_2012_EE.rdl" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\e2ewebportal - FTP.pubxml" />
@@ -1054,6 +1056,7 @@
     <Content Include="Views\Employee\_ListTaskDetailsByWeekPeriodPartial.cshtml" />
     <Content Include="Views\Reviewer\_ReviewerTaskDetailsByWeekPeriod.cshtml" />
     <Content Include="Views\Report\EmployeeActivityReport.cshtml" />
+    <Content Include="Views\WebAppAdmin\EditAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

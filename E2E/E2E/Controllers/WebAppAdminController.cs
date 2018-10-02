@@ -15,12 +15,14 @@ namespace E2E.Controllers
     [Authorize]
     public class WebAppAdminController : Controller
     {
+        private readonly IUserRepository _userRepo;
         private readonly ISubscriptionRepository _subscriptionRepo;
         private readonly IBusinessRepository _businessRepo;
-        public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo)
+        public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo, IUserRepository userRepo)
         {
             _subscriptionRepo = SubscriptionRepo;
             _businessRepo = businessRepo;
+            _userRepo = userRepo;
         }
 
         // GET: WebAppAdmin
@@ -134,6 +136,74 @@ namespace E2E.Controllers
         }
 
 
+        public ActionResult EditAdmin(int adminUserID)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+            var employerAdmin = _userRepo.GetEmployerAdminList(loggedInuser.EmployerID, adminUserID).FirstOrDefault();
+            if (employerAdmin.AdminUserID > 0 && !string.IsNullOrEmpty(employerAdmin.Password))
+            {
+                employerAdmin.Password = EncryptionHelper.Decrypt(employerAdmin.Password);
+            }
+            return View(employerAdmin);
+        }
+
+        [HttpPost]
+        public JsonResult SaveEmployerAdmin(FormCollection form)
+        {
+            EmployerAdminViewModal user = new EmployerAdminViewModal();
+            user.UserName = Convert.ToString(form["UserName"].ToString());
+            user.Password = Convert.ToString(form["Password"].ToString());
+            user.AdminUserID = Convert.ToInt16(form["AdminUserID"] != "" ? form["AdminUserID"].ToString() : "0");
+            user.EmployerID = Convert.ToInt16(form["EmployerID"] != "" ? form["EmployerID"].ToString() : "0");
+            user.RoleID = Convert.ToInt16(form["RoleID"] != "" ? form["RoleID"].ToString() : "0");
+            user.Active = Convert.ToInt16(form["Active"] == "Yes" ? "1" : "0");
+            user.AdminUserFirstName = Convert.ToString(form["AdminUserFirstName"].ToString());
+            user.AdminuserMiddleName = Convert.ToString(form["AdminuserMiddleName"].ToString());
+            user.AdminUserLastName = Convert.ToString(form["AdminUserLastName"].ToString());
+            user.AdminUserNickName = Convert.ToString(form["AdminUserNickName"].ToString());
+            user.AdminTitle = Convert.ToString(form["AdminTitle"].ToString());
+            user.Address1 = Convert.ToString(form["Address1"].ToString());
+            user.Address2 = Convert.ToString(form["Address2"].ToString());
+            user.City = Convert.ToString(form["City"].ToString());
+            user.State = Convert.ToString(form["State"].ToString());
+            user.zip = Convert.ToString(form["zip"].ToString());
+            user.WorkPhoneNumber = Convert.ToString(form["WorkPhoneNumber"].ToString());
+            user.Extn = Convert.ToString(form["Extn"].ToString());
+            user.CellPhoneNumber = Convert.ToString(form["CellPhoneNumber"].ToString());
+            user.PrimaryEmail = Convert.ToString(form["PrimaryEmail"].ToString());
+            user.SecondaryEmail = Convert.ToString(form["SecondaryEmail"].ToString());
+            user.IsPrimary = Convert.ToBoolean(form["Primary"] == "Yes");
+            
+            var result = _userRepo.UpsertEmpAdminUser(user);
+
+            if (result == -1)
+            {
+                TempData["ConfirmationType"] = "SignUpSuccessful";
+                return Json(new { Code = 1, Message = "You are registered successfully with E2EWebPortal." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteEmployer(int roleID, int employerID, int userID)
+        {
+            int result = _userRepo.DeleteEmployer(employerID);
+            if (result == -1)
+            {
+                return Json(new { Code = 1, Message = "User has been deleted successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
         private void SendResetPasswordLink(string toEmail, string Code)
         {
             //toEmail = "suresh.sanghani88@gmail.com";
@@ -153,6 +223,31 @@ namespace E2E.Controllers
                 
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, toEmail, subject, emailBody, null, "", true);
+        }
+
+        [HttpPost]
+        public JsonResult SendAccountSetupLink(int employerID, string primaryEmail)
+        {
+            int subscriptionID = _userRepo.GetSubscriptionIDByEmployerID(employerID);
+            if (subscriptionID > 0)
+            {
+                string code = EncryptionHelper.Encrypt(employerID.ToString() + "|" + subscriptionID.ToString());
+                SendResetPasswordLink(primaryEmail, code);
+                return Json(new { Code = 1, Message = "Email has been sent successfully." });
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult UpdateLoginCount()
+        {
+            int subscriptionID = _userRepo.UpdateLoginCount();
+            return Json(new { Code = 1, Message = "Login Count has been updated successfully." });
+
         }
 
         public ActionResult Reports()

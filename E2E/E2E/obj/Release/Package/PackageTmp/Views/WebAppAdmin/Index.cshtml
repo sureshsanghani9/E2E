@@ -22,6 +22,10 @@
         <p style="margin-bottom: 5px;">List of Clients</p>
     </div>
 
+    <button class="btn" value="btnUpdateLoginCount" style="margin: 20px 0px;">
+        Update Login Count
+    </button>
+
     <table class="datatable">
         <thead>
             <tr>
@@ -60,3 +64,30 @@
 
 </section>
 
+<script>
+    $(document).ready(function () {
+
+        $("#btnUpdateLoginCount").on("click", function () {
+
+            $.ajax({
+                url: '/WebAppAdmin/UpdateLoginCount',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: {  }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Success' });
+                    setTimeout(function () {
+                        window.location = "/WebAppAdmin/";
+                    }, 2000);
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+
+    });
+</script>

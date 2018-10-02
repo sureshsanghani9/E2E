@@ -49,5 +49,11 @@ namespace E2ERepositories.Interface
         int DeleteUser(int RoleID, int EmployerID, int UserID);
 
         int UpsertEndClient(EndClientViewModal client);
+
+        int DeleteEmployer(int EmployerID);
+
+        int GetSubscriptionIDByEmployerID(int EmployerID);
+
+        int UpdateLoginCount();
     }
 }

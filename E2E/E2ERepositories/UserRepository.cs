@@ -337,5 +337,30 @@ namespace E2ERepositories
             }
         }
 
+        public int DeleteEmployer(int EmployerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_Delete_Employer(EmployerID);
+            }
+        }
+
+        public int GetSubscriptionIDByEmployerID(int EmployerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var subscription = db.Subscriptions.FirstOrDefault(s=>s.EmployerId == EmployerID);
+                return subscription.SubscriptionID;
+            }
+        }
+
+        public int UpdateLoginCount()
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_UpdateLoginCount();
+            }
+        }
+
     }
 }

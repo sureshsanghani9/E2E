@@ -33,16 +33,69 @@ namespace E2E.Controllers
             DateTime EndDate = TempData["EndDate"] != null ? (DateTime)TempData["EndDate"] : DateTime.Now;
 
             var activity = _reportRepo.GetClientSiteActivity(loggedInuser.RoleID, loggedInuser.EmployerID, 0, loggedInuser.Id, StartDate, EndDate);
-            var beneficiaryDetails = _reportRepo.GetBeneficiaryDetails(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, StartDate, EndDate);
+            var beneficiaryDetails = _reportRepo.GetBeneficiaryDetails(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.Id, StartDate, EndDate);
             var beneficiaryList = _reportRepo.GetBeneficiaryList(loggedInuser.RoleID, loggedInuser.EmployerID);
 
-            //reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"assets\reports\EndClientSiteActivityReport_EE.rdl";
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"assets\reports\EndClientSiteActivityReport_EE_2012.rdl";
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"assets\reports\EndClientSiteActivityReport_2012_EE.rdl";
 
             reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientSiteActivity", activity));
             reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryDetails", beneficiaryDetails));
             reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryList", beneficiaryList));
             
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
+        public ActionResult ReviewerActivityReport()
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = true;
+            reportViewer.Width = Unit.Percentage(100);
+            reportViewer.Height = Unit.Percentage(100);
+
+            DateTime StartDate = TempData["StartDate"] != null ? (DateTime)TempData["StartDate"] : DateTime.Now.Date.AddMonths(-1).Date;
+            DateTime EndDate = TempData["EndDate"] != null ? (DateTime)TempData["EndDate"] : DateTime.Now;
+
+            var activity = _reportRepo.GetClientSiteActivity(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.Id, StartDate, EndDate);
+            var beneficiaryDetails = _reportRepo.GetBeneficiaryDetails(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.Id, StartDate, EndDate);
+            var beneficiaryList = _reportRepo.GetBeneficiaryList(loggedInuser.RoleID, loggedInuser.EmployerID);
+
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"assets\reports\EndClientSiteActivityReport_2012_Main.rdl";
+
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientSiteActivity", activity));
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryDetails", beneficiaryDetails));
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryList", beneficiaryList));
+
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
+        public ActionResult EmployerActivityReport()
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = true;
+            reportViewer.Width = Unit.Percentage(100);
+            reportViewer.Height = Unit.Percentage(100);
+
+            DateTime StartDate = TempData["StartDate"] != null ? (DateTime)TempData["StartDate"] : DateTime.Now.Date.AddMonths(-1).Date;
+            DateTime EndDate = TempData["EndDate"] != null ? (DateTime)TempData["EndDate"] : DateTime.Now;
+
+            var activity = _reportRepo.GetClientSiteActivity(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.Id, StartDate, EndDate);
+            var beneficiaryDetails = _reportRepo.GetBeneficiaryDetails(loggedInuser.RoleID, loggedInuser.EmployerID, loggedInuser.Id, loggedInuser.Id, StartDate, EndDate);
+            var beneficiaryList = _reportRepo.GetBeneficiaryList(loggedInuser.RoleID, loggedInuser.EmployerID);
+
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"assets\reports\EndClientSiteActivityReport_2012_Main.rdl";
+
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientSiteActivity", activity));
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryDetails", beneficiaryDetails));
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("GetBeneficiaryList", beneficiaryList));
+
             ViewBag.ReportViewer = reportViewer;
             return View();
         }

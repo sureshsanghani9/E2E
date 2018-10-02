@@ -18,11 +18,11 @@ namespace E2ERepositories
             }
         }
 
-        public List<BeneficiaryDetailsReportViewModal> GetBeneficiaryDetails(int RoleID, int EmployerID, int UserID, DateTime StartDate, DateTime EndDate)
+        public List<BeneficiaryDetailsReportViewModal> GetBeneficiaryDetails(int RoleID, int EmployerID, int UserID, int AdminUserID, DateTime StartDate, DateTime EndDate)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                var beneficiaryDetails = db.rpt_GetBeneficiaryDetails(RoleID, EmployerID, UserID, StartDate, EndDate).ToList();
+                var beneficiaryDetails = db.rpt_GetBeneficiaryDetails(RoleID, EmployerID, UserID, AdminUserID, StartDate, EndDate).ToList();
                 return Mapper.Map<List<rpt_GetBeneficiaryDetails_Result>, List<BeneficiaryDetailsReportViewModal>>(beneficiaryDetails);
             }
         }

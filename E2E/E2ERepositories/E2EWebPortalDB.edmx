@@ -610,6 +610,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Parameter Name="RoleID" Type="int" Mode="In" />
           <Parameter Name="EmployerID" Type="int" Mode="In" />
           <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="AdminUserID" Type="int" Mode="In" />
           <Parameter Name="StartDate" Type="date" Mode="In" />
           <Parameter Name="EndDate" Type="date" Mode="In" />
         </Function>
@@ -1753,13 +1754,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="StartDate" Mode="In" Type="DateTime" />
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="rpt_GetBeneficiaryDetails" ReturnType="Collection(E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result)">
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
-            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="rpt_GetBeneficiaryList" ReturnType="Collection(E2EWebPortalModel.rpt_GetBeneficiaryList_Result)">
             <Parameter Name="RoleID" Mode="In" Type="Int32" />
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
@@ -1801,7 +1795,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="IsDefault" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Delete_Employer">
-            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+          <Parameter Name="EmployerID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_EditNewBusiness">
             <Parameter Name="EmployerID" Mode="In" Type="Int32" />
@@ -1834,6 +1828,14 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
             <Parameter Name="RegistrationFeeCharged" Mode="In" Type="Decimal" />
             <Parameter Name="SubscriptionFeeCharged" Mode="In" Type="Decimal" />
             <Parameter Name="PaymentDueDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="rpt_GetBeneficiaryDetails" ReturnType="Collection(E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result)">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -2458,27 +2460,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="TaskContinueToNextWeekPeriod" Nullable="true" MaxLength="3" />
           <Property Type="String" Name="ReviewerComments" Nullable="true" MaxLength="1000" />
         </ComplexType>
-        <ComplexType Name="rpt_GetBeneficiaryDetails_Result">
-          <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
-          <Property Type="String" Name="ReportCreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EndClientAddress1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EndClientAddress2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
-          <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EndClientzip" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EndClientPhoneNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EndClientExtn" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="EmployeeEmailAtEndClient" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
-          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
-          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="rpt_GetBeneficiaryList_Result">
           <Property Type="Int32" Name="EmployeeID" Nullable="false" />
           <Property Type="String" Name="BeneficiaryAtEndClient" Nullable="true" MaxLength="506" />
@@ -2527,6 +2508,27 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
           <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="rpt_GetBeneficiaryDetails_Result">
+          <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
+          <Property Type="String" Name="ReportCreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EndClientAddress1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EndClientAddress2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientzip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientPhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EndClientExtn" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EmployeeEmailAtEndClient" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="BusinessAddress1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BusinessAddress2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3308,31 +3310,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryDetails" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result">
-                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
-                <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
-                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
-                <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
-                <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
-                <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
-                <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
-                <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
-                <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
-                <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
-                <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
-                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
-                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="zip" ColumnName="zip" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryList" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryList_Result">
@@ -3404,6 +3381,31 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
           <FunctionImportMapping FunctionImportName="sp_MakeDefaultTaskReviewComment" FunctionName="E2EWebPortalModel.Store.sp_MakeDefaultTaskReviewComment" />
           <FunctionImportMapping FunctionImportName="sp_Delete_Employer" FunctionName="E2EWebPortalModel.Store.sp_Delete_Employer" />
           <FunctionImportMapping FunctionImportName="sp_EditNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_EditNewBusiness" />
+          <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryDetails" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result">
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
+                <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+                <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+                <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+                <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+                <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+                <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+                <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+                <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+                <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+                <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

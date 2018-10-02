@@ -19,6 +19,11 @@
         margin-left: 6px;
         margin-right: 6px;
     }
+
+    button.small {
+        padding: 4px 0px;
+        width: 42px !important;
+    }
 </style>
 
 <section id="content">
@@ -47,6 +52,7 @@
                 <th>Account Number</th>
                 <th>Secondary Email</th>
                 <th>URL</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -72,6 +78,17 @@
                     <td>@bis.EmployerAccountNumber</td>
                     <td>@bis.SecondaryEmail</td>
                     <td>@bis.URL</td>
+                    <td>
+                        <button class="small btnSend"
+                                EmployerId="@bis.EmployerID" PrimaryEmail="@bis.PrimaryEmail" AdminUserID="@bis.AdminUserID">Send
+                        </button>
+                        <button class="small btnEdit"
+                                EmployerId="@bis.EmployerID" AdminUserID="@bis.AdminUserID" UserAccountID="@bis.UserAccountID">Edit
+                        </button>
+                        <button class="small btnDelete"
+                                EmployerId="@bis.EmployerID" AdminUserID="@bis.AdminUserID" UserAccountID="@bis.UserAccountID">Delete
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -100,5 +117,65 @@
                 }
             });
         });
+
+        $(".btnDelete").on("click", function () {
+            var roleID = "2";
+            var userID = parseInt($(this).attr("AdminUserID"));
+            var employerId = parseInt($(this).attr("EmployerId"));
+
+            $.confirm('Are your sure to delete this user?', function () {
+
+                $.ajax({
+                    url: '/WebAppAdmin/DeleteEmployer',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { roleID: roleID, userID: userID, employerId: employerId }
+                }).done(function (result) {
+                    if (result.Code == '1') {
+                        $.msg(result.Message, { header: 'Success' });
+                        setTimeout(function () {
+                            window.location = "/WebAppAdmin/ManageEmployer";
+                        }, 2000);
+                    }
+                    else {
+                        $.msg(result.Message, { header: 'Fail' });
+                    }
+                });
+
+            });
+        });
+
+        $(".btnSend").on("click", function () {
+            var primaryEmail = $(this).attr("PrimaryEmail")
+            var employerId = parseInt($(this).attr("EmployerId"));
+            var userID = parseInt($(this).attr("AdminUserID"));
+
+            //if (userID != 0)
+            //{
+            //    $.msg("Employer has already signup!", { header: 'Fail' });
+            //}
+
+            $.ajax({
+                url: '/WebAppAdmin/SendAccountSetupLink',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { primaryEmail: primaryEmail, employerId: employerId }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    $.msg(result.Message, { header: 'Success' });
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+        $(".btnEdit").on("click", function () {
+            var adminUserID = parseInt($(this).attr("AdminUserID"));
+            window.location = "/WebAppAdmin/EditAdmin?adminUserID=" + adminUserID;
+        });
+
     });
 </script>

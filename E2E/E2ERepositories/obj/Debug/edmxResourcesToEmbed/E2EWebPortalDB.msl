@@ -775,31 +775,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryDetails" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryDetails">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result">
-          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
-          <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
-          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
-          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
-          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
-          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
-          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
-          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
-          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
-          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
-          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
-          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
-          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="zip" ColumnName="zip" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryList" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryList_Result">
@@ -871,5 +846,30 @@
     <FunctionImportMapping FunctionImportName="sp_MakeDefaultTaskReviewComment" FunctionName="E2EWebPortalModel.Store.sp_MakeDefaultTaskReviewComment" />
     <FunctionImportMapping FunctionImportName="sp_Delete_Employer" FunctionName="E2EWebPortalModel.Store.sp_Delete_Employer" />
     <FunctionImportMapping FunctionImportName="sp_EditNewBusiness" FunctionName="E2EWebPortalModel.Store.sp_EditNewBusiness" />
+    <FunctionImportMapping FunctionImportName="rpt_GetBeneficiaryDetails" FunctionName="E2EWebPortalModel.Store.rpt_GetBeneficiaryDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.rpt_GetBeneficiaryDetails_Result">
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="ReportCreatedBy" ColumnName="ReportCreatedBy" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientAddress1" ColumnName="EndClientAddress1" />
+          <ScalarProperty Name="EndClientAddress2" ColumnName="EndClientAddress2" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="EndClientzip" ColumnName="EndClientzip" />
+          <ScalarProperty Name="EndClientPhoneNumber" ColumnName="EndClientPhoneNumber" />
+          <ScalarProperty Name="EndClientExtn" ColumnName="EndClientExtn" />
+          <ScalarProperty Name="EmployeeEmailAtEndClient" ColumnName="EmployeeEmailAtEndClient" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="BusinessAddress1" ColumnName="BusinessAddress1" />
+          <ScalarProperty Name="BusinessAddress2" ColumnName="BusinessAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
