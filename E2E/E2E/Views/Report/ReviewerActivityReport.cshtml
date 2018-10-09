@@ -1,0 +1,11 @@
+﻿@using ReportViewerForMvc;  
+@{
+    ViewBag.Title = "ReviewerActivityReport";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>ReviewerActivityReport</h2>
+
+@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "yes" })
+
+

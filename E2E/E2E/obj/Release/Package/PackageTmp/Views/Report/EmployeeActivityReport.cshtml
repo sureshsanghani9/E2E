@@ -1,10 +1,61 @@
-﻿@using ReportViewerForMvc;  
+﻿@using ReportViewerForMvc;
 @{
     ViewBag.Title = "EmployeeActivityReport";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2 style="margin: 30px 0px;">Employee Activity Report</h2>
+<section id="content">
 
-@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Employee Activity Report</h1>
+        <p style="margin-bottom: 5px;">Search your activity !</p>
+    </div>
 
+    <div class="g12" style="margin: auto 0px;">
+        <form id="formGetReport" action="/Report/SetReportDate" method="post" autocomplete="on">
+
+            <fieldset>
+
+                <section>
+                    <label for="StartDate">Start Date</label>
+                    <div><input type="text" id="StartDate" name="StartDate" required class="g2 date" value="@ViewBag.StartDate"></div>
+                </section>
+
+                <section>
+                    <label for="EndDate">End Date</label>
+                    <div><input type="text" id="EndDate" name="EndDate" required class="g2 date" value="@ViewBag.EndDate"></div>
+                </section>
+
+                <section>
+                    <div>
+                        <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+
+        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "no" })
+
+    </div>
+</section>
+
+<script>
+
+    var $content = $('#content');
+    $content.find('form').wl_Form({
+        onSuccess: function (data, status) {
+            var res = JSON.parse(data);
+            if (res.Code == "1") {
+                window.location = "/Report/EmployeeActivityReport";
+            }
+            else {
+                $.msg(res.Message);
+            }
+
+        },
+        onError: function (status, error, jqXHR) {
+            $.msg(res.Message);
+        }
+    });
+
+</script>
