@@ -60,7 +60,22 @@
 
         <section>
             <label for="SubmissionDate">Submission Date</label>
-            <div><input type="text" id="SubmissionDate" name="SubmissionDate" required class="g2 date" value="@Model.SubmissionDate.Value.ToShortDateString()"></div>
+            <div><input type="text" id="SubmissionDate" name="SubmissionDate" required class="g2 date" value="@(Model.SubmissionDate.HasValue? Model.SubmissionDate.Value.ToShortDateString() : "")"></div>
+        </section>
+
+        <section>
+            <label for="ReviewerName">Reviewer Name</label>
+            <div><input type="text" id="ReviewerName" name="ReviewerName" readonly class="g4" value="@Model.ReviewerName"></div>
+        </section>
+
+        <section>
+            <label for="ReviewDate">Review Date</label>
+            <div><input type="text" id="ReviewDate" name="ReviewDate" readonly class="g2 date" value="@(Model.ReviewDate.HasValue? Model.ReviewDate.Value.ToShortDateString() : "")"></div>
+        </section>
+
+        <section>
+            <label for="ReviewerComments">Reviewer Comments</label>
+            <div><textarea id="ReviewerComments" name="ReviewerComments" readonly class="g12" rows="4">@Model.ReviewerComments</textarea></div>
         </section>
 
         <section>
@@ -142,10 +157,13 @@
                 $("#PercentCompleted").val(result.Data.PercentCompleted);
                 $("#SubmissionDate").val(new Date(Date(result.Data.SubmissionDate)).toLocaleDateString());
                 $("#TaskContinueFromLastWeekPeriod").val(result.Data.TaskContinueFromLastWeekPeriod);
-                $("#TaskContinueFromLastWeekPeriod").parent().find('span').text(result.Data.TaskContinueFromLastWeekPeriod)
+                $("#TaskContinueFromLastWeekPeriod").parent().find('span').text(result.Data.TaskContinueFromLastWeekPeriod);
                 $("#TaskContinueToNextWeekPeriod").val(result.Data.TaskContinueToNextWeekPeriod);
-                $("#TaskContinueToNextWeekPeriod").parent().find('span').text(result.Data.TaskContinueToNextWeekPeriod)
-                if (result.Data.TaskContinueToNextWeekPeriod == "Task Completed") {
+                $("#TaskContinueToNextWeekPeriod").parent().find('span').text(result.Data.TaskContinueToNextWeekPeriod);
+                $("#ReviewDate").val(new Date(Date(result.Data.ReviewDate)).toLocaleDateString());
+                $("#ReviewerName").val(result.Data.ReviewerName);
+                $("#ReviewerComments").text(result.Data.ReviewerComments);
+                if (result.Data.TaskSubmissionStatus == "Task Completed") {
                     $("input,select,textarea").not("#WeekPeriod").attr("disabled", "disabled");
                 }
                 else

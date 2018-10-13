@@ -1009,7 +1009,9 @@
     <Content Include="assets\reports\EndClientSiteActivityReport_EE.rdl" />
     <Content Include="assets\reports\EndClientSiteActivityReport_Main.rdl" />
     <Content Include="assets\reports\EndClientSiteActivityReport_EE_2012.rdl" />
-    <Content Include="assets\reports\EndClientSiteActivityReport_2012_Main.rdl" />
+    <Content Include="assets\reports\EndClientSiteActivityReport_2012_Main.rdl">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="assets\reports\EndClientSiteActivityReport_2012_EE.rdl">
       <SubType>Designer</SubType>
     </Content>
@@ -1064,6 +1066,7 @@
     <Content Include="Views\Report\EmployeeActivityReport.cshtml" />
     <Content Include="Views\WebAppAdmin\EditAdmin.cshtml" />
     <Content Include="Views\Report\ReviewerActivityReport.cshtml" />
+    <Content Include="Views\Report\EmployerActivityReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

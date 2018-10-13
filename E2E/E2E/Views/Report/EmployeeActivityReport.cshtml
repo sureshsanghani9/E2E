@@ -13,7 +13,7 @@
 
     <div class="g12" style="margin: auto 0px;">
         <form id="formGetReport" action="/Report/SetReportDate" method="post" autocomplete="on">
-
+            <input type="hidden" id="UserID" name="UserID" value="0" />
             <fieldset>
 
                 <section>
@@ -24,6 +24,11 @@
                 <section>
                     <label for="EndDate">End Date</label>
                     <div><input type="text" id="EndDate" name="EndDate" required class="g2 date" value="@ViewBag.EndDate"></div>
+                </section>
+
+                <section>
+                    <label for="ReportTitle">Report Title</label>
+                    <div><input type="text" id="ReportTitle" name="ReportTitle" required class="g6" value="@ViewBag.ReportTitle"></div>
                 </section>
 
                 <section>

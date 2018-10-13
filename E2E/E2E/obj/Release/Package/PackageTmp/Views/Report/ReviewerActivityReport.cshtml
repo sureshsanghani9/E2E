@@ -1,11 +1,88 @@
-﻿@using ReportViewerForMvc;  
+﻿@using ReportViewerForMvc; 
+@using E2EViewModals.User; 
 @{
     ViewBag.Title = "ReviewerActivityReport";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2>ReviewerActivityReport</h2>
+<section id="content">
 
-@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "yes" })
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Reviewer Activity Report</h1>
+        <p style="margin-bottom: 5px;">Search your activity !</p>
+    </div>
+
+    <div class="g12" style="margin: auto 0px;">
+        <form id="formGetReport" action="/Report/SetReportDate" method="post" autocomplete="on">
+
+            <fieldset>
+                <section>
+                    <label for="UserID">User ID</label>
+                    <div>
+                        <select id="UserID" name="UserID" class="g8" style="width: 100%;">
+                            <optgroup label="Employee">
+                                @foreach (EmployeeViewModal employee in (List<EmployeeViewModal>)ViewBag.Employees)
+                                {
+                                    if (employee.EmployeeID == ViewBag.UserID)
+                                    {
+                                        <option value="@employee.EmployeeID" selected="selected" >@(employee.FirstName + " " + employee.LastName)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@employee.EmployeeID">@(employee.FirstName + " " + employee.LastName)</option>
+                                    }
+                                }
+                            </optgroup>
+                        </select>
+                    </div>
+                </section>
+                <section>
+                    <label for="StartDate">Start Date</label>
+                    <div><input type="text" id="StartDate" name="StartDate" required class="g2 date" value="@ViewBag.StartDate"></div>
+                </section>
+
+                <section>
+                    <label for="EndDate">End Date</label>
+                    <div><input type="text" id="EndDate" name="EndDate" required class="g2 date" value="@ViewBag.EndDate"></div>
+                </section>
+
+                <section>
+                    <label for="ReportTitle">Report Title</label>
+                    <div><input type="text" id="ReportTitle" name="ReportTitle" required class="g6" value="@ViewBag.ReportTitle"></div>
+                </section>
+
+                <section>
+                    <div>
+                        <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+
+        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "no" })
+
+    </div>
+</section>
+
+<script>
+
+    var $content = $('#content');
+    $content.find('form').wl_Form({
+        onSuccess: function (data, status) {
+            var res = JSON.parse(data);
+            if (res.Code == "1") {
+                window.location = "/Report/ReviewerActivityReport";
+            }
+            else {
+                $.msg(res.Message);
+            }
+
+        },
+        onError: function (status, error, jqXHR) {
+            $.msg(res.Message);
+        }
+    });
+
+</script>
 
 

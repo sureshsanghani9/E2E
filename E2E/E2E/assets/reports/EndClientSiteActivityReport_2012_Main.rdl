@@ -2097,7 +2097,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>- All dates are in mm/dd/yyyy format.</Value>
+                      <Value></Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
