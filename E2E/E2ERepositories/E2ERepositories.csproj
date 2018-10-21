@@ -115,9 +115,6 @@
     <Compile Include="EndClient.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ErrorLog.cs">
-      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Interface\IBusinessRepository.cs" />
     <Compile Include="Interface\IReportRepository.cs" />
     <Compile Include="Interface\ISubscriptionRepository.cs" />
@@ -161,6 +158,9 @@
     <Compile Include="sp_GetEndClientInfo_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetListPendSubmissionEE_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetListWeekPeriod_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -179,6 +179,9 @@
     <Compile Include="sp_GetTaskDetailsByWeekPeriod_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetTaskSubStatusSummary_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetWebAppOwnerList_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -192,6 +195,9 @@
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SubscriptionRepository.cs" />
+    <Compile Include="sysmail_account_credential.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Task.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -207,6 +213,9 @@
     </Compile>
     <Compile Include="UserRepository.cs" />
     <Compile Include="WebAppOwner.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="z.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

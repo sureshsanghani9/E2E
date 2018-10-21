@@ -1,0 +1,69 @@
+﻿@using E2EViewModals.Task
+@model TaskSubStatusSummaryViewModal
+
+<div class="g12 widgets" style="padding: 0px; margin: 0px 0px 20px 0px; width: 100%;">
+    <div class="widget number-widget" id="number_widget3">
+        <h3 class="handle">Employees Pending Task Reporting</h3>
+        <div>
+            <ul>
+                <li><a href="#"><label>@Model.LastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek">@Model.EETaskPend7days</span></a></li>
+                <li><a href="#"><label>@Model.WeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek">@Model.EETaskPendAll</span></a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div class="g12 widgets" style="padding: 0px; margin: 0px 0px 20px 0px; width: 100%;">
+    <div class="widget number-widget" id="number_widget4">
+        <h3 class="handle">Reviewers Pending Task Reporting</h3>
+        <div>
+            <ul>
+                <li><a href="#"><label>@Model.RewLastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek">@Model.RewPend7days</span></a></li>
+                <li><a href="#"><label>@Model.RewWeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek">@Model.RewPendAll</span></a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div id="pendtasksdialog" title="Pending Tasks" >
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#pendtasksdialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 1000
+            },
+            hide: {
+                effect: "explode",
+                duration: 1000
+            },
+            width: 925
+        });
+
+        $(".spanPendSubmission").on("click", function () {
+            var pendPeriod = $(this).attr("pendPeriod");
+            $.ajax({
+                url: '/EmployerAdmin/GetListPendSubmissionEE',
+                type: 'POST',
+                cache: false,
+                dataType: 'html',
+                data: { pendPeriod: pendPeriod }
+            }).done(function (result) {
+                if (result != null) {
+                    $("#pendtasksdialog").html(result);
+                    $("#pendSubmissionDt").dataTable({
+                        "sPaginationType": "full_numbers"
+                    });
+                    $("#pendtasksdialog").dialog("open");
+                }
+            });
+        });
+
+    });
+</script>

@@ -5,6 +5,7 @@ using E2EViewModals.Task;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -169,7 +170,7 @@ namespace E2E.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public JsonResult SaveTaskDetails(FormCollection form)
         {
             var loggedInuser = (UserViewModal)Session["User"];
@@ -193,6 +194,7 @@ namespace E2E.Controllers
 
             if (result == -1)
             {
+                SendTaskReportedEmail(loggedInuser.PrimaryEmail, taskDetail.TaskDetails, "Task Reported.");
                 return Json(new { Code = 1, Message = "Task Details are saved successfully." });
             }
             else
@@ -249,6 +251,16 @@ namespace E2E.Controllers
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
             }
 
+        }
+
+        private void SendTaskReportedEmail(string email, string task, string status)
+        {
+            string emailBody = "Hi, You have successfully reported your task. Below are details for your task. <br/><br/>"
+                               +"Task: " + task + "<br/>"
+                               +"Status: " + status + "<br/>"
+                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+            string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
+            EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);
         }
 
     }

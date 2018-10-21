@@ -1,4 +1,5 @@
 ﻿@using E2EViewModals.Subscription
+@using E2EViewModals.Task
 @model SubscriptionViewModal
 @{
     ViewBag.Title = "Index";
@@ -30,8 +31,12 @@
     }
 
     .widget.number-widget ul li a label {
-        width: 170px;
+        width: 210px;
         display: inline-block;
+    }
+
+    #dialog {
+        width: 900px !important;
     }
 </style>
 
@@ -103,20 +108,22 @@
             <h3 class="handle">Subscription Data</h3>
             <div>
                 <ul>
-                    <li><a href=""><label>Employer Name </label><span>@Model.EmployerName</span></a></li>
-                    <li><a href=""><label>Employer Account Number </label><span>@Model.EmployerAccountNumber</span></a></li>
-                    <li><a href=""><label>Total Login </label><span>@Model.TotalLogin</span></a></li>
-                    <li><a href=""><label>Login Available </label><span>@Model.LoginAvailable</span></a></li>
-                    <li><a href=""><label>Plan Name </label><span>@Model.SubscriptionPlanName</span></a></li>
-                    <li><a href=""><label>Effective Date </label><span>@Model.EffectiveDate.ToShortDateString()</span></a></li>
-                    <li><a href=""><label>Expiration Date </label><span>@Model.ExpirationDate.ToShortDateString()</span></a></li>
-                    <li><a href=""><label>Status </label><span>@Model.BusinessActive</span></a></li>
-                    @*<li><a href=""><button class="i_plus icon">Make Payment</button></li>*@
+                    <li><a href="#"><label>Employer Name </label><span>@Model.EmployerName</span></a></li>
+                    <li><a href="#"><label>Employer Account Number </label><span>@Model.EmployerAccountNumber</span></a></li>
+                    <li><a href="#"><label>Total Login </label><span>@Model.TotalLogin</span></a></li>
+                    <li><a href="#"><label>Login Available </label><span>@Model.LoginAvailable</span></a></li>
+                    <li><a href="#"><label>Plan Name </label><span>@Model.SubscriptionPlanName</span></a></li>
+                    <li><a href="#"><label>Effective Date </label><span>@Model.EffectiveDate.ToShortDateString()</span></a></li>
+                    <li><a href="#"><label>Expiration Date </label><span>@Model.ExpirationDate.ToShortDateString()</span></a></li>
+                    <li><a href="#"><label>Status </label><span>@Model.BusinessActive</span></a></li>
+                    @*<li><a href="#"><button class="i_plus icon">Make Payment</button></li>*@
                 </ul>
 
             </div>
         </div>
     </div>
+
+    @Html.Partial("_TaskSubStatusSummaryPartial", (TaskSubStatusSummaryViewModal)ViewBag.taskSubStatusSummary)
 
 </section>
 <script>

@@ -1,0 +1,34 @@
+﻿@using E2EViewModals.Task
+@model List<PendSubmissionEEViewModal>
+
+<table class="datatable" id="pendSubmissionDt">
+    <thead>
+        <tr>
+            <th>Task Status</th>
+            <th>Week Period</th>
+            <th>Beneficiary Name</th>
+            <th>End Client Business Name</th>
+            <th>End Client City</th>
+            <th>End Client State</th>
+            <th>Primary Email</th>
+            <th>Work Phone</th>
+            <th>Cell Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PendSubmissionEEViewModal task in Model)
+            {
+            <tr class="gradeX">
+                <td>@task.TaskSubmissionStatus</td>
+                <td>@task.WeekPeriod</td>
+                <td>@task.BeneficiaryName</td>
+                <td>@task.EndClientBusinessName</td>
+                <td>@task.EndClientCity</td>
+                <td>@task.EndClientState</td>
+                <td>@task.PrimaryEmail</td>
+                <td>@task.WorkPhoneNumber</td>
+                <td>@task.CellPhoneNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

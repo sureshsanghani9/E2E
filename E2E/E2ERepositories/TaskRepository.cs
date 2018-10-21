@@ -118,5 +118,23 @@ namespace E2ERepositories
             }
         }
 
+        public TaskSubStatusSummaryViewModal GetTaskSubStatusSummary(int employerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var taskSubStatusSummary = db.sp_GetTaskSubStatusSummary(employerID).FirstOrDefault();
+                return Mapper.Map<sp_GetTaskSubStatusSummary_Result, TaskSubStatusSummaryViewModal>(taskSubStatusSummary);
+            }
+        }
+
+        public List<PendSubmissionEEViewModal> GetListPendSubmissionEE(int employerID, string PendPeriod)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var pendSubmissionEE = db.sp_GetListPendSubmissionEE(employerID, PendPeriod).ToList();
+                return Mapper.Map<List<sp_GetListPendSubmissionEE_Result>, List<PendSubmissionEEViewModal>>(pendSubmissionEE);
+            }
+        }
+
     }
 }

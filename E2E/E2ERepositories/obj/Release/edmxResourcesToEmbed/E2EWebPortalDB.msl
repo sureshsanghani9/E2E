@@ -72,8 +72,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ErrorLogs">
-      <EntityTypeMapping TypeName="E2EWebPortalModel.ErrorLog">
+    <EntitySetMapping Name="z">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.z">
         <MappingFragment StoreEntitySet="ErrorLog">
           <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
           <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
@@ -868,6 +868,44 @@
           <ScalarProperty Name="zip" ColumnName="zip" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="sysmail_account_credential">
+      <EntityTypeMapping TypeName="E2EWebPortalModel.sysmail_account_credential">
+        <MappingFragment StoreEntitySet="sysmail_account_credential">
+          <ScalarProperty Name="cyphertext" ColumnName="cyphertext" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetListPendSubmissionEE" FunctionName="E2EWebPortalModel.Store.sp_GetListPendSubmissionEE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetListPendSubmissionEE_Result">
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+          <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetTaskSubStatusSummary" FunctionName="E2EWebPortalModel.Store.sp_GetTaskSubStatusSummary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetTaskSubStatusSummary_Result">
+          <ScalarProperty Name="EETaskPend7days" ColumnName="EETaskPend7days" />
+          <ScalarProperty Name="LastWeekPeriod" ColumnName="LastWeekPeriod" />
+          <ScalarProperty Name="EETaskPendAll" ColumnName="EETaskPendAll" />
+          <ScalarProperty Name="WeekPeriodAll" ColumnName="WeekPeriodAll" />
+          <ScalarProperty Name="RewPend7days" ColumnName="RewPend7days" />
+          <ScalarProperty Name="RewLastWeekPeriod" ColumnName="RewLastWeekPeriod" />
+          <ScalarProperty Name="RewPendAll" ColumnName="RewPendAll" />
+          <ScalarProperty Name="RewWeekPeriodAll" ColumnName="RewWeekPeriodAll" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

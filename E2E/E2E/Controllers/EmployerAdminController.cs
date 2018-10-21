@@ -16,11 +16,13 @@ namespace E2E.Controllers
     {
         private readonly IUserRepository _userRepo;
         private readonly IBusinessRepository _businessRepo;
-        public EmployerAdminController(IUserRepository userRepo, IBusinessRepository businessRepo)
+        private readonly ITaskRepository _taskRepo;
+        public EmployerAdminController(IUserRepository userRepo, IBusinessRepository businessRepo, ITaskRepository taskRepo)
         {
             _userRepo = userRepo;
             _businessRepo = businessRepo;
-            
+            _taskRepo = taskRepo;
+
         }
 
         // GET: EmployerAdmin
@@ -31,6 +33,7 @@ namespace E2E.Controllers
             ViewBag.LoginAvailable = subcription != null? subcription.LoginAvailable.ToString() : "0";
             ViewBag.TotalLogin = subcription != null? subcription.TotalLogin.ToString() : "0";
             ViewBag.LoginUsed = subcription != null? subcription.LoginUsed.ToString() : "0";
+            ViewBag.taskSubStatusSummary = _taskRepo.GetTaskSubStatusSummary(user.EmployerID);
             return View(subcription);
         }
 
@@ -268,6 +271,14 @@ namespace E2E.Controllers
                 user.Password = EncryptionHelper.Decrypt(user.Password);
             }
             return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult GetListPendSubmissionEE(string pendPeriod)
+        {
+            var loggedInuser = (UserViewModal)Session["User"];
+           var pendSubmissionEE = _taskRepo.GetListPendSubmissionEE(loggedInuser.EmployerID, pendPeriod);
+            return PartialView("_PendSubmissionEEPartial", pendSubmissionEE);
         }
 
     }

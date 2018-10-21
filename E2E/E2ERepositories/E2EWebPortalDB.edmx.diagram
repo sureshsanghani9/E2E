@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="E2EWebPortalModel.Business" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.E2E_UserRole" Width="1.5" PointX="3.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Employee" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="E2EWebPortalModel.ErrorLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.z" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Reviewer" Width="1.5" PointX="9" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.Subscription" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="E2EWebPortalModel.UserAccount" Width="1.5" PointX="14.25" PointY="16" IsExpanded="true" />
@@ -40,6 +40,7 @@
         <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Business" />
         <AssociationConnector Association="E2EWebPortalModel.FK_EndClient_Employee" />
         <AssociationConnector Association="E2EWebPortalModel.FK_Task_EndClient" />
+        <EntityTypeShape EntityType="E2EWebPortalModel.sysmail_account_credential" Width="1.5" PointX="7.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

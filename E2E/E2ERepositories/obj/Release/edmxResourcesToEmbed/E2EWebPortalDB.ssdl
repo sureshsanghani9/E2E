@@ -218,6 +218,14 @@ warning 6002: The table/view 'E2EWebPortal.dbo.NewTaskInsertLog' does not have a
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="sysmail_account_credential">
+    <Key>
+      <PropertyRef Name="credential_id" />
+    </Key>
+    <Property Name="credential_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="256" />
+    <Property Name="cyphertext" Type="nvarchar" MaxLength="256" />
+  </EntityType>
   <EntityType Name="Task">
     <Key>
       <PropertyRef Name="TaskID" />
@@ -583,6 +591,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ipDate" Type="datetime" Mode="In" />
     <Parameter Name="DayOfWeek" Type="int" Mode="In" />
   </Function>
+  <Function Name="fn_GetLastWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+    <Parameter Name="ipDate" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="fn_GetUserFullName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
@@ -645,6 +656,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
   <Function Name="sp_AddUserSendInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_CreateNewTaskWeekly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="SetipDate" Type="datetime" Mode="In" />
+    <Parameter Name="EmployerID" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_Delete_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
@@ -722,6 +734,10 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_GetListPendSubmissionEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="PendPeriod" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_GetListWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
@@ -742,6 +758,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
     <Parameter Name="EmployeeID" Type="int" Mode="In" />
     <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_GetTaskSubStatusSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetWebAppOwnerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -935,6 +954,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysmail_account_credential" EntityType="Self.sysmail_account_credential" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskReviewComment" EntityType="Self.TaskReviewComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />

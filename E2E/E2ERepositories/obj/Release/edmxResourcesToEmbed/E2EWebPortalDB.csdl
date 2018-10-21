@@ -86,7 +86,7 @@
     <NavigationProperty Name="Tasks" Relationship="E2EWebPortalModel.FK_Task_Employee" FromRole="Employee" ToRole="Task" />
     <NavigationProperty Name="EndClients" Relationship="E2EWebPortalModel.FK_EndClient_Employee" FromRole="Employee" ToRole="EndClient" />
   </EntityType>
-  <EntityType Name="ErrorLog">
+  <EntityType Name="z">
     <Key>
       <PropertyRef Name="ErrorID" />
     </Key>
@@ -357,7 +357,7 @@
     <EntitySet Name="Businesses" EntityType="Self.Business" />
     <EntitySet Name="E2E_UserRole" EntityType="Self.E2E_UserRole" />
     <EntitySet Name="Employees" EntityType="Self.Employee" />
-    <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+    <EntitySet Name="z" EntityType="E2EWebPortalModel.z" />
     <EntitySet Name="Reviewers" EntityType="Self.Reviewer" />
     <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
     <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
@@ -694,6 +694,7 @@
     </FunctionImport>
     <FunctionImport Name="sp_CreateNewTaskWeekly1">
       <Parameter Name="SetipDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EmployerID" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="rpt_ClientSiteActivity" ReturnType="Collection(E2EWebPortalModel.rpt_ClientSiteActivity_Result)">
       <Parameter Name="RoleID" Mode="In" Type="Int32" />
@@ -785,6 +786,14 @@
       <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
       <Parameter Name="StartDate" Mode="In" Type="DateTime" />
       <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="sysmail_account_credential" EntityType="E2EWebPortalModel.sysmail_account_credential" />
+    <FunctionImport Name="sp_GetListPendSubmissionEE" ReturnType="Collection(E2EWebPortalModel.sp_GetListPendSubmissionEE_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="PendPeriod" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetTaskSubStatusSummary" ReturnType="Collection(E2EWebPortalModel.sp_GetTaskSubStatusSummary_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
@@ -1478,5 +1487,34 @@
     <Property Type="String" Name="zip" Nullable="true" MaxLength="5" />
     <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="sysmail_account_credential">
+    <Key>
+      <PropertyRef Name="credential_id" />
+    </Key>
+    <Property Name="credential_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="cyphertext" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="sp_GetListPendSubmissionEE_Result">
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
+    <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_GetTaskSubStatusSummary_Result">
+    <Property Type="Int32" Name="EETaskPend7days" Nullable="true" />
+    <Property Type="String" Name="LastWeekPeriod" Nullable="true" MaxLength="33" />
+    <Property Type="Int32" Name="EETaskPendAll" Nullable="true" />
+    <Property Type="String" Name="WeekPeriodAll" Nullable="true" MaxLength="33" />
+    <Property Type="Int32" Name="RewPend7days" Nullable="true" />
+    <Property Type="String" Name="RewLastWeekPeriod" Nullable="true" MaxLength="33" />
+    <Property Type="Int32" Name="RewPendAll" Nullable="true" />
+    <Property Type="String" Name="RewWeekPeriodAll" Nullable="true" MaxLength="33" />
   </ComplexType>
 </Schema>

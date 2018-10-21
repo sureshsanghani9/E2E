@@ -1067,6 +1067,8 @@
     <Content Include="Views\WebAppAdmin\EditAdmin.cshtml" />
     <Content Include="Views\Report\ReviewerActivityReport.cshtml" />
     <Content Include="Views\Report\EmployerActivityReport.cshtml" />
+    <Content Include="Views\EmployerAdmin\_TaskSubStatusSummaryPartial.cshtml" />
+    <Content Include="Views\EmployerAdmin\_PendSubmissionEEPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

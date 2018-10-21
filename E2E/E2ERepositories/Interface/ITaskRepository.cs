@@ -27,5 +27,9 @@ namespace E2ERepositories.Interface
         int DeleteReviewComments(int CommentID, int EmployerID);
 
         int UpdateTaskReview(TaskDetailsByWeekPeriodViewModal taskDetails);
+
+        TaskSubStatusSummaryViewModal GetTaskSubStatusSummary(int employerID);
+
+        List<PendSubmissionEEViewModal> GetListPendSubmissionEE(int employerID, string PendPeriod);
     }
 }

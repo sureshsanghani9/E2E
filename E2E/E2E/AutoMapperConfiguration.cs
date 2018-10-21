@@ -37,6 +37,8 @@ namespace E2E
             CreateMap<rpt_GetBeneficiaryDetails_Result, BeneficiaryDetailsReportViewModal>();
             CreateMap<rpt_GetBeneficiaryList_Result, BeneficiaryListReportViewModal>();
             CreateMap<rpt_GetListWeekPeriod_Result, WeekPeriodReportViewModal>();
+            CreateMap<sp_GetTaskSubStatusSummary_Result, TaskSubStatusSummaryViewModal>();
+            CreateMap<sp_GetListPendSubmissionEE_Result, PendSubmissionEEViewModal>();
         }
     }
 }

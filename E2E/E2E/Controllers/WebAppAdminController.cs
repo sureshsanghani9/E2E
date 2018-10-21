@@ -18,7 +18,8 @@ namespace E2E.Controllers
         private readonly IUserRepository _userRepo;
         private readonly ISubscriptionRepository _subscriptionRepo;
         private readonly IBusinessRepository _businessRepo;
-        public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo, IUserRepository userRepo)
+        
+        public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo, IUserRepository userRepo, ITaskRepository taskRepo)
         {
             _subscriptionRepo = SubscriptionRepo;
             _businessRepo = businessRepo;

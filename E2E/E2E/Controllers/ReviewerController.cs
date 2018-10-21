@@ -5,6 +5,7 @@ using E2EViewModals.Task;
 using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -232,9 +233,21 @@ namespace E2E.Controllers
                 taskDetail.ReviewerComments = Convert.ToString(form["ReviewerComments_" + taskId].ToString());
 
                 var result = _taskRepo.UpdateTaskReview(taskDetail);
+                var employee = _userRepo.GetEmployeeByID(taskDetail.EmployeeID);
+                SendTaskReviewedEmail(employee.PrimaryEmail, taskDetail.ReviewerComments, taskDetail.TaskSubmissionStatus);
             }
 
             return Json(new { Code = 1, Message = "Task Details are saved successfully." });
+        }
+
+        private void SendTaskReviewedEmail(string email, string ReviewerComments, string status)
+        {
+            string emailBody = "Hi, Your task have been reviewed successfully. Below are details for your task. <br/><br/>"
+                               + "Status: " + status + "<br/>"
+                               + "Reviewer Comments: " + ReviewerComments + "<br/>"
+                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+            string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
+            EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);
         }
 
     }

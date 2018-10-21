@@ -362,5 +362,14 @@ namespace E2ERepositories
             }
         }
 
+        public EmployeeViewModal GetEmployeeByID(int EmployeeID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var employee = db.Employees.FirstOrDefault(e=>e.EmployeeID == EmployeeID);
+                return Mapper.Map<Employee, EmployeeViewModal>(employee);
+            }
+        }
+
     }
 }

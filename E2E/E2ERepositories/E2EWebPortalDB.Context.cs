@@ -30,7 +30,7 @@ namespace E2ERepositories
         public virtual DbSet<Business> Businesses { get; set; }
         public virtual DbSet<E2E_UserRole> E2E_UserRole { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+        public virtual DbSet<z> z { get; set; }
         public virtual DbSet<Reviewer> Reviewers { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
@@ -42,6 +42,7 @@ namespace E2ERepositories
         public virtual DbSet<NewTaskInsertLog> NewTaskInsertLogs { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<EndClient> EndClients { get; set; }
+        public virtual DbSet<sysmail_account_credential> sysmail_account_credential { get; set; }
     
         public virtual int sp_AddErrorLog(string userName, string errorMessage)
         {
@@ -940,13 +941,17 @@ namespace E2ERepositories
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUpdateTaskDetails", employerIDParameter, employeeIDParameter, weekPeriodParameter, hoursBilledParameter, taskDetailsParameter, anyIssuesParameter, solutionParameter, percentCompletedParameter, submissionDateParameter, taskContinueFromLastWeekPeriodParameter, taskContinueToNextWeekPeriodParameter);
         }
     
-        public virtual int sp_CreateNewTaskWeekly1(Nullable<System.DateTime> setipDate)
+        public virtual int sp_CreateNewTaskWeekly1(Nullable<System.DateTime> setipDate, string employerID)
         {
             var setipDateParameter = setipDate.HasValue ?
                 new ObjectParameter("SetipDate", setipDate) :
                 new ObjectParameter("SetipDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateNewTaskWeekly1", setipDateParameter);
+            var employerIDParameter = employerID != null ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateNewTaskWeekly1", setipDateParameter, employerIDParameter);
         }
     
         public virtual ObjectResult<rpt_ClientSiteActivity_Result> rpt_ClientSiteActivity(Nullable<int> roleID, Nullable<int> employerID, Nullable<int> adminUserID, Nullable<int> userID, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
@@ -1275,6 +1280,28 @@ namespace E2ERepositories
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rpt_GetBeneficiaryDetails_Result>("rpt_GetBeneficiaryDetails", roleIDParameter, employerIDParameter, userIDParameter, adminUserIDParameter, startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetListPendSubmissionEE_Result> sp_GetListPendSubmissionEE(Nullable<int> employerID, string pendPeriod)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var pendPeriodParameter = pendPeriod != null ?
+                new ObjectParameter("PendPeriod", pendPeriod) :
+                new ObjectParameter("PendPeriod", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetListPendSubmissionEE_Result>("sp_GetListPendSubmissionEE", employerIDParameter, pendPeriodParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetTaskSubStatusSummary_Result> sp_GetTaskSubStatusSummary(Nullable<int> employerID)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTaskSubStatusSummary_Result>("sp_GetTaskSubStatusSummary", employerIDParameter);
         }
     }
 }
