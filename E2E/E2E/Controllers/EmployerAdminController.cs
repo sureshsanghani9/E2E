@@ -30,9 +30,9 @@ namespace E2E.Controllers
         {
             var user = (UserViewModal)Session["User"];
             var subcription = _businessRepo.GetSubscriptionDetails(user.EmployerID);
-            ViewBag.LoginAvailable = subcription != null? subcription.LoginAvailable.ToString() : "0";
-            ViewBag.TotalLogin = subcription != null? subcription.TotalLogin.ToString() : "0";
-            ViewBag.LoginUsed = subcription != null? subcription.LoginUsed.ToString() : "0";
+            ViewBag.LoginAvailable = subcription != null ? subcription.LoginAvailable.ToString() : "0";
+            ViewBag.TotalLogin = subcription != null ? subcription.TotalLogin.ToString() : "0";
+            ViewBag.LoginUsed = subcription != null ? subcription.LoginUsed.ToString() : "0";
             ViewBag.taskSubStatusSummary = _taskRepo.GetTaskSubStatusSummary(user.EmployerID);
             return View(subcription);
         }
@@ -154,7 +154,7 @@ namespace E2E.Controllers
 
                 return Json(new { Code = 1, Message = "Invitations are sent successfully!" });
             }
-            
+
         }
 
         private void SendInvitationEmail(string Email, string AdditionalNotes, string BusinessName, string Code)
@@ -229,7 +229,7 @@ namespace E2E.Controllers
 
             if (result == -1)
             {
-                TempData["ConfirmationType"] = "SignUpSuccessful"; 
+                TempData["ConfirmationType"] = "SignUpSuccessful";
                 return Json(new { Code = 1, Message = "You are registered successfully with E2EWebPortal." });
             }
             else
@@ -274,11 +274,21 @@ namespace E2E.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetListPendSubmissionEE(string pendPeriod)
+        public ActionResult GetListPendSubmissionEE(string pendPeriod, string isReviewer)
         {
             var loggedInuser = (UserViewModal)Session["User"];
-           var pendSubmissionEE = _taskRepo.GetListPendSubmissionEE(loggedInuser.EmployerID, pendPeriod);
-            return PartialView("_PendSubmissionEEPartial", pendSubmissionEE);
+
+            if (isReviewer == "1")
+            {
+                var pendReview = _taskRepo.GetListPendReview(loggedInuser.EmployerID, pendPeriod);
+                return PartialView("_PendReviewPartial", pendReview);
+            }
+            else
+            {
+                var pendSubmissionEE = _taskRepo.GetListPendSubmissionEE(loggedInuser.EmployerID, pendPeriod);
+                return PartialView("_PendSubmissionEEPartial", pendSubmissionEE);
+            }
+            
         }
 
     }

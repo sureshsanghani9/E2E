@@ -158,6 +158,9 @@
     <Compile Include="sp_GetEndClientInfo_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetListPendReview_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetListPendSubmissionEE_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>

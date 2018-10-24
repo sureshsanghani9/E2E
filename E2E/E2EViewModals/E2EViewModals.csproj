@@ -53,6 +53,7 @@
     <Compile Include="Report\WeekPeriodReportViewModal.cs" />
     <Compile Include="Subscription\SubscriptionInfoViewModal.cs" />
     <Compile Include="Subscription\SubscriptionViewModal.cs" />
+    <Compile Include="Task\PendReviewViewModal.cs" />
     <Compile Include="Task\PendSubmissionEEViewModal.cs" />
     <Compile Include="Task\TaskDetailsByWeekPeriodViewModal.cs" />
     <Compile Include="Task\TaskReviewCommentViewModal.cs" />

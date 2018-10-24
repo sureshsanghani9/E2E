@@ -39,6 +39,8 @@ namespace E2E
             CreateMap<rpt_GetListWeekPeriod_Result, WeekPeriodReportViewModal>();
             CreateMap<sp_GetTaskSubStatusSummary_Result, TaskSubStatusSummaryViewModal>();
             CreateMap<sp_GetListPendSubmissionEE_Result, PendSubmissionEEViewModal>();
+            CreateMap<sp_GetListPendReview_Result, PendReviewViewModal>();
+            CreateMap<Employee, EmployeeViewModal>();
         }
     }
 }

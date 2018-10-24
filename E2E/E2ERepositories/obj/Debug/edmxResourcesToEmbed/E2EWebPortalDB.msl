@@ -909,5 +909,20 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetListPendReview" FunctionName="E2EWebPortalModel.Store.sp_GetListPendReview">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetListPendReview_Result">
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="WorkPhoneNumber" ColumnName="WorkPhoneNumber" />
+          <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -31,5 +31,7 @@ namespace E2ERepositories.Interface
         TaskSubStatusSummaryViewModal GetTaskSubStatusSummary(int employerID);
 
         List<PendSubmissionEEViewModal> GetListPendSubmissionEE(int employerID, string PendPeriod);
+
+        List<PendReviewViewModal> GetListPendReview(int employerID, string PendPeriod);
     }
 }

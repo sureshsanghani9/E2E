@@ -136,5 +136,15 @@ namespace E2ERepositories
             }
         }
 
+        public List<PendReviewViewModal> GetListPendReview(int employerID, string PendPeriod)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var pendSubmissionEE = db.sp_GetListPendReview(employerID, PendPeriod).ToList();
+                return Mapper.Map<List<sp_GetListPendReview_Result>, List<PendReviewViewModal>>(pendSubmissionEE);
+            }
+        }
+
+
     }
 }

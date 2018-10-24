@@ -1303,5 +1303,18 @@ namespace E2ERepositories
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTaskSubStatusSummary_Result>("sp_GetTaskSubStatusSummary", employerIDParameter);
         }
+    
+        public virtual ObjectResult<sp_GetListPendReview_Result> sp_GetListPendReview(Nullable<int> employerID, string pendPeriod)
+        {
+            var employerIDParameter = employerID.HasValue ?
+                new ObjectParameter("EmployerID", employerID) :
+                new ObjectParameter("EmployerID", typeof(int));
+    
+            var pendPeriodParameter = pendPeriod != null ?
+                new ObjectParameter("PendPeriod", pendPeriod) :
+                new ObjectParameter("PendPeriod", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetListPendReview_Result>("sp_GetListPendReview", employerIDParameter, pendPeriodParameter);
+        }
     }
 }

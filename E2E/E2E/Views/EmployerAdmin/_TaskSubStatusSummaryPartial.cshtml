@@ -6,8 +6,8 @@
         <h3 class="handle">Employees Pending Task Reporting</h3>
         <div>
             <ul>
-                <li><a href="#"><label>@Model.LastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek">@Model.EETaskPend7days</span></a></li>
-                <li><a href="#"><label>@Model.WeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek">@Model.EETaskPendAll</span></a></li>
+                <li><a href="#"><label>@Model.LastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek" isReviewer="0">@Model.EETaskPend7days</span></a></li>
+                <li><a href="#"><label>@Model.WeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek" isReviewer="0">@Model.EETaskPendAll</span></a></li>
             </ul>
 
         </div>
@@ -19,8 +19,8 @@
         <h3 class="handle">Reviewers Pending Task Reporting</h3>
         <div>
             <ul>
-                <li><a href="#"><label>@Model.RewLastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek">@Model.RewPend7days</span></a></li>
-                <li><a href="#"><label>@Model.RewWeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek">@Model.RewPendAll</span></a></li>
+                <li><a href="#"><label>@Model.RewLastWeekPeriod </label><span class="spanPendSubmission" pendPeriod="LastWeek" isReviewer="1">@Model.RewPend7days</span></a></li>
+                <li><a href="#"><label>@Model.RewWeekPeriodAll </label><span class="spanPendSubmission" pendPeriod="PriorLastWeek" isReviewer="1">@Model.RewPendAll</span></a></li>
             </ul>
 
         </div>
@@ -48,12 +48,13 @@
 
         $(".spanPendSubmission").on("click", function () {
             var pendPeriod = $(this).attr("pendPeriod");
+            var isReviewer = $(this).attr("isReviewer");
             $.ajax({
                 url: '/EmployerAdmin/GetListPendSubmissionEE',
                 type: 'POST',
                 cache: false,
                 dataType: 'html',
-                data: { pendPeriod: pendPeriod }
+                data: { pendPeriod: pendPeriod, isReviewer: isReviewer }
             }).done(function (result) {
                 if (result != null) {
                     $("#pendtasksdialog").html(result);
