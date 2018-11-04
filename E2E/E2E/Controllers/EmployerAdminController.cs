@@ -89,6 +89,7 @@ namespace E2E.Controllers
 
             if (result > 0)
             {
+                TempData["ConfirmationType"] = "SignUpSuccessful";
                 return Json(new { Code = 1, Message = "Employer Admin has been added successfully." });
             }
             else

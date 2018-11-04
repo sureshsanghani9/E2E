@@ -178,6 +178,7 @@ namespace E2E.Controllers
 
             taskDetail.EmployerID = loggedInuser.EmployerID;
             taskDetail.EmployeeID = loggedInuser.Id;
+            taskDetail.EmployeeName = Convert.ToString(form["EmployeeName"].ToString());
             taskDetail.WeekPeriod = Convert.ToString(form["WeekPeriod"].ToString());
             taskDetail.HoursBilled = Convert.ToDecimal(form["HoursBilled"] != null ? form["HoursBilled"].ToString() : "0");
             taskDetail.TaskDetails = Convert.ToString(form["TaskDetails"].ToString());
@@ -194,7 +195,7 @@ namespace E2E.Controllers
 
             if (result == -1)
             {
-                SendTaskReportedEmail(loggedInuser.PrimaryEmail, taskDetail.TaskDetails, "Task Reported.");
+                SendTaskReportedEmail(loggedInuser.PrimaryEmail, taskDetail);
                 return Json(new { Code = 1, Message = "Task Details are saved successfully." });
             }
             else
@@ -253,11 +254,14 @@ namespace E2E.Controllers
 
         }
 
-        private void SendTaskReportedEmail(string email, string task, string status)
+        private void SendTaskReportedEmail(string email, TaskDetailsByWeekPeriodViewModal task)
         {
             string emailBody = "Hi, You have successfully reported your task. Below are details for your task. <br/><br/>"
-                               +"Task: " + task + "<br/>"
-                               +"Status: " + status + "<br/>"
+                               +"Beneficiary Name: " + task.EmployeeName + "<br/>"
+                               +"Week Period: " + task.WeekPeriod + "<br/>"
+                               +"Task Status: Task Reported.<br/>"
+                               +"Hours Worked: " + task.HoursBilled + "<br/>"
+                               +"Percent Completed: " + task.PercentCompleted + "<br/>"
                                + "<br/><br/> Regards,<br/> E2EWebPortal";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);

@@ -4,6 +4,7 @@
 <form id="formAddEndClient" action="/Employee/SaveTaskDetails" method="post" autocomplete="on">
 
     <input type="hidden" id="TaskID" name="TaskID" value="@Model.TaskID" />
+    <input type="hidden" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" />
 
     <fieldset>
 
@@ -150,6 +151,7 @@
                 $("#WeekPeriod").val(result.Data.WeekPeriod + ' - (' + result.Data.TaskSubmissionStatus + ')');
                 $("#TaskID").val(result.Data.TaskID);
                 $("#EmployerName").val(result.Data.EmployerName);
+                $("#EmployeeName").val(result.Data.EmployeeName);
                 $("#HoursBilled").val(result.Data.HoursBilled);
                 $("#TaskDetails").text(result.Data.TaskDetails);
                 $("#AnyIssues").text(result.Data.AnyIssues);
@@ -166,9 +168,8 @@
                 if (result.Data.TaskSubmissionStatus == "Task Completed") {
                     $("input,select,textarea").not("#WeekPeriod").attr("disabled", "disabled");
                 }
-                else
-                {
-                    $("input,select,textarea").not("#WeekPeriod").attr("disabled", false)
+                else {
+                    $("input,select,textarea").not("#WeekPeriod").attr("disabled", false);
                 }
             }
             else {

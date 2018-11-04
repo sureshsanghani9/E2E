@@ -159,7 +159,7 @@
         tr += '</tr>';
 
         $("#btnAddMore").on("click", function () {
-            if (usercount >= parseInt($("#LoginAvailable").val())) {
+            if (usercount > parseInt($("#LoginAvailable").val())) {
                 $.msg("Total login limit reached, please contact E2EWEBPORTAL Admin to add more login.");
                 return;
             }
@@ -168,7 +168,7 @@
         });
 
         $("#btnSend").on("click", function () {
-            if (usercount >= parseInt($("#LoginAvailable").val())) {
+            if (usercount > parseInt($("#LoginAvailable").val())) {
                 $.msg("You can not add more user now. You already reached limit");
                 return;
             }

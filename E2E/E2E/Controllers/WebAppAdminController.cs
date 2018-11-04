@@ -137,10 +137,9 @@ namespace E2E.Controllers
         }
 
 
-        public ActionResult EditAdmin(int adminUserID)
+        public ActionResult EditAdmin(int adminUserID, int employerId)
         {
-            var loggedInuser = (UserViewModal)Session["User"];
-            var employerAdmin = _userRepo.GetEmployerAdminList(loggedInuser.EmployerID, adminUserID).FirstOrDefault();
+            var employerAdmin = _userRepo.GetEmployerAdminList(employerId, adminUserID).FirstOrDefault();
             if (employerAdmin.AdminUserID > 0 && !string.IsNullOrEmpty(employerAdmin.Password))
             {
                 employerAdmin.Password = EncryptionHelper.Decrypt(employerAdmin.Password);

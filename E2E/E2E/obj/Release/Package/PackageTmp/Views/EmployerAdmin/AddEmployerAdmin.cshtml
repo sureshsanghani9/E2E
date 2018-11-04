@@ -145,6 +145,9 @@
                 var res = JSON.parse(data);
                 $.msg(res.Message);
                 $content.find('form').wl_Form('reset');
+                setTimeout(function () {
+                    window.location = '/Home/Confirmation';
+                }, 2000);
     	    },
     	    onError: function(status, error, jqXHR){
                 $.msg(res.Message);

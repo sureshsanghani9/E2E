@@ -231,20 +231,23 @@ namespace E2E.Controllers
                 taskDetail.TaskSubmissionStatus = Convert.ToString(form["TaskSubmissionStatus_" + taskId].ToString());
                 taskDetail.ReviewDate = Convert.ToDateTime(form["ReviewDate_" + taskId] != "null" ? form["ReviewDate_" + taskId].ToString() : "1970/1/1");
                 taskDetail.ReviewerComments = Convert.ToString(form["ReviewerComments_" + taskId].ToString());
+                taskDetail.EmployeeName = Convert.ToString(form["EmployeeName_" + taskId].ToString());
+                taskDetail.ReviewerName = Convert.ToString(form["ReviewerName_" + taskId].ToString());
 
                 var result = _taskRepo.UpdateTaskReview(taskDetail);
                 var employee = _userRepo.GetEmployeeByID(taskDetail.EmployeeID);
-                SendTaskReviewedEmail(employee.PrimaryEmail, taskDetail.ReviewerComments, taskDetail.TaskSubmissionStatus);
+                SendTaskReviewedEmail(employee.PrimaryEmail, taskDetail);
             }
 
             return Json(new { Code = 1, Message = "Task Details are saved successfully." });
         }
 
-        private void SendTaskReviewedEmail(string email, string ReviewerComments, string status)
+        private void SendTaskReviewedEmail(string email, TaskDetailsByWeekPeriodViewModal task)
         {
             string emailBody = "Hi, Your task have been reviewed successfully. Below are details for your task. <br/><br/>"
-                               + "Status: " + status + "<br/>"
-                               + "Reviewer Comments: " + ReviewerComments + "<br/>"
+                               + "Beneficiary Name: " + task.EmployeeName + "<br/>"
+                               + "Week Period: " + task.WeekPeriod + "<br/>"
+                               + "Task Status: " + task.TaskSubmissionStatus + " " + task.ReviewerName + ", " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
                                + "<br/><br/> Regards,<br/> E2EWebPortal";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);

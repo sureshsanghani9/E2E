@@ -17,19 +17,19 @@
 
             <fieldset>
                 <section>
-                    <label for="UserID">User ID</label>
+                    <label for="UserID">Beneficiary</label>
                     <div>
                         <select id="UserID" name="UserID" class="g8" style="width: 100%;">
-                            <optgroup label="Employee">
+                            <optgroup label="Beneficiary">
                                 @foreach (EmployeeViewModal employee in (List<EmployeeViewModal>)ViewBag.Employees)
                                 {
                                     if (employee.EmployeeID == ViewBag.UserID)
                                     {
-                                        <option value="@employee.EmployeeID" selected="selected" >@(employee.FirstName + " " + employee.LastName)</option>
+                                        <option value="@employee.EmployeeID" selected="selected" >@(employee.LastName + ", " + employee.FirstName + " " + employee.MiddleName)</option>
                                     }
                                     else
                                     {
-                                        <option value="@employee.EmployeeID">@(employee.FirstName + " " + employee.LastName)</option>
+                                        <option value="@employee.EmployeeID">@(employee.LastName + ", " + employee.FirstName + " " + employee.MiddleName)</option>
                                     }
                                 }
                             </optgroup>
@@ -58,8 +58,13 @@
                 </section>
             </fieldset>
         </form>
+        
+        @if (TempData["UserID"] != null)
+        {
+            @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "no" })
+        }
 
-        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "no" })
+        
 
     </div>
 </section>

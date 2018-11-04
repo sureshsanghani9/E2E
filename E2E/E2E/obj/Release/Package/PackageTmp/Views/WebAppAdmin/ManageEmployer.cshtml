@@ -174,7 +174,8 @@
 
         $(".btnEdit").on("click", function () {
             var adminUserID = parseInt($(this).attr("AdminUserID"));
-            window.location = "/WebAppAdmin/EditAdmin?adminUserID=" + adminUserID;
+            var employerId = parseInt($(this).attr("EmployerId"));
+            window.location = "/WebAppAdmin/EditAdmin?adminUserID=" + adminUserID + "&employerId=" + employerId;
         });
 
     });
