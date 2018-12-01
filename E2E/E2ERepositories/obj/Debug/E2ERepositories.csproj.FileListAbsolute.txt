@@ -41,3 +41,12 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csproj
 C:\Suresh\Projects\Temp\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csproj.CopyComplete
 C:\Suresh\Projects\Temp\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Storage.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Newtonsoft.Json.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Storage.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Newtonsoft.Json.xml

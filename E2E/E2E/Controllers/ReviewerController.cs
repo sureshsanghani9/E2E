@@ -237,6 +237,7 @@ namespace E2E.Controllers
                 var result = _taskRepo.UpdateTaskReview(taskDetail);
                 var employee = _userRepo.GetEmployeeByID(taskDetail.EmployeeID);
                 SendTaskReviewedEmail(employee.PrimaryEmail, taskDetail);
+                SendTaskReviewedEmailToReviewer(loggedInuser.PrimaryEmail, taskDetail);
             }
 
             return Json(new { Code = 1, Message = "Task Details are saved successfully." });
@@ -250,7 +251,18 @@ namespace E2E.Controllers
                                + "Task Status: " + task.TaskSubmissionStatus + " " + task.ReviewerName + ", " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
                                + "<br/><br/> Regards,<br/> E2EWebPortal";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
-            EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);
+            EmailHelper.SendEmail(From, email, "Task Reviewed", emailBody, null, "", true);
+        }
+
+        private void SendTaskReviewedEmailToReviewer(string email, TaskDetailsByWeekPeriodViewModal task)
+        {
+            string emailBody = "Hi, You have been reviewed task successfully. Below are details for task. <br/><br/>"
+                               + "Beneficiary Name: " + task.EmployeeName + "<br/>"
+                               + "Week Period: " + task.WeekPeriod + "<br/>"
+                               + "Task Status: " + task.TaskSubmissionStatus + " " + task.ReviewerName + ", " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
+                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+            string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
+            EmailHelper.SendEmail(From, email, "Task Reviewed", emailBody, null, "", true);
         }
 
     }

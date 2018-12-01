@@ -46,12 +46,12 @@
 
         <section>
             <label for="AnyIssues">Any Issues</label>
-            <div><textarea id="AnyIssues" name="AnyIssues" required class="g12" rows="4">@Model.AnyIssues</textarea></div>
+            <div><textarea id="AnyIssues" name="AnyIssues" class="g12" rows="4">@Model.AnyIssues</textarea></div>
         </section>
 
         <section>
             <label for="Solution">Solution</label>
-            <div><textarea id="Solution" name="Solution" required class="g12" rows="4">@Model.Solution</textarea></div>
+            <div><textarea id="Solution" name="Solution" class="g12" rows="4">@Model.Solution</textarea></div>
         </section>
 
         <section>
@@ -101,7 +101,7 @@
 
         <section>
             <div>
-                <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
+                <button class="submit" name="submitbuttonname" value="submitbuttonvalue" id="btnSubmit">Submit</button>
                 <button class="reset">Reset</button>
                 @*<button class="btn" name="btncancel" value="btncancel" onclick="$('#divAddEndClient').hide(); return false;">Cancel</button>*@
             </div>
@@ -167,9 +167,11 @@
                 $("#ReviewerComments").text(result.Data.ReviewerComments);
                 if (result.Data.TaskSubmissionStatus == "Task Completed") {
                     $("input,select,textarea").not("#WeekPeriod").attr("disabled", "disabled");
+                    $("#btnSubmit").attr("disabled", "disabled");
                 }
                 else {
                     $("input,select,textarea").not("#WeekPeriod").attr("disabled", false);
+                    $("#btnSubmit").attr("disabled", false);
                 }
             }
             else {

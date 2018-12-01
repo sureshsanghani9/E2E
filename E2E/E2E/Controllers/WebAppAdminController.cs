@@ -6,9 +6,12 @@ using E2EViewModals.User;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using E2EViewModals.Invitations;
 
 namespace E2E.Controllers
 {
@@ -18,7 +21,7 @@ namespace E2E.Controllers
         private readonly IUserRepository _userRepo;
         private readonly ISubscriptionRepository _subscriptionRepo;
         private readonly IBusinessRepository _businessRepo;
-        
+
         public WebAppAdminController(ISubscriptionRepository SubscriptionRepo, IBusinessRepository businessRepo, IUserRepository userRepo, ITaskRepository taskRepo)
         {
             _subscriptionRepo = SubscriptionRepo;
@@ -45,13 +48,13 @@ namespace E2E.Controllers
             int result = _businessRepo.ManageBusinessActivation(employerId, isActive ? "Activate" : "Deactivate");
             if (result == -1)
             {
-                return Json(new { Code = 1, Message = "Employer has been "+ (isActive ? "activated" : "deactivated") + " successfully." });
+                return Json(new { Code = 1, Message = "Employer has been " + (isActive ? "activated" : "deactivated") + " successfully." });
             }
             else
             {
                 return Json(new { Code = 0, Message = "Something wrong occured! Please try again!" });
             }
-            
+
         }
 
         public ActionResult AddEmployer()
@@ -63,7 +66,7 @@ namespace E2E.Controllers
         [HttpPost]
         public JsonResult AddEmployerData(FormCollection form)
         {
-            var user = (UserViewModal) Session["User"];
+            var user = (UserViewModal)Session["User"];
 
             string EmployerName = Convert.ToString(form["EmployerName"].ToString());
             string BusinessName = Convert.ToString(form["BusinessName"].ToString());
@@ -87,7 +90,7 @@ namespace E2E.Controllers
             string SubscriptionPlanName = Convert.ToString(form["SubscriptionPlanName"].ToString());
             string SubscriptionPlanCode = Convert.ToString(form["SubscriptionPlanCode"].ToString());
             int TotalLogin = Convert.ToInt16(form["TotalLogin"] != "" ? form["TotalLogin"].ToString() : "0");
-            DateTime EffectiveDate = Convert.ToDateTime(form["EffectiveDate"] != "null" ? form["EffectiveDate"].ToString(): "1970/1/1");
+            DateTime EffectiveDate = Convert.ToDateTime(form["EffectiveDate"] != "null" ? form["EffectiveDate"].ToString() : "1970/1/1");
             DateTime ExpirationDate = Convert.ToDateTime(form["ExpirationDate"] != "null" ? form["ExpirationDate"].ToString() : "1970/1/1");
             decimal AmountCharged = Convert.ToDecimal(form["AmountCharged"] != "" ? form["AmountCharged"].ToString() : "0");
             decimal RegistrationFeeCharged = Convert.ToDecimal(form["RegistrationFeeCharged"] != "" ? form["RegistrationFeeCharged"].ToString() : "0");
@@ -173,7 +176,7 @@ namespace E2E.Controllers
             user.PrimaryEmail = Convert.ToString(form["PrimaryEmail"].ToString());
             user.SecondaryEmail = Convert.ToString(form["SecondaryEmail"].ToString());
             user.IsPrimary = Convert.ToBoolean(form["Primary"] == "Yes");
-            
+
             var result = _userRepo.UpsertEmpAdminUser(user);
 
             if (result == -1)
@@ -220,7 +223,7 @@ namespace E2E.Controllers
                 + "Your Sincerely, <br/> E2EWebPortal Admin";
 
 
-                
+
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, toEmail, subject, emailBody, null, "", true);
         }
@@ -250,9 +253,143 @@ namespace E2E.Controllers
 
         }
 
-        public ActionResult Reports()
+        public ActionResult BulkInvitation()
         {
+            var businessList = _businessRepo.GetBusinessList();
+            ViewBag.Employers = businessList;
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult UploadBulkInvitation()
+        {
+
+            if (Request.Files != null && Request.Files.Count > 0)
+            {
+                string extension = System.IO.Path.GetExtension(Request.Files[0].FileName).ToLower();
+                string fileName = Guid.NewGuid() + extension;
+                //AzureHelper.UploadFile("emailinvitecontainer", fileName, Request.Files[0]);
+
+                string[] validFileTypes = { ".csv" };
+                string path = string.Format("{0}/{1}", Server.MapPath("~/Content/Uploads"), fileName);
+
+                if (validFileTypes.Contains(extension))
+                {
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/Content/Uploads"));
+                    }
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                    Request.Files[0].SaveAs(path);
+
+                    return Json(new { Code = 1, Message = "File is uploaded successfully.", FileName = fileName });
+                }
+                else
+                {
+                    return Json(new { Code = 0, Message = "File extension is not supported!", FileName = "" });
+                }
+            }
+            else
+            {
+                return Json(new { Code = 0, Message = "File upload fails!", FileName = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult ProcessBulkInvitation(FormCollection form)
+        {
+            var user = (UserViewModal)Session["User"];
+            string fileName = Convert.ToString(form["fileName"].ToString());
+            int EmployerId = Convert.ToInt16(form["EmployerId"] != "" ? form["EmployerId"].ToString() : "0"); ;
+
+            string connString = "";
+
+            string path = string.Format("{0}\\{1}", Server.MapPath("~/Content/Uploads"), fileName);
+
+            DataTable dt = new DataTable();
+            if (fileName.Contains(".csv"))
+            {
+                dt = ExcelCsvHelper.ConvertCsvToDataTable(path);
+            }
+            //Connection String to Excel Workbook 
+            else if (fileName.Contains(".xlsx"))
+            {
+                connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                dt = ExcelCsvHelper.ConvertXslxToDataTable(path, connString);
+            }
+            else if (fileName.Contains(".xls"))
+            {
+                connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                dt = ExcelCsvHelper.ConvertXslxToDataTable(path, connString);
+            }
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            if (dt.Columns.Count < 5)
+            {
+                return Json(new { Code = 1, Message = "Invalid CSV File. Please you correct CSV file." });
+            }
+
+            List<Invite> invites = new List<Invite>();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Invite invite = new Invite
+                {
+                    FirstName = dr["FirstName"].ToString(),
+                    LastName = dr["LastName"].ToString(),
+                    Email = dr["Email"].ToString(),
+                    Role = Convert.ToInt16(dr["RoleID"].ToString()),
+                    AdditionalNotes = dr["Notes"].ToString()
+                };
+
+                invites.Add(invite);
+            }
+
+            if (!invites.Any())
+            {
+                return Json(new { Code = 0, Message = "Something wrong is occured. Please try after sometime!" });
+            }
+
+            var isSuccess = _userRepo.AddUserSendInvite(invites, EmployerId, user.UserName);
+
+            if (!isSuccess)
+            {
+                return Json(new { Code = 0, Message = "Something wrong is occured. Please try after sometime!" });
+            }
+
+            foreach (Invite invite in invites)
+            {
+                string code = EncryptionHelper.Encrypt(invite.UserID + "||" + invite.FirstName + "||" + invite.LastName + "||" + invite.Role + "||" + user.EmployerID + "||" + invite.Email);
+                SendInvitationEmail(invite.Email, invite.AdditionalNotes, user.BusinessName, code);
+            }
+
+            return Json(new { Code = 1, Message = "Invitations are sent successfully!" });
+        }
+
+        private void SendInvitationEmail(string Email, string AdditionalNotes, string BusinessName, string Code)
+        {
+            //Email = "suresh.sanghani88@gmail.com";
+
+            string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            string subject = "Create your new E2EWebPortal Login Profile.";
+            String emailBody = "Hello, <br/><br/> Please click on following link/button to create New Login profile and password  for E2EWebPortal. <br/>"
+                               + "Link : <a href='" + baseURL + "/User/SignUp?code=" + HttpUtility.UrlEncode(Code) + "'>Click here</a> <br/><br/>"
+                               + (!string.IsNullOrEmpty(AdditionalNotes) ? "Additional Notes : " + AdditionalNotes + "<br/><br/> " : "")
+                               + "Regards, <br/> " + BusinessName + " ";
+
+
+
+            string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
+            EmailHelper.SendEmail(From, Email, subject, emailBody, null, "", true);
         }
 
         public ActionResult ManageAlerts()

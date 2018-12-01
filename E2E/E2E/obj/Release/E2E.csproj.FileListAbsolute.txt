@@ -84,3 +84,12 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.ReportViewer.Proc
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.ReportViewer.WebForms.DLL
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\ReportViewerForMvc.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.SqlServer.Types.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.Azure.KeyVault.Core.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Newtonsoft.Json.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Storage.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Configuration.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.Azure.KeyVault.Core.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Newtonsoft.Json.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Storage.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Storage.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Configuration.xml

@@ -121,50 +121,7 @@ if($.fn.wl_Editor) $.fn.wl_Editor.defaults = {
 	initialContent: ''
 };
 
-if($.fn.wl_File) $.fn.wl_File.defaults = {
-	url: 'upload.php',
-	autoUpload: true,
-	paramName: 'files',
-	multiple: false,
-	allowedExtensions: ['jpg','jpeg','gif','png','doc','zip','docx','txt','pdf'],
-	maxNumberOfFiles: 0,
-	maxFileSize: 0,
-	minFileSize: 0,
-	sequentialUploads: false,
-	dragAndDrop: true,
-	formData: {},
-	text: {
-		ready: 'ready',
-		cancel: 'cancel',
-		remove: 'remove',
-		uploading: 'uploading...',
-		done: 'done',
-		start: 'start upload',
-		add_files: 'add files',
-		cancel_all: 'cancel upload',
-		remove_all: 'remove all'
-	},
-	onAdd: function (e, data) {},
-	onDelete:function(files){},
-	onCancel:function(file){},
-	onSend: function (e, data) {},
-	onDone: function (e, data) {},
-	onFinish: function (e, data) {},
-	onFail: function (e, data) {},
-	onAlways: function (e, data) {},
-	onProgress: function (e, data) {},
-	onProgressAll: function (e, data) {},
-	onStart: function (e) {},
-	onStop: function (e) {},
-	onChange: function (e, data) {},
-	onDrop: function (e, data) {},
-	onDragOver: function (e) {},
-	onFileError: function (error, fileobj) {
-		$.msg('file is not allowed: ' + fileobj.name, {
-			header: error.msg + ' (' + error.code + ')'
-		});
-	}
-};
+
 
 if($.fn.wl_Fileexplorer) $.fn.wl_Fileexplorer.defaults = {
 	url: 'elfinder/php/connector.php',

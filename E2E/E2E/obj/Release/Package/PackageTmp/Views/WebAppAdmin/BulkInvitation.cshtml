@@ -1,0 +1,123 @@
+﻿@using E2EViewModals.Business
+
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+<section id="content">
+
+    <div class="g12 nodrop" style="margin-left: 0px;">
+        <h1 style="margin-top: 0px;">Bulk Invitation</h1>
+        <p style="margin-bottom: 5px;">Send Invitation using Excel/CSV file.</p>
+    </div>
+
+    <form action="/WebAppAdmin/ProcessBulkInvitation" method="post" autocomplete="off" data-confirm-send="false">
+        
+        <input type="hidden" id="fileName" name="fileName" value="0" />
+        
+        <fieldset>
+            <label>Upload File</label>
+            <section>
+                <label for="EmployerId">Employer</label>
+                <div>
+                    <select id="EmployerId" name="EmployerId" class="g6" style="width: 100%;">
+                        <optgroup label="Employer">
+                            @foreach (BusinessViewModal emp in (List<BusinessViewModal>)ViewBag.Employers)
+                            {
+                                <option value="@emp.EmployerID">@emp.EmployerName</option>
+                            }
+                        </optgroup>
+                    </select>
+                </div>
+            </section>
+
+            <section>
+                <label for="inviteFile">CSV/Excel File</label>
+                <div>
+                    <input type="file" id="inviteFile" name="inviteFile" data-auto-upload="true" >
+                </div>
+            </section>
+            <section>
+                <div><button class="reset">Reset</button><button class="submit">Submit</button></div>
+            </section>
+        </fieldset>
+    </form>
+
+</section>
+
+<script>
+
+
+    if($.fn.wl_File) $.fn.wl_File.defaults = {
+        url: '/WebAppAdmin/UploadBulkInvitation',
+        autoUpload: true,
+        paramName: 'files',
+        multiple: false,
+        allowedExtensions: ["xls", "xlsx", "csv"],
+        maxNumberOfFiles: 0,
+        maxFileSize: 0,
+        minFileSize: 0,
+        sequentialUploads: false,
+        dragAndDrop: true,
+        formData: {},
+        text: {
+            ready: 'ready',
+            cancel: 'cancel',
+            remove: 'remove',
+            uploading: 'uploading...',
+            done: 'done',
+            start: 'start upload',
+            add_files: 'add files',
+            cancel_all: 'cancel upload',
+            remove_all: 'remove all'
+        },
+        onAdd: function (e, data) {},
+        onDelete:function(files){},
+        onCancel:function(file){},
+        onSend: function (e, data) {},
+        onDone: function (e, data) {},
+        onFinish: function(e, data) {
+            var res = data.result;
+            if (res.Code == "1") {
+                $("#fileName").val(res.FileName);
+            } else {
+                $.msg(res.Message);
+            }
+        },
+        onFail: function (e, data) {},
+        onAlways: function (e, data) {},
+        onProgress: function (e, data) {},
+        onProgressAll: function (e, data) {},
+        onStart: function (e) {},
+        onStop: function (e) {},
+        onChange: function (e, data) {},
+        onDrop: function (e, data) {},
+        onDragOver: function (e) {},
+        onFileError: function (error, fileobj) {
+            $.msg('file is not allowed: ' + fileobj.name, {
+                header: error.msg + ' (' + error.code + ')'
+            });
+        }
+    };
+
+    var $content = $('#content');
+    
+    $content.find('form').wl_Form({
+        onSuccess: function (data, status) {
+            debugger;
+            var res = JSON.parse(data);
+            $.msg(res.Message);
+            $content.find('form').wl_Form('reset');
+            $("#fileName").val("");
+            //setTimeout(function () {
+            //    window.location = '/Home/Confirmation';
+            //}, 2000);
+        },
+        onError: function(status, error, jqXHR){
+            $.msg(res.Message);
+        }
+    });
+
+</script>

@@ -10,3 +10,12 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Release\E2EInfrastructure.
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Release\E2EInfrastructure.csproj.CoreCompileInputs.cache
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Release\E2EInfrastructure.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Release\E2EInfrastructure.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.Azure.KeyVault.Core.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.WindowsAzure.Configuration.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.WindowsAzure.Storage.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Newtonsoft.Json.dll
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.Azure.KeyVault.Core.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.WindowsAzure.Configuration.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.WindowsAzure.Storage.pdb
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Microsoft.WindowsAzure.Storage.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Release\Newtonsoft.Json.xml
