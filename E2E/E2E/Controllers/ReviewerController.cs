@@ -234,6 +234,9 @@ namespace E2E.Controllers
                 taskDetail.EmployeeName = Convert.ToString(form["EmployeeName_" + taskId].ToString());
                 taskDetail.ReviewerName = Convert.ToString(form["ReviewerName_" + taskId].ToString());
 
+                taskDetail.EmployerName = Convert.ToString(form["EmployerName_" + taskId].ToString());
+                taskDetail.EndClientBusinessName = Convert.ToString(form["EndClientBusinessName_" + taskId].ToString());
+
                 var result = _taskRepo.UpdateTaskReview(taskDetail);
                 var employee = _userRepo.GetEmployeeByID(taskDetail.EmployeeID);
                 SendTaskReviewedEmail(employee.PrimaryEmail, taskDetail);
@@ -245,24 +248,39 @@ namespace E2E.Controllers
 
         private void SendTaskReviewedEmail(string email, TaskDetailsByWeekPeriodViewModal task)
         {
-            string emailBody = "Hi, Your task have been reviewed successfully. Below are details for your task. <br/><br/>"
+            string emailBody = "Hi, <br/><br/>This is to confirm that task details review is performed by employer’s designated reviewer for following week period. <br/><br/>"
+                               + "End-Client Name: " + task.EndClientBusinessName + "<br/>"
                                + "Beneficiary Name: " + task.EmployeeName + "<br/>"
                                + "Week Period: " + task.WeekPeriod + "<br/>"
-                               + "Task Status: " + task.TaskSubmissionStatus + " " + task.ReviewerName + ", " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
-                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+                               + "Task Status: " + task.TaskSubmissionStatus + "<br/>"
+                               + "Reviewer: " + task.ReviewerName + "<br/>"
+                               + "Review Date: " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
+                               + "<br/><br/>If Task status is ‘Task Completed’, no additional action needed. "
+                               + "<br/>If Task status is ‘Task Re-assigned’, please take an action as mentioned and resubmit task details with required information. "
+                               + "<br/><br/> If you have any additional questions regarding this week task submission and review, please contact to your Employer Administrator or Reviewer."
+                               + "<br/><br/> Thank you!!<br/>" + task.EmployerName
+                               + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
-            EmailHelper.SendEmail(From, email, "Task Reviewed", emailBody, null, "", true);
+            EmailHelper.SendEmail(From, email, "Task Reviewed – Week period : " + task.WeekPeriod, emailBody, null, "", true);
         }
+
 
         private void SendTaskReviewedEmailToReviewer(string email, TaskDetailsByWeekPeriodViewModal task)
         {
-            string emailBody = "Hi, You have been reviewed task successfully. Below are details for task. <br/><br/>"
+            string emailBody = "Hi, <br/><br/You have been reviewed task successfully. Below are details for task. <br/><br/>"
+                               + "End-Client Name: " + task.EndClientBusinessName + "<br/>"
                                + "Beneficiary Name: " + task.EmployeeName + "<br/>"
                                + "Week Period: " + task.WeekPeriod + "<br/>"
-                               + "Task Status: " + task.TaskSubmissionStatus + " " + task.ReviewerName + ", " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
-                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+                               + "Task Status: " + task.TaskSubmissionStatus + "<br/>"
+                               + "Reviewer: " + task.ReviewerName + "<br/>"
+                               + "Review Date: " + (task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "") + "<br/>"
+                               + "<br/><br/>If Task status is ‘Task Completed’, no additional action needed. "
+                               + "<br/>If Task status is ‘Task Re-assigned’, please take an action as mentioned and resubmit task details with required information. "
+                               + "<br/><br/> If you have any additional questions regarding this week task submission and review, please contact to your Employer Administrator or Reviewer."
+                               + "<br/><br/> Thank you!!<br/>" + task.EmployerName
+                               + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
-            EmailHelper.SendEmail(From, email, "Task Reviewed", emailBody, null, "", true);
+            EmailHelper.SendEmail(From, email, "Task Reviewed – Week period : " + task.WeekPeriod, emailBody, null, "", true);
         }
 
     }

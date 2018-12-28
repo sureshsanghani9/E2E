@@ -2,10 +2,11 @@
 @model TaskDetailsByWeekPeriodViewModal
 
 
-<fieldset>
+<fieldset class="fsTask">
 
     <input type="hidden" id="TaskID_@Model.TaskID" name="TaskID_@Model.TaskID" value="@Model.TaskID" />
     <input type="hidden" id="EmployeeID_@Model.TaskID" name="EmployeeID_@Model.TaskID" value="@Model.EmployeeID" />
+    <input type="hidden" id="EmployerName_@Model.TaskID" name="EmployerName_@Model.TaskID" value="@Model.EmployerName" />
 
     <section>
         <label for="SelectTask_@Model.TaskID">Select</label>

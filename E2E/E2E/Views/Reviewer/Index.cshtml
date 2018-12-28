@@ -6,6 +6,24 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+<style>
+    .fsSelectAll section {
+        border-bottom-color: #fac7b6;
+    }
+
+    .fsSelectAll {
+        border-color: #fac7b6;
+    }
+
+    .fsTask > section:last-child {
+        border-bottom-color: #c7d979;
+    }
+
+    .fsTask {
+        border-color: #c7d979;
+    }
+</style>
+
 <section id="content">
 
     <div class="g12 nodrop">
@@ -19,7 +37,7 @@
         <input type="hidden" id="TaskIds" name="TaskIds" value="@ViewBag.TaskIds" />
         <input type="hidden" id="CurrentWeekPeriod" name="CurrentWeekPeriod" value="@ViewBag.CurrentWeekPeriod" />
 
-        <fieldset>
+        <fieldset class="fsFirst">
             <section>
                 <label for="WeekPeriod">Week Period</label>
                 <div>
@@ -42,10 +60,10 @@
             </section>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="fsSelectAll">
             <section>
                 <label for="SelectAllTasks">Select All Tasks</label>
-                <div><input type="checkbox" id="SelectAllTasks" name="SelectAllTasks" ></div>
+                <div><input type="checkbox" id="SelectAllTasks" name="SelectAllTasks"></div>
             </section>
         </fieldset>
 
@@ -54,7 +72,7 @@
             @Html.Partial("_ReviewerTaskDetailsByWeekPeriod", task)
         }
 
-        <fieldset>
+        <fieldset class="fsLast">
             <section>
                 <div>
                     <button class="submit" name="submitbuttonname" value="submitbuttonvalue">Submit</button>
@@ -72,15 +90,14 @@
     var $content = $('#content');
     $content.find('form').wl_Form({
         onBeforeSubmit: function (data) {
-            
+
             $.each($(".cbSelect"), function (i, obj) {
                 var cb = $(obj);
                 var id = $(cb).attr('id').split('_')[1];
                 if (!$(cb).is(":checked")) {
                     $("#ReviewDate|" + id).removeAttr("required");
                 }
-                else
-                {
+                else {
                     $("#ReviewDate|" + id).attr("required", true);
                 }
             });
@@ -132,8 +149,7 @@
         if ($(this).is(":checked")) {
             $(".cbSelect").attr("checked", true);
         }
-        else
-        {
+        else {
             $(".cbSelect").attr("checked", false);
         }
 

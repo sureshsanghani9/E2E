@@ -5,6 +5,7 @@
 
     <input type="hidden" id="TaskID" name="TaskID" value="@Model.TaskID" />
     <input type="hidden" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" />
+    <input type="hidden" id="EndClientBusinessName" name="EndClientBusinessName" value="@Model.EndClientBusinessName" />
 
     <fieldset>
 
@@ -119,9 +120,9 @@
                 $.msg(res.Message);
                 //$content.find('form').wl_Form('reset');
                 $('#divAddEndClient').hide();
-                //setTimeout(function () {
-                //    window.location = "/Employee/Index";
-                //}, 2000);
+                setTimeout(function () {
+                    window.location = "/Employee/Index";
+                }, 2000);
             }
             else {
                 $.msg(res.Message);

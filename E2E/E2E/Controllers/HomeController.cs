@@ -200,7 +200,8 @@ namespace E2E.Controllers
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             string subject = "Complete your E2EWebPortal password reset request";
             string emailBody = "hey, <br/><br/> Please use following link/button to reset password. <br/><br/> Reset Link : <a href='" + baseURL + "/Home/ResetPassword?resetCode=" + resetCode + "'>Click here</a>"
-                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+                               + "<br/><br/> Regards,<br/> E2EWebPortal"
+                               + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, userName, subject, emailBody, null, "", true);
         }

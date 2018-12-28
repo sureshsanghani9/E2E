@@ -114,9 +114,9 @@ namespace E2E.Controllers
             EndClientViewModal client = new EndClientViewModal();
             client.EndClientID = Convert.ToInt16(form["EndClientID"] != null ? form["EndClientID"].ToString() : "0");
             client.EmployeeID = Convert.ToInt16(user.Id);
-            client.EmployerID  = user.EmployerID;
+            client.EmployerID = user.EmployerID;
             client.EndClientBusinessName = Convert.ToString(form["EndClientBusinessName"].ToString());
-            client.EmployeeTitleAtEndClientSite= Convert.ToString(form["EmployeeTitleAtEndClientSite"].ToString());
+            client.EmployeeTitleAtEndClientSite = Convert.ToString(form["EmployeeTitleAtEndClientSite"].ToString());
             client.EndClientAddress1 = Convert.ToString(form["EndClientAddress1"].ToString());
             client.EndClientAddress2 = Convert.ToString(form["EndClientAddress2"].ToString());
             client.EndClientCity = Convert.ToString(form["EndClientCity"].ToString());
@@ -179,6 +179,8 @@ namespace E2E.Controllers
             taskDetail.EmployerID = loggedInuser.EmployerID;
             taskDetail.EmployeeID = loggedInuser.Id;
             taskDetail.EmployeeName = Convert.ToString(form["EmployeeName"].ToString());
+            taskDetail.EmployerName = Convert.ToString(form["EmployerName"].ToString());
+            taskDetail.EndClientBusinessName = Convert.ToString(form["EndClientBusinessName"].ToString());
             taskDetail.WeekPeriod = Convert.ToString(form["WeekPeriod"].ToString());
             taskDetail.HoursBilled = Convert.ToDecimal(form["HoursBilled"] != null ? form["HoursBilled"].ToString() : "0");
             taskDetail.TaskDetails = Convert.ToString(form["TaskDetails"].ToString());
@@ -256,15 +258,17 @@ namespace E2E.Controllers
 
         private void SendTaskReportedEmail(string email, TaskDetailsByWeekPeriodViewModal task)
         {
-            string emailBody = "Hi, You have successfully reported your task. Below are details for your task. <br/><br/>"
-                               +"Beneficiary Name: " + task.EmployeeName + "<br/>"
-                               +"Week Period: " + task.WeekPeriod + "<br/>"
-                               +"Task Status: Task Reported.<br/>"
-                               +"Hours Worked: " + task.HoursBilled + "<br/>"
-                               +"Percent Completed: " + task.PercentCompleted + "<br/>"
-                               + "<br/><br/> Regards,<br/> E2EWebPortal";
+            string emailBody = "Hi " + task.EmployeeName + ", <br/><br/>This is to confirm that you have successfully reported task details for following week period. This task details will be reviewed by employer’s designated reviewer. <br/><br/>"
+                               + "End-Client Name: " + task.EndClientBusinessName + "<br/>"
+                               + "Week Period: " + task.WeekPeriod.Substring(0, 24) + "<br/>"
+                               + "Task Status: Task Reported<br/>"
+                               + "Hours Worked: " + task.HoursBilled + "<br/>"
+                               + "Percent Completed: " + task.PercentCompleted + "<br/>"
+                               + "<br/><br/>Thank you!!<br/> " + task.EmployerName
+                               + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
+
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
-            EmailHelper.SendEmail(From, email, "Task Reported", emailBody, null, "", true);
+            EmailHelper.SendEmail(From, email, "Task Reported – Week period : " + task.WeekPeriod.Substring(0, 24), emailBody, null, "", true);
         }
 
     }

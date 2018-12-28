@@ -211,16 +211,16 @@ namespace E2E.Controllers
         {
             //toEmail = "suresh.sanghani88@gmail.com";
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
-            string subject = "Welcome to E2EWebPortal new account setup";
-            String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal web applicaion. <br/><br/> Please follow below instructions to setup new account to start service : <br/><br/>"
-                + "1. Click on below link to create new business account and primary Admin user. <br/><br/>"
-                + "Link : <a href='" + baseURL + "/EmployerAdmin/AddEmployerAdmin?code=" + HttpUtility.UrlEncode(Code) + "'>Click here</a> <br/><br/>"
-                + "2. After completion of information fill out, your account will be created and you will be redirected to Payment page. <br/>"
-                + "3. Please make payment through Paypal. <br/>"
-                + "4. Upon successful payment process, your account will be activated within 1 business day. Meanwhile, review User manual to learn more about this application service. <br/>"
-                + "5. Once account activated successfully, you can start to use this portal service. <br/><br/>"
-                + "Thanks again for choosing E2EWebPortal!!! Feel free to call us for any issues or comment.<br/><br/>"
-                + "Your Sincerely, <br/> E2EWebPortal Admin";
+            string subject = "Create New E2EWebPortal Login Profile as Primary Employer Admin";
+            String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal!!! <br/><br/> Please follow below instructions to setup new account as an Employer to start E2EWebPortal services. <br/><br/>"
+                + "<ol><li>Please <a href='" + baseURL + "/EmployerAdmin/AddEmployerAdmin?code=" + HttpUtility.UrlEncode(Code) + "'>click here</a> to create new E2EWebport login profile as a new Employer and create primary Employer Admin profile. After clicking on link, you will be redirected to create new login profile form page. Please fill out required information to setup new profile.</li>"
+                + "<li>Upon successful account setup, simply give us a call or send an email to verify and activate your account. Please mention ‘Account Activation+<your Business Name>’ in email subject or when you call. </li>"
+                + "<li>If you are Free Trial subscriber then your account will be activated within 4 business hours after receiving account activation request. Upon successful activation, simply go to E2EWebportal login page and enter your primary employer admin username and password and you will be login as Employer Admin.</li>"
+                + "<li>If you are paid subscriber then we will send you an invoice, with amount due, on your primary email and will call you to notify. Once we receive full payment, your account will be activated within 4 business hours. Upon successful activation, simply go to E2EWebportal login page and enter your primary employer admin username and password and you will be login as Employer Admin.</li>"
+                + "<li>Upon successful account activation, you will receive User Guide on following email. Please review this user guide to learn how to use this portal as a Employer Admin, Reviewer and Employee.</li></ol><br/><br/>"
+                + "Feel free to call us for any issues or comment. <br/><br/>Thanks again for choosing E2EWEBPORTAL!!!!"
+                + "Thank you!!<br/>E2EWEBPORTAL"
+                + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
 
 
 
@@ -380,13 +380,12 @@ namespace E2E.Controllers
             //Email = "suresh.sanghani88@gmail.com";
 
             string baseURL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
-            string subject = "Create your new E2EWebPortal Login Profile.";
-            String emailBody = "Hello, <br/><br/> Please click on following link/button to create New Login profile and password  for E2EWebPortal. <br/>"
-                               + "Link : <a href='" + baseURL + "/User/SignUp?code=" + HttpUtility.UrlEncode(Code) + "'>Click here</a> <br/><br/>"
+            string subject = "Create New E2EWebPortal Login Profile";
+            String emailBody = "Hello, <br/><br/> Welcome to E2EWebPortal!!! <br/><br/>"
+                               + "Please <a href='" + baseURL + "/User/SignUp?code=" + HttpUtility.UrlEncode(Code) + "'>click here</a> to create new E2EWebport login profile. After clicking on link, you will be redirected to create new login profile form page. Please fill out required information to setup new login. <br/><br/>"
                                + (!string.IsNullOrEmpty(AdditionalNotes) ? "Additional Notes : " + AdditionalNotes + "<br/><br/> " : "")
-                               + "Regards, <br/> " + BusinessName + " ";
-
-
+                               + "Thank you!! <br/>" + BusinessName
+                               + "<br/><br/>IMPORTANT NOTICE:  The information contained in this electronic e-mail and any accompanying attachment(s) is intended only for the use of the intended recipient and may be confidential and/or legally protected.  If any reader of this communication is not the intended recipient, unauthorized use, disclosure, or copying is strictly prohibited, and may be unlawful.  If you have received this communication in error, please immediately notify the sender by replying this e-mail or forwarding this email to support@e2ewebportal.com with subject 'OPT-OUT'. Also,delete the original message and all copies from your system.";
 
             string From = ConfigurationManager.AppSettings["FromEmail"] != null ? ConfigurationManager.AppSettings["FromEmail"].ToString() : "";
             EmailHelper.SendEmail(From, Email, subject, emailBody, null, "", true);
