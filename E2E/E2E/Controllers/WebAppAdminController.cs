@@ -248,7 +248,8 @@ namespace E2E.Controllers
         [HttpPost]
         public JsonResult UpdateLoginCount()
         {
-            int subscriptionID = _userRepo.UpdateLoginCount();
+            var loggedInuser = (UserViewModal)Session["User"];
+            _userRepo.UpdateLoginCount(loggedInuser.EmployerID);
             return Json(new { Code = 1, Message = "Login Count has been updated successfully." });
 
         }

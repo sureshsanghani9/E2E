@@ -490,7 +490,9 @@
       <End Role="UserAccount" EntitySet="UserAccounts" />
     </AssociationSet>
     <FunctionImport Name="sp_GetBusinessList" ReturnType="Collection(E2EWebPortalModel.sp_GetBusinessList_Result)" />
-    <FunctionImport Name="sp_UpdateLoginCount" />
+    <FunctionImport Name="sp_UpdateLoginCount">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_AddUserSendInvite" />
     <FunctionImport Name="sp_UpsertEmpAdminUser">
       <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
@@ -799,6 +801,27 @@
       <Parameter Name="EmployerID" Mode="In" Type="Int32" />
       <Parameter Name="PendPeriod" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_ActivateBusinessManually">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeActivateBusiness" />
+    <FunctionImport Name="sp_GetListTaskCompleted" ReturnType="Collection(E2EWebPortalModel.sp_GetListTaskCompleted_Result)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="WeekPeriod" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetListWkPdTaskCompleted" ReturnType="Collection(String)">
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ResetCompletedTask">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployerID" Mode="In" Type="Int32" />
+      <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewerID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_SendEmail_NewTask_Weekly" ReturnType="Collection(E2EWebPortalModel.sp_SendEmail_NewTask_Weekly_Result)" />
+    <FunctionImport Name="sp_SendNotification_PendTask_WeekPrior" ReturnType="Collection(E2EWebPortalModel.sp_SendNotification_PendTask_WeekPrior_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_E2EWebPortalLogin_Result">
     <Property Type="Int32" Name="AppOwnerAdminId" Nullable="false" />
@@ -1531,5 +1554,32 @@
     <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="WorkPhoneNumber" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="CellPhoneNumber" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_GetListTaskCompleted_Result">
+    <Property Type="String" Name="BeneficiaryName" Nullable="true" MaxLength="153" />
+    <Property Type="String" Name="EndClientBusinessName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EndClientCity" Nullable="true" MaxLength="70" />
+    <Property Type="String" Name="EndClientState" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="SubmissionDate" Nullable="true" />
+    <Property Type="String" Name="TaskDetails" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="ReviewDate" Nullable="true" />
+    <Property Type="String" Name="ReviewerComments" Nullable="true" MaxLength="1000" />
+    <Property Type="Int32" Name="TaskID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_SendEmail_NewTask_Weekly_Result">
+    <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="sp_SendNotification_PendTask_WeekPrior_Result">
+    <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PrimaryEmail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="WeekPeriod" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="TaskSubmissionStatus" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="BusinessName" Nullable="true" MaxLength="200" />
   </ComplexType>
 </Schema>

@@ -164,6 +164,9 @@
     <Compile Include="sp_GetListPendSubmissionEE_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetListTaskCompleted_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetListWeekPeriod_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
@@ -192,6 +195,12 @@
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_Login_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_SendEmail_NewTask_Weekly_Result.cs">
+      <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_SendNotification_PendTask_WeekPrior_Result.cs">
       <DependentUpon>E2EWebPortalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Subscription.cs">

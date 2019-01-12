@@ -503,18 +503,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TaskReviewComment_Employee">
-    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="1" />
-    <End Role="TaskReviewComment" Type="Self.TaskReviewComment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Reviewer">
-        <PropertyRef Name="ReviewerID" />
-      </Principal>
-      <Dependent Role="TaskReviewComment">
-        <PropertyRef Name="ReviewerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserAccount_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
@@ -631,6 +619,9 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="StartDate" Type="date" Mode="In" />
     <Parameter Name="EndDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="sp_ActivateBusinessManually" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ActiveDeactiveEndClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="EndClientID" Type="int" Mode="In" />
@@ -658,6 +649,7 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="SetipDate" Type="datetime" Mode="In" />
     <Parameter Name="EmployerID" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_DeActivateBusiness" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_Delete_EA_Rew_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -742,11 +734,18 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="PendPeriod" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_GetListTaskCompleted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="WeekPeriod" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="sp_GetListWeekPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="UserID" Type="int" Mode="In" />
     <Parameter Name="RoleID" Type="int" Mode="In" />
     <Parameter Name="Weekperiod" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="sp_GetListWkPdTaskCompleted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_GetReviewerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
@@ -842,7 +841,19 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     <Parameter Name="IsActive" Type="varchar" Mode="In" />
     <Parameter Name="EmployerID" Type="int" Mode="In" />
   </Function>
-  <Function Name="sp_UpdateLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ResetCompletedTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+    <Parameter Name="AdminUserID" Type="int" Mode="In" />
+    <Parameter Name="ReviewerID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_SendEmail_NewTask_Weekly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_SendNotification_PendTask_WeekPrior" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_UpdateLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployerID" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_UpdateTaskReview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="EmployerID" Type="int" Mode="In" />
     <Parameter Name="ReviewerID" Type="int" Mode="In" />
@@ -1035,10 +1046,6 @@ warning 6002: The table/view 'E2EWebPortal.sys.database_firewall_rules' does not
     </AssociationSet>
     <AssociationSet Name="FK_TaskReviewComment_Business" Association="Self.FK_TaskReviewComment_Business">
       <End Role="Business" EntitySet="Business" />
-      <End Role="TaskReviewComment" EntitySet="TaskReviewComment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TaskReviewComment_Employee" Association="Self.FK_TaskReviewComment_Employee">
-      <End Role="Reviewer" EntitySet="Reviewer" />
       <End Role="TaskReviewComment" EntitySet="TaskReviewComment" />
     </AssociationSet>
     <AssociationSet Name="FK_UserAccount_Employee" Association="Self.FK_UserAccount_Employee">

@@ -1,0 +1,153 @@
+﻿@using E2EViewModals.Task
+
+@model List<TaskCompletedViewModal>
+@{
+    ViewBag.Title = "ResetTask";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    table th {
+        padding-right: 18px !important;
+    }
+
+    table td {
+        word-wrap: break-word;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+
+    label.tgl-btn {
+        margin: auto;
+    }
+</style>
+
+<section id="content">
+
+    <div class="g12 nodrop">
+        <h1>Reset Task</h1>
+        <p>Reset Completed Tasks</p>
+    </div>
+
+    <form id="formWeekPeriod" action="/Task/SetWeekPeriod" method="post" autocomplete="on">
+
+        <input type="hidden" id="CurrentWeekPeriod" name="CurrentWeekPeriod" value="@ViewBag.CurrentWeekPeriod" />
+
+        <fieldset class="fsFirst">
+            <section>
+                <label for="WeekPeriod">Week Period</label>
+                <div>
+                    <select id="WeekPeriod" name="WeekPeriod" class="g6" style="width: 100%;">
+                        <optgroup label="Week Period">
+                            @foreach (string week in (List<string>)ViewBag.WeekPeriods)
+                            {
+                                if (week == (string)ViewBag.CurrentWeekPeriod)
+                                {
+                                    <option value="@week" selected="selected">@week</option>
+                                }
+                                else
+                                {
+                                    <option value="@week">@week</option>
+                                }
+                            }
+                        </optgroup>
+                    </select>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+
+    <br/><br />
+
+    <h3>Task Details:</h3><br />
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>Beneficiary</th>
+                <th>End Client</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Task Details</th>
+                <th>Submission Date</th>
+                <th>Submission Status</th>
+                <th>Review Date</th>
+                <th>Reviewer Comments</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TaskCompletedViewModal task in Model)
+            {
+                <tr class="gradeX">
+                    <td>@task.BeneficiaryName</td>
+                    <td>@task.EndClientBusinessName</td>
+                    <td>@task.EndClientCity</td>
+                    <td>@task.EndClientState</td>
+                    <td>@task.TaskDetails</td>
+                    <td>@(task.SubmissionDate.HasValue ? task.SubmissionDate.Value.ToShortDateString() : "" )</td>
+                    <td>@task.TaskSubmissionStatus</td>
+                    <td>@(task.ReviewDate.HasValue ? task.ReviewDate.Value.ToShortDateString() : "" )</td>
+                    <td>@task.ReviewerComments</td>
+                    <td>
+                        <button class="small btnReset" TaskID="@task.TaskID">Reset</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#WeekPeriod").on("change", function () {
+            var weekPeriod = $("#WeekPeriod").val();
+            $.ajax({
+                url: '/Task/SetCurrentWeekPeriod',
+                type: 'POST',
+                cache: false,
+                dataType: 'json',
+                data: { weekPeriod: weekPeriod }
+            }).done(function (result) {
+                if (result.Code == '1') {
+                    window.location = '/Task/ResetTask';
+                }
+                else {
+                    $.msg(result.Message, { header: 'Fail' });
+                }
+            });
+        });
+
+        $(".btnReset").on("click", function () {
+            var taskID = parseInt($(this).attr("TaskID"));
+
+            $.confirm('Are your sure to reset this task?', function () {
+
+                $.ajax({
+                    url: '/task/ResetCompletedTask',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { taskID: taskID }
+                }).done(function (result) {
+                    if (result.Code == '1') {
+                        $.msg(result.Message, { header: 'Success' });
+                        setTimeout(function () {
+                            window.location = "/Task/ResetTask";
+                        }, 2000);
+                    }
+                    else {
+                        $.msg(result.Message, { header: 'Fail' });
+                    }
+                });
+
+            });
+        });
+
+
+    });
+
+
+</script>
+

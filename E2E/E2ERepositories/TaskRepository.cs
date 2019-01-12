@@ -145,6 +145,31 @@ namespace E2ERepositories
             }
         }
 
+        public int ResetCompletedTask(int roleID, int employerID, int adminUserID, int reviewerID, int employeeID, int taskID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_ResetCompletedTask(roleID, employerID, adminUserID, reviewerID, employeeID, taskID);
+            }
+        }
+
+        public List<TaskCompletedViewModal> GetTaskCompleted(int employerID, string weekPeriod)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                var tasksCompleted = db.sp_GetListTaskCompleted(employerID, weekPeriod).ToList();
+                return Mapper.Map<List<sp_GetListTaskCompleted_Result>, List<TaskCompletedViewModal>>(tasksCompleted);
+            }
+        }
+
+        public List<string> GetWeekTaskCompleted(int employerID)
+        {
+            using (var db = new E2EWebPortalEntities())
+            {
+                return db.sp_GetListWkPdTaskCompleted(employerID).ToList();
+            }
+        }
+
 
     }
 }

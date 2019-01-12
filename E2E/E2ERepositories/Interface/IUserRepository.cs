@@ -54,7 +54,7 @@ namespace E2ERepositories.Interface
 
         int GetSubscriptionIDByEmployerID(int EmployerID);
 
-        int UpdateLoginCount();
+        int UpdateLoginCount(int employerID);
 
         EmployeeViewModal GetEmployeeByID(int EmployeeID);
     }

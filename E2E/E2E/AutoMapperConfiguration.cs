@@ -41,6 +41,7 @@ namespace E2E
             CreateMap<sp_GetListPendSubmissionEE_Result, PendSubmissionEEViewModal>();
             CreateMap<sp_GetListPendReview_Result, PendReviewViewModal>();
             CreateMap<Employee, EmployeeViewModal>();
+            CreateMap<sp_GetListTaskCompleted_Result, TaskCompletedViewModal>();
         }
     }
 }

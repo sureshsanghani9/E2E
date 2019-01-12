@@ -5,7 +5,6 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\EntityFra
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\EntityFramework.SqlServer.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\EntityFramework.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\EntityFramework.SqlServer.xml
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csprojResolveAssemblyReference.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csproj.CoreCompileInputs.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.pdb
@@ -50,3 +49,5 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\bin\Debug\Newtonsoft.Json.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csprojAssemblyReference.cache
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2ERepositories\obj\Debug\E2ERepositories.csproj.CopyComplete

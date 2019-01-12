@@ -1003,6 +1003,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WebAppAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1076,6 +1077,7 @@
     <Content Include="Views\EmployerAdmin\_TaskSubStatusSummaryPartial.cshtml" />
     <Content Include="Views\EmployerAdmin\_PendSubmissionEEPartial.cshtml" />
     <Content Include="Views\EmployerAdmin\_PendReviewPartial.cshtml" />
+    <Content Include="Views\Task\ResetTask.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

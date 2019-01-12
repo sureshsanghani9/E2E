@@ -924,5 +924,48 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ActivateBusinessManually" FunctionName="E2EWebPortalModel.Store.sp_ActivateBusinessManually" />
+    <FunctionImportMapping FunctionImportName="sp_DeActivateBusiness" FunctionName="E2EWebPortalModel.Store.sp_DeActivateBusiness" />
+    <FunctionImportMapping FunctionImportName="sp_GetListTaskCompleted" FunctionName="E2EWebPortalModel.Store.sp_GetListTaskCompleted">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_GetListTaskCompleted_Result">
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="EndClientBusinessName" ColumnName="EndClientBusinessName" />
+          <ScalarProperty Name="EndClientCity" ColumnName="EndClientCity" />
+          <ScalarProperty Name="EndClientState" ColumnName="EndClientState" />
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="ReviewerComments" ColumnName="ReviewerComments" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetListWkPdTaskCompleted" FunctionName="E2EWebPortalModel.Store.sp_GetListWkPdTaskCompleted" />
+    <FunctionImportMapping FunctionImportName="sp_ResetCompletedTask" FunctionName="E2EWebPortalModel.Store.sp_ResetCompletedTask" />
+    <FunctionImportMapping FunctionImportName="sp_SendEmail_NewTask_Weekly" FunctionName="E2EWebPortalModel.Store.sp_SendEmail_NewTask_Weekly">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_SendEmail_NewTask_Weekly_Result">
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_SendNotification_PendTask_WeekPrior" FunctionName="E2EWebPortalModel.Store.sp_SendNotification_PendTask_WeekPrior">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="E2EWebPortalModel.sp_SendNotification_PendTask_WeekPrior_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="WeekPeriod" ColumnName="WeekPeriod" />
+          <ScalarProperty Name="TaskSubmissionStatus" ColumnName="TaskSubmissionStatus" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

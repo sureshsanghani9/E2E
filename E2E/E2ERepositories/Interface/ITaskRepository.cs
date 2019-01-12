@@ -33,5 +33,11 @@ namespace E2ERepositories.Interface
         List<PendSubmissionEEViewModal> GetListPendSubmissionEE(int employerID, string PendPeriod);
 
         List<PendReviewViewModal> GetListPendReview(int employerID, string PendPeriod);
+
+        int ResetCompletedTask(int roleID, int employerID, int adminUserID, int reviewerID, int employeeID, int taskID);
+
+        List<TaskCompletedViewModal> GetTaskCompleted(int employerID, string weekPeriod);
+
+        List<string> GetWeekTaskCompleted(int employerID);
     }
 }

@@ -9,7 +9,6 @@ C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.cs
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.dll
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.pdb
 C:\Suresh\Projects\Temp\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojAssemblyReference.cache
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojResolveAssemblyReference.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microsoft.WindowsAzure.Storage.dll
@@ -19,3 +18,5 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microso
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Microsoft.WindowsAzure.Storage.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\bin\Debug\Newtonsoft.Json.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csprojAssemblyReference.cache
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2EInfrastructure\obj\Debug\E2EInfrastructure.csproj.CopyComplete

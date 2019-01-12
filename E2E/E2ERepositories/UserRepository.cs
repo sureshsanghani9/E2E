@@ -354,11 +354,11 @@ namespace E2ERepositories
             }
         }
 
-        public int UpdateLoginCount()
+        public int UpdateLoginCount(int employerID)
         {
             using (var db = new E2EWebPortalEntities())
             {
-                return db.sp_UpdateLoginCount();
+                return db.sp_UpdateLoginCount(employerID);
             }
         }
 

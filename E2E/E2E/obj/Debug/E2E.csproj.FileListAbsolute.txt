@@ -16,7 +16,6 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\System.Web.Webpages.Deploym
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\System.Web.Webpages.Razor.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\System.Web.Helpers.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\System.Web.Mvc.xml
-C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.csprojResolveAssemblyReference.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.csproj.CoreCompileInputs.cache
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.dll
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.pdb
@@ -93,3 +92,5 @@ C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Newtonsoft.Json.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Storage.pdb
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Storage.xml
 C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.csprojAssemblyReference.cache
+C:\Suresh\Temp\fiverr\kvnptl\Project\E2E\E2E\E2E\obj\Debug\E2E.csproj.CopyComplete
