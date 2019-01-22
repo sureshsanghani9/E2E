@@ -158,12 +158,24 @@
                 $("#AnyIssues").text(result.Data.AnyIssues);
                 $("#Solution").text(result.Data.Solution);
                 $("#PercentCompleted").val(result.Data.PercentCompleted);
-                $("#SubmissionDate").val(new Date(Date(result.Data.SubmissionDate)).toLocaleDateString());
+                if (result.Data.SubmissionDate != null) {
+                    //$("#SubmissionDate").val(new Date(Date(result.Data.SubmissionDate)).toLocaleDateString());
+                    $("#SubmissionDate").val(new Date(parseInt(result.Data.SubmissionDate.substr(6))).toLocaleDateString());
+                }
+                else {
+                    $("#SubmissionDate").val("");
+                }
                 $("#TaskContinueFromLastWeekPeriod").val(result.Data.TaskContinueFromLastWeekPeriod);
                 $("#TaskContinueFromLastWeekPeriod").parent().find('span').text(result.Data.TaskContinueFromLastWeekPeriod);
                 $("#TaskContinueToNextWeekPeriod").val(result.Data.TaskContinueToNextWeekPeriod);
                 $("#TaskContinueToNextWeekPeriod").parent().find('span').text(result.Data.TaskContinueToNextWeekPeriod);
-                $("#ReviewDate").val(new Date(Date(result.Data.ReviewDate)).toLocaleDateString());
+                if (result.Data.ReviewDate != null) {
+                    //$("#ReviewDate").val(new Date(Date(result.Data.ReviewDate)).toLocaleDateString());
+                    $("#ReviewDate").val(new Date(parseInt(result.Data.ReviewDate.substr(6))).toLocaleDateString());
+                } else {
+                    $("#ReviewDate").val("");
+                }
+                
                 $("#ReviewerName").val(result.Data.ReviewerName);
                 $("#ReviewerComments").text(result.Data.ReviewerComments);
                 if (result.Data.TaskSubmissionStatus == "Task Completed") {

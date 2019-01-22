@@ -1026,6 +1026,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\reports\EndClientSiteActivityReport_2012_EE_3.rdl" />
+    <Content Include="assets\pdf\USER GUIDE_Employee.pdf" />
+    <Content Include="assets\pdf\USER GUIDE_EmployerAdmin.pdf" />
+    <Content Include="assets\pdf\USER GUIDE_Reviewer.pdf" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\e2ewebportal - FTP.pubxml" />

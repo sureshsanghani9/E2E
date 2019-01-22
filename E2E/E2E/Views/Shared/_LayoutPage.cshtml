@@ -100,9 +100,34 @@
     {
         <div id="pageoptions">
             <ul>
+
                 <li><a href="~/Home/Logoff">Hi @user.FirstName , Logout</a></li>
                 @*<li><a href="#" id="wl_config">Configuration</a></li>
-                <li><a href="#">Settings</a></li>*@
+                    <li><a href="#">Settings</a></li>*@
+                @{
+                    if (user != null)
+                    {
+
+                        if (user.RoleID == 1)
+                        {
+
+                        }
+                        else if (user.RoleID == 2)
+                        {
+                            <li><a href="~/assets/pdf/USER GUIDE_EmployerAdmin.pdf" target="_blank">User Guide</a></li>
+                        }
+                        else if (user.RoleID == 3)
+                        {
+                            <li><a href="~/assets/pdf/USER GUIDE_Reviewer.pdf" target="_blank">User Guide</a></li>
+                        }
+                        else if (user.RoleID == 4)
+                        {
+                            <li><a href="~/assets/pdf/USER GUIDE_Employee.pdf" target="_blank">User Guide</a></li>
+                        }
+                    }
+                }
+
+
             </ul>
             <div>
                 <h3>Place for some configs</h3>
